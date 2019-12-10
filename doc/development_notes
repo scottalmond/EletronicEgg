@@ -1,0 +1,99 @@
+eletronic egg
+
+features:
+display the max acceleration to the user
+  allow moderator to reset data collection between users
+solution to fit within standard size chicken egg
+  use a single AAA battery as cheap, compact, and readily-available power source
+designed to last multiple years
+  enter a low-power mode after X hours of inactivity from user
+
+12/7/19-12/8/19
+familiar with AtTiny85, so use that
+familiar with Digikey, so use them
+egg dims: 60 mm x 45 mm --> 2.35" x 1.77"
+for aceleration tolerance, plan to fill in with epoxy
+  choose clear epoxy so screen can by fully submerged (less concern about mating surface)
+egg is about 25 oz
+  look for 
+consider metal ring around middle: rotate to proper position to remove battery --> ring would obscure the screen
+consider using no mechanical user input, that way whole device acn be simply dropped into a tank of epoxy (no keep out zones)
+  "<tap x, y, z> to turn ON/RESET" rSt where t=8-7, or spin egg (excess g's for sustained period)
+  "Turns OFF after 4 hours of no inversion"
+consider pinhole for battery outgassing
+can canabalize some of the 7-segment pins on teh most significant digiet on the display for extra I/O
+need some kind of mark to indicate which way to read the screen (top/bottom)
+hmm, almost not worth implementing a low power mode, 24mA for the screen and <1mA for the accel, and [0.2-4.5 mA at 1-8 Mhz] for uP <68mA for 5 yr life
+worried about g-loads depressing spring in battery clip (it they're removable)
+  using individual contact clips instead, leave gap in middle of board to have programming header accessible (when batteries are out)
+  PB2-4 and PC6 to programmer https://www.tindie.com/products/drazzy/attiny88-or-828-breakout-board-assembled/
+consider lipo charger and 3.3V regulator
+  allows batteries to be replaced (charged through usb port)
+  future-proof with usb-c header for charging
+  if going to have a usb header anyway, consider samd21 for readme over usb, and practice samd21 designs
+    ATSAMD21G18 $3.13 https://www.digikey.com/product-detail/en/microchip-technology/ATSAMD21G18A-AUT/ATSAMD21G18A-AUTCT-ND/4878879
+    38-pin I/O
+  OR consider dime cell lipo: undervoltage lock-out: only has ON mode for ~1 week?
+issue with finding a proper UVLO circuit
+
+12/9/19
+consider turning VDDIO ON/OFF at 3.3V for all periphreals to save power
+but how to input an interrupt to awaken the system if I/O is OFF.....
+
+
+X 3 segment screen (acceleration with 3 sig figs), 5V AC? pin 1 common catchode? https://codeandlife.com/2012/02/10/driving-an-lcd-display-directly-with-attiny/
+https://www.digikey.com/product-detail/en/lumex-opto-components-inc/LCD-S301C31TR/67-1788-ND/469773
+app note https://www.maximintegrated.com/en/design/technical-documents/app-notes/4/4039.html
+
+3V 7-segment $6.30
+https://www.digikey.com/product-detail/en/varitronix/VI-321-DP-RC-S/153-1101-ND/531266
+pdf https://www.mouser.com/datasheet/2/422/Varitronix-9-26-2017-VL-FS-VI-321-1211005.pdf
+leg spread 22.86 mm
+
+X button $0.51
+https://www.digikey.com/product-detail/en/e-switch/TL3340AF160QG/EG4627DKR-ND/1885975
+
+parallel resistors, 8x >3k SMT $0.61  742C163102JP
+x https://www.digikey.com/product-detail/en/cts-resistor-products/742C163102JP/742C163102JPCT-ND/1124513
+x pdf https://www.ctscorp.com/wp-content/uploads/74x.pdf
+x pads: 2.6 x 6.05
+
+
+X AAA battery holder, $1.16, 11.5 grams
+https://www.digikey.com/product-detail/en/keystone-electronics/2466/36-2466-ND/303815
+
+X dc switching regulator 5V, 5 uA quiescent TPS61222DCKR, <25 mA output (250mA from input), $1.14
+https://www.digikey.com/product-detail/en/texas-instruments/TPS61222DCKR/296-39435-6-ND/5143925
+
+x processor, 32 pins, 28 I/o $1.22, 100 mA max across all I/O, 40 mA per pin (abs max) ATTINY88-AURDKR-ND
+x https://www.digikey.com/product-detail/en/microchip-technology/ATTINY88-AUR/ATTINY88-AURDKR-ND/3441324
+x search: https://www.digikey.com/products/en/integrated-circuits-ics/embedded-microcontrollers/685?k=&pkeyword=&sv=0&pv155=294232&pv155=294236&sf=0&FV=-5%7C22386%2C69%7C409393%2C1989%7C0%2Cii28%7C2208%2C-8%7C685&quantity=1&ColumnSort=-1000009&page=1&stock=1&nstock=1&pageSize=25
+
+processor, 48 pins, 38 I/o $3.13, 100 mA max across all I/O, 40 mA per pin (abs max) ATSAMD21G18A-AUTCT-ND (max 3.6V)
+https://www.digikey.com/product-detail/en/microchip-technology/ATSAMD21G18A-AUT/ATSAMD21G18A-AUTCT-ND/4878879
+
+accelerometer (200g, 3.3V) down to 2.16V --> limits life to ~70-80% as battery voltage on each cell drops below 1.08V $10.58
+https://www.digikey.com/product-detail/en/stmicroelectronics/H3LIS331DLTR/497-13903-6-ND/4311637
+
+X AAA battery 1.5-0.7 V, 1000+ mAh
+https://data.energizer.com/PDFs/E92.pdf
+
+x  AAAA 2x battery holder 650 mAh [365 days * 5 years battery shelf life *24 hour/day = 43800 hours; 15 uA max system average] $1.89
+x  https://www.digikey.com/product-detail/e`n/mpd-memory-protection-devices/BE-2AAAA-PC/BE-2AAAA-PC-ND/3029211
+
+4x AAAA battery holder clips
+https://www.digikey.com/product-detail/en/keystone-electronics/50/36-50K-ND/1768453
+
+AAAA battery $0.79/ea
+https://www.digikey.com/product-detail/en/energizer-battery-company/E96VP/N539-ND/1955840
+want alkaline or lithium for 10 year life https://www.amazon.com/Energizer-AAAA-Batteries-2-Count-Single/dp/B0044D9ZI2
+
+XXX power enable manager, STM6600 (min 1.6V input though)
+app note: https://www.stmicroelectronics.com.cn/content/ccc/resource/technical/document/application_note/43/5c/71/00/44/b4/4a/36/CD00284778.pdf/files/CD00284778.pdf/jcr:content/translations/en.CD00284778.pdf
+
+400 mAh $4.95 LiPo
+https://www.sparkfun.com/products/13851
+plan to recharge once a year
+
+battery, uP, accel, screen, current limit resistors --> ~$25 part cost
+  could save ~4 bucks by getting H3LIS100DL accel instead with range limited to 100g's
