@@ -1,0 +1,6 @@
+(sym_lib_table
+  (lib (name H3LIS200DLTR)(type Legacy)(uri D:/Projects/EletronicEgg/pcb/draft_1-1/lib/H3LIS200DLTR/H3LIS200DLTR.lib)(options "")(descr ""))
+  (lib (name USB4110-GF-A)(type Legacy)(uri D:/Projects/EletronicEgg/pcb/draft_1-1/lib/USB4110-GF-A/USB4110-GF-A.lib)(options "")(descr ""))
+  (lib (name EletronicEggCustom)(type Legacy)(uri D:/Projects/EletronicEgg/pcb/draft_1-1/lib/EletronicEggCustom.lib)(options "")(descr ""))
+  (lib (name Custom)(type Legacy)(uri D:/Projects/EletronicEgg/pcb/draft_1-1/lib/Custom/Custom.lib)(options "")(descr ""))
+)

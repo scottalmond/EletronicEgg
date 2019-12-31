@@ -1,0 +1,208 @@
+eletronic egg
+
+features:
+display the max acceleration to the user
+  allow moderator to reset data collection between users
+solution to fit within standard size chicken egg
+  use a single AAA battery as cheap, compact, and readily-available power source
+designed to last multiple years
+  enter a low-power mode after X hours of inactivity from user
+
+12/7/19-12/8/19
+familiar with AtTiny85, so use that
+familiar with Digikey, so use them
+egg dims: 60 mm x 45 mm --> 2.35" x 1.77"
+for aceleration tolerance, plan to fill in with epoxy
+  choose clear epoxy so screen can by fully submerged (less concern about mating surface)
+egg is about 25 oz
+  look for 
+consider metal ring around middle: rotate to proper position to remove battery --> ring would obscure the screen
+consider using no mechanical user input, that way whole device acn be simply dropped into a tank of epoxy (no keep out zones)
+  "<tap x, y, z> to turn ON/RESET" rSt where t=8-7, or spin egg (excess g's for sustained period)
+  "Turns OFF after 4 hours of no inversion"
+consider pinhole for battery outgassing
+can canabalize some of the 7-segment pins on teh most significant digiet on the display for extra I/O
+need some kind of mark to indicate which way to read the screen (top/bottom)
+hmm, almost not worth implementing a low power mode, 24mA for the screen and <1mA for the accel, and [0.2-4.5 mA at 1-8 Mhz] for uP <68mA for 5 yr life
+worried about g-loads depressing spring in battery clip (it they're removable)
+  using individual contact clips instead, leave gap in middle of board to have programming header accessible (when batteries are out)
+  PB2-4 and PC6 to programmer https://www.tindie.com/products/drazzy/attiny88-or-828-breakout-board-assembled/
+consider lipo charger and 3.3V regulator
+  allows batteries to be replaced (charged through usb port)
+  future-proof with usb-c header for charging
+  if going to have a usb header anyway, consider samd21 for readme over usb, and practice samd21 designs
+    ATSAMD21G18 $3.13 https://www.digikey.com/product-detail/en/microchip-technology/ATSAMD21G18A-AUT/ATSAMD21G18A-AUTCT-ND/4878879
+    38-pin I/O
+  OR consider dime cell lipo: undervoltage lock-out: only has ON mode for ~1 week?
+issue with finding a proper UVLO circuit
+
+12/9/19
+consider turning VDDIO ON/OFF at 3.3V for all periphreals to save power
+but how to input an interrupt to awaken the system if I/O is OFF.....
+
+
+X 3 segment screen (acceleration with 3 sig figs), 5V AC? pin 1 common catchode? https://codeandlife.com/2012/02/10/driving-an-lcd-display-directly-with-attiny/
+https://www.digikey.com/product-detail/en/lumex-opto-components-inc/LCD-S301C31TR/67-1788-ND/469773
+app note https://www.maximintegrated.com/en/design/technical-documents/app-notes/4/4039.html
+
+3V 7-segment $6.30
+https://www.digikey.com/product-detail/en/varitronix/VI-321-DP-RC-S/153-1101-ND/531266
+pdf https://www.mouser.com/datasheet/2/422/Varitronix-9-26-2017-VL-FS-VI-321-1211005.pdf
+leg spread 22.86 mm
+
+X button $0.51
+https://www.digikey.com/product-detail/en/e-switch/TL3340AF160QG/EG4627DKR-ND/1885975
+
+parallel resistors, 8x >3k SMT $0.61  742C163102JP
+x https://www.digikey.com/product-detail/en/cts-resistor-products/742C163102JP/742C163102JPCT-ND/1124513
+x pdf https://www.ctscorp.com/wp-content/uploads/74x.pdf
+x pads: 2.6 x 6.05
+
+
+X AAA battery holder, $1.16, 11.5 grams
+https://www.digikey.com/product-detail/en/keystone-electronics/2466/36-2466-ND/303815
+
+X dc switching regulator 5V, 5 uA quiescent TPS61222DCKR, <25 mA output (250mA from input), $1.14
+https://www.digikey.com/product-detail/en/texas-instruments/TPS61222DCKR/296-39435-6-ND/5143925
+
+x processor, 32 pins, 28 I/o $1.22, 100 mA max across all I/O, 40 mA per pin (abs max) ATTINY88-AURDKR-ND
+x https://www.digikey.com/product-detail/en/microchip-technology/ATTINY88-AUR/ATTINY88-AURDKR-ND/3441324
+x search: https://www.digikey.com/products/en/integrated-circuits-ics/embedded-microcontrollers/685?k=&pkeyword=&sv=0&pv155=294232&pv155=294236&sf=0&FV=-5%7C22386%2C69%7C409393%2C1989%7C0%2Cii28%7C2208%2C-8%7C685&quantity=1&ColumnSort=-1000009&page=1&stock=1&nstock=1&pageSize=25
+
+processor, 48 pins, 38 I/o $3.13, 100 mA max across all I/O, 40 mA per pin (abs max) ATSAMD21G18A-AUTCT-ND (max 3.6V)
+https://www.digikey.com/product-detail/en/microchip-technology/ATSAMD21G18A-AUT/ATSAMD21G18A-AUTCT-ND/4878879
+
+accelerometer (200g, 3.3V) down to 2.16V --> limits life to ~70-80% as battery voltage on each cell drops below 1.08V $10.58
+https://www.digikey.com/product-detail/en/stmicroelectronics/H3LIS331DLTR/497-13903-6-ND/4311637
+
+X AAA battery 1.5-0.7 V, 1000+ mAh
+https://data.energizer.com/PDFs/E92.pdf
+
+x  AAAA 2x battery holder 650 mAh [365 days * 5 years battery shelf life *24 hour/day = 43800 hours; 15 uA max system average] $1.89
+x  https://www.digikey.com/product-detail/e`n/mpd-memory-protection-devices/BE-2AAAA-PC/BE-2AAAA-PC-ND/3029211
+
+4x AAAA battery holder clips
+https://www.digikey.com/product-detail/en/keystone-electronics/50/36-50K-ND/1768453
+
+AAAA battery $0.79/ea
+https://www.digikey.com/product-detail/en/energizer-battery-company/E96VP/N539-ND/1955840
+want alkaline or lithium for 10 year life https://www.amazon.com/Energizer-AAAA-Batteries-2-Count-Single/dp/B0044D9ZI2
+
+XXX power enable manager, STM6600 (min 1.6V input though)
+app note: https://www.stmicroelectronics.com.cn/content/ccc/resource/technical/document/application_note/43/5c/71/00/44/b4/4a/36/CD00284778.pdf/files/CD00284778.pdf/jcr:content/translations/en.CD00284778.pdf
+
+400 mAh $4.95 LiPo
+https://www.sparkfun.com/products/13851
+plan to recharge once a year
+
+battery, uP, accel, screen, current limit resistors --> ~$25 part cost
+  could save ~4 bucks by getting H3LIS100DL accel instead with range limited to 100g's
+
+-- 12/29/19
+
+refactor to cut costs a little.  Want to use footprint-compatible uProcessor with InfoBadge, probably G-class
+Also reduce memory size
+saml21g16 https://www.digikey.com/product-detail/en/microchip-technology/ATSAML21G16B-ANT/ATSAML21G16B-ANTCT-ND/7559494
+$3.01@25
+may be a lost cause asn infoBadge has likely way more I/O needs
+
+Cut costs on accelermoeter
+H3LIS200DLTR https://www.digikey.com/product-detail/en/stmicroelectronics/H3LIS200DLTR/497-15698-1-ND/5267984
+$6.33@25m
+
+reviewing screen choice, want to see if half cost "5V" count be a candidate
+3V VI-321-DP-RC-S https://www.digikey.com/product-detail/en/varitronix/VI-321-DP-RC-S/153-1101-ND/531266
+$5.25@10
+($2.90@10) https://www.mouser.com/ProductDetail/Varitronix/VI-321-DP-RC-S?qs=r6GfivSc19uVNJfZ0lSM2Q%3D%3D
+https://www.mouser.com/datasheet/2/422/Varitronix-9-26-2017-VL-FS-VI-321-1211005.pdf
+5V $2.08@10 https://www.digikey.com/product-detail/en/lumex-opto-components-inc/LCD-S301C31TR/67-1788-ND/469773
+24 pins
+
+1.8V red led https://www.digikey.com/product-detail/en/osram-opto-semiconductors-inc/LH-R974-LP-1/475-1415-1-ND/1802604
+$0.10@100
+
+usb c https://www.digikey.com/product-detail/en/gct/USB4110-GF-A/2073-USB4110-GF-A-1-ND/10384548
+$1.17@25
+
+LDO + lipo charger BQ25155
+$3
+no-pop pads on NC and /CE --> place vias for and (/INT --> CHG)
+  LP overridden when charging --> read battery voltage over i2c for 'full charge eta'
+  when not charging, LP mode makes I2C dead: ***LDO needs to be set while charging
+  ***need to unmask charging interrupt (over i2c to pmic) on first power-ON
+
+consider using pull-up instead of direct-drive to limit current in/out lcd.  would remove need for three 8x band resistors
+or pulse more quickly
+
+consider 4 leds=, same color, in star pattern
+reset procedure is tap one edge (turns respective led red), next led 90 degrees rotated blinks (waiting for next tap).  process repeats until user has tapped four edges to reset the device
+  could do the same thing using the edges of the 7-segment displays...
+  "t0" "rSt" "tAP" "ALL" "4" <animation of four edges> <one solid that was tapped, next blinks> <each solid as tapped>
+  displays instructions on wake from deep sleep, waits for operator to comply before booting up
+9600 baud terminal over usb with "[h]elp" "man" <not recognized prints help>
+  [r]eset command (sends commands to pmic to configure registers)
+  [d]ump time series since last reset [8k ram;3 bytes per read at 1 kHz --> ~2 seconds of data in RAM], perhaps low/mean/high/std on x/y/z at 1 hz --> ~7 minutes of data at 5kB usage
+  how to reset (tapping procedure instructions) 
+  [t]est display, sensors (debug pattern, read all registers, include chip name part number in register dump H3LIS200DL, hex and dec output) 
+  [a]djust screen brightness +/-/enter
+  include github link (instructions on case have link too)
+    400 mAh battery and other specs, parts list
+  [q]uit to exit to normal operation (help to re-enter menu), maybe timeout with no user input
+
+charging, display eta to end in hours "8 hr"
+
+
+lipo 400mAh https://www.sparkfun.com/products/13851
+$4.95
+  note: out of stock https://www.digikey.com/product-detail/en/sparkfun-electronics/PRT-13851/1568-1493-ND/6605199
+
+smt usb c
+
+1k 8x ressitor https://www.digikey.com/product-detail/en/panasonic-electronic-components/EXB-2HV102JV/Y1102CT-ND/285381
+$0.10@100
+
+battery overhat 10k NTC $0.06@25 https://www.digikey.com/product-detail/en/panasonic-electronic-components/ERT-JZEG103GA/P124054CT-ND/9646740
+
+pinout:
+SAML21:
+24 pins for 3-segment display [PMIC voltage?]
+2 pins for USB [5V?]
+2 pins I2C for PMIC and ACC [1.8V pullup]
+  PMIC discrete [/LP 
+2 pins ACC INT [1.8V input]
+***need to buy screens and test drive cases to determine: if resistor bands needed, if i/o at 1.8/2.5V works
+***also need to know if i2c is floating high or driven high in i2c library (avoid issue on 1.8V i2c
+  page 1016 says Vhigh smitt is at 0.7VDDIO [1.75V] when VDDIO at 2.5V.  although 2.7V VDDIO has Vhigh at 0.55*VDDIO [1.49V]
+custom pads on: power, LCD, PMIC
+***need outer dimensions of pcb
+
+side note on solar panel: https://www.digikey.com/product-detail/en/ixys/KXOB25-14X1F/KXOB25-14X1F-ND/9990460
+  also bq25570
+capacitors on PMIC:
+235 px 2.0 mm
+170 px [1.45mm]
+175 px 1.6 mm
+74 px [0.68mm]
+1005 metric  https://www.pcblibraries.com/forum/standard-chip-component-dimensions_topic1729.html
+eletroytic and super caps are polarized https://en.wikipedia.org/wiki/Capacitor_types#Leakage_current
+film and ceramic are not.  Aluminum have hte highest leakage https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&cad=rja&uact=8&ved=2ahUKEwii-v-Kg93mAhXGup4KHUawBjcQFjACegQIDBAH&url=https%3A%2F%2Fpassive-components.eu%2Fleakage-current-characteristics-of-capacitors%2F&usg=AOvVaw3M-M_u_EN1dn-6gkIVNXBQ
+
+ceramic according to PMIC data sheet, 1uF 0603 $0.02@100 https://www.digikey.com/product-detail/en/samsung-electro-mechanics/CL10B105MO8NNWC/1276-6524-1-ND/5961383
+  100 MOhms [18nA per cap] at 1uF http://www.kemet.com/Lists/ProductCatalog/Attachments/53/KEM_C1002_X7R_SMD.pdf
+FPGA experimetnation
+cost estimate e-egg
+
+0.25" from smt to edge of board for capacitors to avoid damage https://www.tempoautomation.com/blog/pcb-shapes-for-panelization-to-lower-cost/
+  also breakaway shapes
+  could use to program infoBadge
+
+usb c app note http://ww1.microchip.com/downloads/en/appnotes/00001953a.pdf
+  https://www.adafruit.com/product/4090
+
+lcd drive tutorial 1k https://codeandlife.com/2012/02/10/driving-an-lcd-display-directly-with-attiny/
+100 Hz (some models like 30 Hz, others 200 Hz)
+  1kOhms to improve contrast https://www.maximintegrated.com/en/design/technical-documents/app-notes/4/4039.html
+  opt to eltimate for complexity/cost
+
+SAML21 power filtering, ~$0.10@10 for inductor https://www.digikey.com/product-detail/en/bourns-inc/CV201210-100K/CV201210-100KCT-ND/3438035
+  https://www.digikey.com/products/en/inductors-coils-chokes/fixed-inductors/71?FV=-8%7C71%2C69%7C409393%2C1989%7C0%2Cmu10%C2%B5H%7C2087&quantity=25&ColumnSort=1000011&page=1&stock=1&nstock=1&pageSize=25
