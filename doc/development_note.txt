@@ -148,6 +148,7 @@ reset procedure is tap one edge (turns respective led red), next led 90 degrees 
   include github link (instructions on case have link too)
     400 mAh battery and other specs, parts list
   [q]uit to exit to normal operation (help to re-enter menu), maybe timeout with no user input
+unplug from USB: "SLP" with period bouncing back and forth, fade out
 
 charging, display eta to end in hours "8 hr"
 
@@ -206,3 +207,15 @@ lcd drive tutorial 1k https://codeandlife.com/2012/02/10/driving-an-lcd-display-
 
 SAML21 power filtering, ~$0.10@10 for inductor https://www.digikey.com/product-detail/en/bourns-inc/CV201210-100K/CV201210-100KCT-ND/3438035
   https://www.digikey.com/products/en/inductors-coils-chokes/fixed-inductors/71?FV=-8%7C71%2C69%7C409393%2C1989%7C0%2Cmu10%C2%B5H%7C2087&quantity=25&ColumnSort=1000011&page=1&stock=1&nstock=1&pageSize=25
+
+Note not all IO pins are driven by VDD_IO, need to use J-series for 3.3V driving
+  https://www.digikey.com/product-detail/en/microchip-technology/ATSAML21J16B-AUT/ATSAML21J16B-AUTCT-ND/5702310
+
+usb-c cable as part of order, 3 ft
+
+100kHz I2C
+10kΩ, ≤100pF Cb
+TI SLVA689
+
+note: DRC flagging accel for overlaps.  accel library footprint has 0.15 mm gap, and so does default KiCAD LGA footprint.  0.15mm is 5.9 mil, below the 6 mil minimum in the DRC.  Set DRC to 0.15 mm... hoping that won't be a fabrication issue later... 2% error
+

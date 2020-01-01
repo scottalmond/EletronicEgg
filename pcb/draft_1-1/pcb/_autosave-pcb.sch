@@ -754,7 +754,6 @@ Wire Wire Line
 Connection ~ 8700 900 
 Wire Wire Line
 	8500 1300 9100 1300
-NoConn ~ 7800 5500
 Wire Wire Line
 	9100 1300 9100 2100
 Wire Wire Line
@@ -773,22 +772,6 @@ Text GLabel 9850 4900 2    50   Input ~ 0
 SDA
 Text GLabel 9850 5000 2    50   Input ~ 0
 SCL
-Wire Wire Line
-	8700 5900 8900 5900
-$Comp
-L MCU_Microchip_SAML:ATSAML21J16B-AUT U2
-U 1 1 5E306B11
-P 8800 4000
-F 0 "U2" H 8800 2011 50  0000 C CNN
-F 1 "ATSAML21J16B-AUT" H 8800 1920 50  0000 C CNN
-F 2 "Package_QFP:TQFP-64_10x10mm_P0.5mm" H 10000 5800 50  0001 C CNN
-F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/60001477A.pdf" H 8800 4000 50  0001 C CNN
-	1    8800 4000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8900 5900 9400 5900
-Connection ~ 8900 5900
 Wire Wire Line
 	9400 5950 9400 5900
 Wire Wire Line
@@ -1040,6 +1023,44 @@ Text Notes 5550 2500 0    50   ~ 0
 Text Notes 10100 3200 0    50   ~ 0
 VBAT
 NoConn ~ 4200 2850
+NoConn ~ 9800 2900
+NoConn ~ 9800 3000
+NoConn ~ 9800 3100
+NoConn ~ 9800 3300
+NoConn ~ 9800 3400
+NoConn ~ 9800 3500
+NoConn ~ 9800 3600
+NoConn ~ 9800 3700
+NoConn ~ 9800 3800
+Wire Wire Line
+	8900 5900 9400 5900
+Wire Wire Line
+	8700 5900 8900 5900
+Connection ~ 8900 5900
+$Comp
+L MCU_Microchip_SAML:ATSAML21J16B-AUT U2
+U 1 1 5E306B11
+P 8800 4000
+F 0 "U2" H 8800 2011 50  0000 C CNN
+F 1 "ATSAML21J16B-AUT" H 8800 1920 50  0000 C CNN
+F 2 "Package_QFP:TQFP-64_10x10mm_P0.5mm" H 10000 5800 50  0001 C CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/60001477A.pdf" H 8800 4000 50  0001 C CNN
+	1    8800 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint TP1
+U 1 1 5E430727
+P 7750 5500
+F 0 "TP1" V 7800 5900 50  0000 C CNN
+F 1 "TestPoint" V 7700 5900 50  0000 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 7950 5500 50  0001 C CNN
+F 3 "~" H 7950 5500 50  0001 C CNN
+	1    7750 5500
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	7750 5500 7800 5500
 Wire Bus Line
 	10200 3700 10200 4500
 Wire Bus Line

@@ -1,4 +1,6 @@
 (fp_lib_table
   (lib (name H3LIS200DLTR)(type KiCad)(uri D:/Projects/EletronicEgg/pcb/draft_1-1/lib/H3LIS200DLTR)(options "")(descr ""))
   (lib (name USB4110-GF-A)(type KiCad)(uri D:/Projects/EletronicEgg/pcb/draft_1-1/lib/USB4110-GF-A)(options "")(descr ""))
+  (lib (name custom)(type KiCad)(uri D:/Projects/EletronicEgg/pcb/draft_1-1/lib/Custom/custom.pretty)(options "")(descr ""))
+  (lib (name SamacSys_Parts)(type KiCad)(uri D:/Projects/EletronicEgg/pcb/draft_1-1/lib/BQ25155/SamacSys_Parts.pretty)(options "")(descr ""))
 )
