@@ -179,6 +179,8 @@ custom pads on: power, LCD, PMIC
 
 side note on solar panel: https://www.digikey.com/product-detail/en/ixys/KXOB25-14X1F/KXOB25-14X1F-ND/9990460
   also bq25570
+  may already be in kicad library
+  issue with voltages (no LDO)
 capacitors on PMIC:
 235 px 2.0 mm
 170 px [1.45mm]
@@ -219,3 +221,49 @@ TI SLVA689
 
 note: DRC flagging accel for overlaps.  accel library footprint has 0.15 mm gap, and so does default KiCAD LGA footprint.  0.15mm is 5.9 mil, below the 6 mil minimum in the DRC.  Set DRC to 0.15 mm... hoping that won't be a fabrication issue later... 2% error
 
+NTC 10k 0402 $0.07@100 https://www.digikey.com/product-detail/en/murata-electronics/NCP15XH103F03RC/490-4801-6-ND/1644692
+
+0402 is small for 22 uF and 10 uH, they want 0805 for cost-effective packaging
+
+-- BOM --
+400 mAh Battery $4.95/ea
+https://www.digikey.com/product-detail/en/sparkfun-electronics/PRT-13851/1568-1493-ND/6605199
+https://www.sparkfun.com/products/13851
+
+1 uF 0402 
+
+
+2.2 uF 0402
+
+
+22 uF 0402
+
+
+100 nF 0402
+
+
+3 segment screen
+
+
+USB header
+
+
+10 uH 0805
+
+
+10k 0402
+
+
+56k 0402
+
+
+10k Thermistor 0402
+
+
+Accel
+
+
+uProcessor
+
+
+PMIC/LDO
