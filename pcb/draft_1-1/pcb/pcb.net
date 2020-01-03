@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source D:\Projects\EletronicEgg\pcb\draft_1-1\pcb\pcb.sch)
-    (date "1/3/2020 12:14:34 AM")
+    (date "1/3/2020 4:25:29 AM")
     (tool "Eeschema (5.1.5)-3")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -72,7 +72,7 @@
       (tstamp 5E0D5713))
     (comp (ref C3)
       (value 22uF)
-      (footprint Capacitor_SMD:C_0402_1005Metric)
+      (footprint Capacitor_SMD:C_0805_2012Metric)
       (datasheet ~)
       (libsource (lib Device) (part C) (description "Unpolarized capacitor"))
       (sheetpath (names /) (tstamps /))

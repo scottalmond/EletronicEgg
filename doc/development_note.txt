@@ -243,7 +243,7 @@ https://www.sparkfun.com/products/13851
 
 
 3 segment screen
-
+https://www.digikey.com/product-detail/en/varitronix/VI-321-DP-RC-S/153-1101-ND/531266
 
 USB header
 
@@ -258,10 +258,10 @@ USB header
 
 
 10k Thermistor 0402
-
+https://www.digikey.com/product-detail/en/murata-electronics/NCP15XH103F03RC/490-4801-6-ND/1644692
 
 Accel
-
+https://www.digikey.com/product-detail/en/stmicroelectronics/H3LIS200DLTR/497-15698-1-ND/5267984
 
 uProcessor
 

@@ -30,7 +30,7 @@ $EndComp
 Entry Wire Line
 	4350 5300 4450 5400
 Text Label 4500 5400 0    50   ~ 0
-3E
+13
 Entry Wire Line
 	4350 5400 4450 5500
 Entry Wire Line
@@ -54,27 +54,27 @@ Entry Wire Line
 Entry Wire Line
 	4350 6400 4450 6500
 Text Label 4500 5500 0    50   ~ 0
-3D
+14
 Text Label 4500 5600 0    50   ~ 0
-3C
+15
 Text Label 4500 5700 0    50   ~ 0
-3DP
+16
 Text Label 4500 5800 0    50   ~ 0
-2E
+17
 Text Label 4500 5900 0    50   ~ 0
-2D
+18
 Text Label 4500 6000 0    50   ~ 0
-2C
+19
 Text Label 4500 6100 0    50   ~ 0
-2DP
+20
 Text Label 4500 6200 0    50   ~ 0
-1E
+21
 Text Label 4500 6300 0    50   ~ 0
-1D
+22
 Text Label 4500 6400 0    50   ~ 0
-1C
+23
 Text Label 4500 6500 0    50   ~ 0
-1B
+24
 Entry Wire Line
 	5650 5400 5750 5300
 Entry Wire Line
@@ -100,29 +100,29 @@ Entry Wire Line
 Entry Wire Line
 	5650 6500 5750 6400
 Text Label 5450 5400 0    50   ~ 0
-COM
+12
 Text Label 5450 5500 0    50   ~ 0
-3G
+11
 Text Label 5450 5600 0    50   ~ 0
-3F
+10
 Text Label 5450 5700 0    50   ~ 0
-3A
+9
 Text Label 5450 5800 0    50   ~ 0
-3B
+8
 Text Label 5450 5900 0    50   ~ 0
-2G
+7
 Text Label 5450 6000 0    50   ~ 0
-2F
+6
 Text Label 5450 6100 0    50   ~ 0
-2A
+5
 Text Label 5450 6200 0    50   ~ 0
-2B
+4
 Text Label 5450 6300 0    50   ~ 0
-1G
+3
 Text Label 5450 6400 0    50   ~ 0
-1F
+2
 Text Label 5450 6500 0    50   ~ 0
-1A
+1
 Text GLabel 1150 5950 0    50   Input ~ 0
 SDA
 Text GLabel 1150 5850 0    50   Input ~ 0
@@ -734,7 +734,7 @@ Wire Wire Line
 Wire Wire Line
 	7750 5300 7800 5300
 Text Label 7550 3300 0    50   ~ 0
-1A
+1
 Text Notes 6850 3050 0    50   ~ 0
 EXTINT[5]
 Text Notes 6850 3150 0    50   ~ 0
@@ -913,7 +913,7 @@ Wire Bus Line
 Text GLabel 7200 5050 3    50   Input ~ 0
 DS
 Text Label 9900 3900 0    50   ~ 0
-2E
+5
 Wire Wire Line
 	10100 3900 9800 3900
 Entry Wire Line
@@ -1098,49 +1098,49 @@ NoConn ~ 7800 2500
 NoConn ~ 9800 4700
 NoConn ~ 9800 4800
 Text Label 7550 3400 0    50   ~ 0
-1F
+2
 Text Label 7550 3500 0    50   ~ 0
-1G
+3
 Text Label 7550 3600 0    50   ~ 0
-2B
+4
 Text Label 7550 3700 0    50   ~ 0
-2A
+11
 Text Label 7550 3800 0    50   ~ 0
-2F
+12
 Text Label 7550 3900 0    50   ~ 0
-2G
+13
 Text Label 7550 4000 0    50   ~ 0
-3B
+14
 Text Label 7550 4100 0    50   ~ 0
-3A
+15
 Text Label 7550 4200 0    50   ~ 0
-3F
+16
 Text Label 7550 4300 0    50   ~ 0
-3G
+17
 Text Label 7550 4400 0    50   ~ 0
-COM
+18
 Text Label 9900 4000 0    50   ~ 0
-2D
+6
 Text Label 9900 4100 0    50   ~ 0
-2C
+7
 Text Label 9900 4200 0    50   ~ 0
-2DP
+8
 Text Label 9900 4300 0    50   ~ 0
-1E
+9
 Text Label 9900 4400 0    50   ~ 0
-1D
+10
 Text Label 9900 4500 0    50   ~ 0
-1C
+19
 Text Label 9900 4600 0    50   ~ 0
-1B
+20
 Text Label 7550 4800 0    50   ~ 0
-3DP
+24
 Text Label 7550 4700 0    50   ~ 0
-3C
+23
 Text Label 7550 4600 0    50   ~ 0
-3D
+22
 Text Label 7550 4500 0    50   ~ 0
-3E
+21
 Wire Bus Line
 	7200 5050 7200 4950
 Connection ~ 7200 4950
