@@ -466,7 +466,7 @@ Wire Wire Line
 Connection ~ 5050 2550
 Wire Wire Line
 	5050 2550 5250 2550
-Text Notes 5050 1800 0    50   ~ 0
+Text Notes 4300 1100 0    50   ~ 0
 refactor cap values for cap bias voltage\nhttps://www.murata.com/en-us/support/faqs/products/capacitor/mlcc/char/0005
 Text GLabel 3650 2550 0    50   Input ~ 0
 INT3
@@ -963,8 +963,6 @@ Wire Wire Line
 	9800 3200 10000 3200
 Wire Wire Line
 	10000 3200 10000 3150
-Text Notes 5500 3000 0    50   ~ 0
-2.2uF to 10 uF per checklist
 Text Notes 10100 3200 0    50   ~ 0
 VBAT
 NoConn ~ 4200 2850
@@ -1115,10 +1113,6 @@ Text Label 7550 4100 0    50   ~ 0
 15
 Text Label 7550 4200 0    50   ~ 0
 16
-Text Label 7550 4300 0    50   ~ 0
-17
-Text Label 7550 4400 0    50   ~ 0
-18
 Text Label 9900 4000 0    50   ~ 0
 6
 Text Label 9900 4100 0    50   ~ 0
@@ -1162,4 +1156,8 @@ Wire Bus Line
 	5750 4950 5750 6400
 Wire Bus Line
 	7200 3400 7200 4950
+Text Label 7550 4400 0    50   ~ 0
+18
+Text Label 7550 4300 0    50   ~ 0
+17
 $EndSCHEMATC
