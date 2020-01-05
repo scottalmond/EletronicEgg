@@ -4,3 +4,4 @@ set min hole size to 0.3mm since there was no impact on cost
 as built list:
 https://www.youtube.com/watch?v=ENmDnoKs2hM
 plus F and B paste layers
+$22.97 including shipping and PayPal fee
