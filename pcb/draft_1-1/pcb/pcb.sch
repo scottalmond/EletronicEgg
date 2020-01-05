@@ -30,7 +30,7 @@ $EndComp
 Entry Wire Line
 	5000 5300 5100 5400
 Text Label 5150 5400 0    50   ~ 0
-13
+3E
 Entry Wire Line
 	5000 5400 5100 5500
 Entry Wire Line
@@ -54,27 +54,25 @@ Entry Wire Line
 Entry Wire Line
 	5000 6400 5100 6500
 Text Label 5150 5500 0    50   ~ 0
-14
+3D
 Text Label 5150 5600 0    50   ~ 0
-15
+3C
 Text Label 5150 5700 0    50   ~ 0
-16
+3DP
 Text Label 5150 5800 0    50   ~ 0
-17
-Text Label 5150 5900 0    50   ~ 0
-18
+2E
 Text Label 5150 6000 0    50   ~ 0
-19
+2C
 Text Label 5150 6100 0    50   ~ 0
-20
+2DP
 Text Label 5150 6200 0    50   ~ 0
-21
+1E
 Text Label 5150 6300 0    50   ~ 0
-22
+1D
 Text Label 5150 6400 0    50   ~ 0
-23
+1C
 Text Label 5150 6500 0    50   ~ 0
-24
+1B
 Entry Wire Line
 	6300 5400 6400 5300
 Entry Wire Line
@@ -99,30 +97,28 @@ Entry Wire Line
 	6300 6400 6400 6300
 Entry Wire Line
 	6300 6500 6400 6400
-Text Label 6100 5400 0    50   ~ 0
-12
 Text Label 6100 5500 0    50   ~ 0
-11
+3G
 Text Label 6100 5600 0    50   ~ 0
-10
+3F
 Text Label 6100 5700 0    50   ~ 0
-9
+3A
 Text Label 6100 5800 0    50   ~ 0
-8
+3B
 Text Label 6100 5900 0    50   ~ 0
-7
+2G
 Text Label 6100 6000 0    50   ~ 0
-6
+2F
 Text Label 6100 6100 0    50   ~ 0
-5
+2A
 Text Label 6100 6200 0    50   ~ 0
-4
+2B
 Text Label 6100 6300 0    50   ~ 0
-3
+1G
 Text Label 6100 6400 0    50   ~ 0
-2
+1F
 Text Label 6100 6500 0    50   ~ 0
-1
+1A
 Text GLabel 1150 5950 0    50   Input ~ 0
 SDA
 Text GLabel 1150 5850 0    50   Input ~ 0
@@ -730,7 +726,7 @@ Wire Wire Line
 Wire Wire Line
 	7750 5300 7800 5300
 Text Label 7550 3300 0    50   ~ 0
-1
+1A
 Text Notes 6850 3050 0    50   ~ 0
 EXTINT[5]
 Text Notes 6850 3150 0    50   ~ 0
@@ -906,7 +902,7 @@ Wire Bus Line
 Text GLabel 7200 5050 3    50   Input ~ 0
 DS
 Text Label 9900 3900 0    50   ~ 0
-5
+2A
 Wire Wire Line
 	10100 3900 9800 3900
 Entry Wire Line
@@ -973,17 +969,6 @@ Wire Wire Line
 Wire Wire Line
 	8700 5900 8900 5900
 Connection ~ 8900 5900
-$Comp
-L MCU_Microchip_SAML:ATSAML21J16B-AUT U2
-U 1 1 5E306B11
-P 8800 4000
-F 0 "U2" H 8800 2011 50  0000 C CNN
-F 1 "ATSAML21J16B-AUT" H 8800 1920 50  0000 C CNN
-F 2 "Package_QFP:TQFP-64_10x10mm_P0.5mm" H 10000 5800 50  0001 C CNN
-F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/60001477A.pdf" H 8800 4000 50  0001 C CNN
-	1    8800 4000
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	6200 2350 6250 2350
 Wire Wire Line
@@ -1089,45 +1074,41 @@ NoConn ~ 7800 2500
 NoConn ~ 9800 4700
 NoConn ~ 9800 4800
 Text Label 7550 3400 0    50   ~ 0
-2
+1F
 Text Label 7550 3500 0    50   ~ 0
-3
+1G
 Text Label 7550 3600 0    50   ~ 0
-4
+2B
 Text Label 7550 3700 0    50   ~ 0
-11
+3G
 Text Label 7550 3800 0    50   ~ 0
-12
+COM
 Text Label 7550 3900 0    50   ~ 0
-13
+3E
 Text Label 7550 4000 0    50   ~ 0
-14
+3D
 Text Label 7550 4100 0    50   ~ 0
-15
-Text Label 7550 4200 0    50   ~ 0
-16
+3C
 Text Label 9900 4000 0    50   ~ 0
-6
+2F
 Text Label 9900 4100 0    50   ~ 0
-7
+2G
 Text Label 9900 4200 0    50   ~ 0
-8
-Text Label 9900 4300 0    50   ~ 0
-9
+3B
 Text Label 9900 4400 0    50   ~ 0
-10
+3F
 Text Label 9900 4500 0    50   ~ 0
-19
+2C
 Text Label 9900 4600 0    50   ~ 0
-20
+2DP
 Text Label 7550 4800 0    50   ~ 0
-24
+1B
 Text Label 7550 4700 0    50   ~ 0
-23
+1C
 Text Label 7550 4600 0    50   ~ 0
-22
+1D
 Text Label 7550 4500 0    50   ~ 0
-21
+1E
 Wire Wire Line
 	7500 3000 7800 3000
 Wire Wire Line
@@ -1138,10 +1119,8 @@ NoConn ~ 7750 5100
 NoConn ~ 7750 5200
 NoConn ~ 7750 5300
 NoConn ~ 7800 5500
-Text Label 7550 4400 0    50   ~ 0
-18
 Text Label 7550 4300 0    50   ~ 0
-17
+2E
 Wire Bus Line
 	6400 4950 7200 4950
 Connection ~ 6400 4950
@@ -1202,4 +1181,25 @@ Wire Bus Line
 	6400 4950 6400 6400
 Wire Bus Line
 	7200 3400 7200 4950
+Text Label 5150 5900 0    50   ~ 0
+2D
+Text Label 7550 4200 0    50   ~ 0
+3DP
+Text Label 7550 4400 0    50   ~ 0
+2D
+$Comp
+L MCU_Microchip_SAML:ATSAML21J16B-AUT U2
+U 1 1 5E306B11
+P 8800 4000
+F 0 "U2" H 8800 2011 50  0000 C CNN
+F 1 "ATSAML21J16B-AUT" H 8800 1920 50  0000 C CNN
+F 2 "Package_QFP:TQFP-64_10x10mm_P0.5mm" H 10000 5800 50  0001 C CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/60001477A.pdf" H 8800 4000 50  0001 C CNN
+	1    8800 4000
+	1    0    0    -1  
+$EndComp
+Text Label 6100 5400 0    50   ~ 0
+COM
+Text Label 9900 4300 0    50   ~ 0
+3A
 $EndSCHEMATC
