@@ -179,8 +179,6 @@ F 3 "" H 2000 5300 50  0001 C CNN
 	1    2000 5300
 	1    0    0    -1  
 $EndComp
-Text GLabel 3500 5950 2    50   Input ~ 0
-INT1
 Text GLabel 3500 6050 2    50   Input ~ 0
 INT2
 Wire Wire Line
@@ -1144,28 +1142,6 @@ Text Label 7550 4400 0    50   ~ 0
 18
 Text Label 7550 4300 0    50   ~ 0
 17
-$Comp
-L Device:C C11
-U 1 1 5E16FE35
-P 4350 5850
-F 0 "C11" V 4098 5850 50  0000 C CNN
-F 1 "10uF" V 4189 5850 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 4388 5700 50  0001 C CNN
-F 3 "~" H 4350 5850 50  0001 C CNN
-	1    4350 5850
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:C C10
-U 1 1 5E17A014
-P 3900 5850
-F 0 "C10" V 3648 5850 50  0000 C CNN
-F 1 "100nF" V 3739 5850 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0402_1005Metric" H 3938 5700 50  0001 C CNN
-F 3 "~" H 3900 5850 50  0001 C CNN
-	1    3900 5850
-	-1   0    0    1   
-$EndComp
 Wire Bus Line
 	6400 4950 7200 4950
 Connection ~ 6400 4950
@@ -1174,23 +1150,50 @@ Wire Bus Line
 	7200 4950 7200 5050
 Wire Wire Line
 	3750 5650 3900 5650
-Wire Wire Line
-	3900 5650 3900 5700
 Connection ~ 3750 5650
 Wire Wire Line
 	3900 5650 4350 5650
-Wire Wire Line
-	4350 5650 4350 5700
 Connection ~ 3900 5650
 Wire Wire Line
 	3450 6350 3900 6350
 Wire Wire Line
 	4350 6350 4350 6400
-Wire Wire Line
-	4350 6000 4350 6350
 Connection ~ 4350 6350
+Connection ~ 3900 6350
 Wire Wire Line
-	3900 6000 3900 6350
+	3900 6350 4350 6350
+$Comp
+L Device:C C10
+U 1 1 5E17A014
+P 3900 6000
+F 0 "C10" V 3648 6000 50  0000 C CNN
+F 1 "100nF" V 3739 6000 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 3938 5850 50  0001 C CNN
+F 3 "~" H 3900 6000 50  0001 C CNN
+	1    3900 6000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:C C11
+U 1 1 5E16FE35
+P 4350 6000
+F 0 "C11" V 4098 6000 50  0000 C CNN
+F 1 "10uF" V 4189 6000 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 4388 5850 50  0001 C CNN
+F 3 "~" H 4350 6000 50  0001 C CNN
+	1    4350 6000
+	-1   0    0    1   
+$EndComp
+Text GLabel 3500 5950 2    50   Input ~ 0
+INT1
+Wire Wire Line
+	3900 6150 3900 6350
+Wire Wire Line
+	4350 6150 4350 6350
+Wire Wire Line
+	3900 5650 3900 5850
+Wire Wire Line
+	4350 5650 4350 5850
 Wire Bus Line
 	10200 3700 10200 4500
 Wire Bus Line
@@ -1199,7 +1202,4 @@ Wire Bus Line
 	6400 4950 6400 6400
 Wire Bus Line
 	7200 3400 7200 4950
-Connection ~ 3900 6350
-Wire Wire Line
-	3900 6350 4350 6350
 $EndSCHEMATC
