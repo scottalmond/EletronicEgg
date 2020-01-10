@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "test_lcd", "test_lcd\test_lcd.cproj", "{DCE6C7E3-EE26-4D79-826B-08594B9AD897}"
 EndProject
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "LED_TOGGLE1", "LED_TOGGLE1\LED_TOGGLE1.cproj", "{A3130CAD-EA23-4303-B264-6346C9EB5D2A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -17,10 +15,6 @@ Global
 		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Debug|ARM.Build.0 = Debug|ARM
 		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|ARM.ActiveCfg = Release|ARM
 		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|ARM.Build.0 = Release|ARM
-		{A3130CAD-EA23-4303-B264-6346C9EB5D2A}.Debug|ARM.ActiveCfg = Debug|ARM
-		{A3130CAD-EA23-4303-B264-6346C9EB5D2A}.Debug|ARM.Build.0 = Debug|ARM
-		{A3130CAD-EA23-4303-B264-6346C9EB5D2A}.Release|ARM.ActiveCfg = Release|ARM
-		{A3130CAD-EA23-4303-B264-6346C9EB5D2A}.Release|ARM.Build.0 = Release|ARM
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

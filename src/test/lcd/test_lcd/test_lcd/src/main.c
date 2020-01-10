@@ -46,19 +46,20 @@
 
 //void digitalWrite(int pin_id,bool is_ON);
 
+#define F_CPU 4000000UL
+
 int main (void)
 {
 	system_init();
+	delay_init();
 
 	/* Insert application code here, after the board has been initialized. */
 
 	while(1){
-		//digitalWrite(EXT1_PIN_3,true);
-		//delay_ms(1000);
-		//digitalWrite(EXT1_PIN_3,false);
-		//delay_ms(1000);
-		delay_ms(500); //cpu_delay_ms
-		port_pin_toggle_output_level(LED_0_PIN);
+		port_pin_set_output_level(LED_0_PIN, LED_0_ACTIVE);
+		delay_ms(50);
+		port_pin_set_output_level(LED_0_PIN, !LED_0_ACTIVE);
+		delay_ms(50);
 	}
 
 	/* This skeleton code simply sets the LED to the state of the button. */
