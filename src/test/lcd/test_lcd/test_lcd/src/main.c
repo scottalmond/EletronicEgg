@@ -55,8 +55,12 @@ const int PIN_COUNT=24;
 const int PIN_LIST[]={EXT1_PIN_3,EXT1_PIN_5,EXT1_PIN_7,EXT1_PIN_9,EXT1_PIN_4,EXT1_PIN_13,EXT1_PIN_15,EXT1_PIN_17,EXT1_PIN_18,EXT1_PIN_16,EXT1_PIN_14,EXT1_PIN_12,
                       EXT2_PIN_3,EXT2_PIN_5,EXT2_PIN_7,EXT2_PIN_9,EXT2_PIN_4,EXT2_PIN_13,EXT2_PIN_15,EXT2_PIN_17,EXT2_PIN_18,EXT2_PIN_16,EXT2_PIN_14,EXT2_PIN_10
                       };
+#define d 0
+//const int d=1;
+const int pattern[]={0,1,0,0,0,0,1,0,0,1,1,0,
+					 0,0,1,1,d,1,1,1,d,1,1,1};
 
-int COM_INDEX=0;
+int COM_INDEX=11;
 //int COM_INDEX2=11;
 
 long drive_val=0;
@@ -74,8 +78,33 @@ int main (void)
 
 	while(1){
 
-		drive_val+=1;
+		for(int iter=0;iter<PIN_COUNT;iter++){
+			digitalWrite(PIN_LIST[iter],pattern[iter],false);
+		}
+		digitalWrite(PIN_LIST[COM_INDEX],false,false);
+		delay_ms(delay_period_ms);
+		for(int iter=0;iter<PIN_COUNT;iter++){
+			digitalWrite(PIN_LIST[iter],!pattern[iter],false);
+		}
+		digitalWrite(PIN_LIST[COM_INDEX],true,false);
+		delay_ms(delay_period_ms);
+
+		/*drive_val+=1;
 		int temp=drive_val;
+
+
+		for(int iter=0;iter<PIN_COUNT;iter++) digitalWrite(PIN_LIST[iter],true,false);
+		digitalWrite(PIN_LIST[COM_INDEX],false,false);
+		//digitalWrite(PIN_LIST[COM_INDEX2],false,false);
+		delay_ms(delay_period_ms);
+		for(int iter=0;iter<PIN_COUNT;iter++) digitalWrite(PIN_LIST[iter],false,false);
+		digitalWrite(PIN_LIST[COM_INDEX],true,false);
+		//digitalWrite(PIN_LIST[COM_INDEX2],true,false);
+		delay_ms(delay_period_ms);
+		COM_INDEX+=1;
+		COM_INDEX%=PIN_COUNT;
+		//COM_INDEX2+=1;
+		//COM_INDEX2%=PIN_COUNT;*/
 
 		//for(int iter=0;iter<PIN_COUNT;iter++)
 		/*for(int iter=(PIN_COUNT-1);iter>=0;iter--)
@@ -90,19 +119,6 @@ int main (void)
 			temp/=3;
 		}
 		delay_ms(delay_period_ms);*/
-
-		for(int iter=0;iter<PIN_COUNT;iter++) digitalWrite(PIN_LIST[iter],true,false);
-		digitalWrite(PIN_LIST[COM_INDEX],false,false);
-		//digitalWrite(PIN_LIST[COM_INDEX2],false,false);
-		delay_ms(delay_period_ms);
-		for(int iter=0;iter<PIN_COUNT;iter++) digitalWrite(PIN_LIST[iter],false,false);
-		digitalWrite(PIN_LIST[COM_INDEX],true,false);
-		//digitalWrite(PIN_LIST[COM_INDEX2],true,false);
-		delay_ms(delay_period_ms);
-		COM_INDEX+=1;
-		COM_INDEX%=PIN_COUNT;
-		//COM_INDEX2+=1;
-		//COM_INDEX2%=PIN_COUNT;
 
 		/*for(int iter=0;iter<PIN_COUNT;iter++) digitalWrite(PIN_LIST[iter],true,false);
 		digitalWrite(PIN_LIST[COM_INDEX],false,false);
