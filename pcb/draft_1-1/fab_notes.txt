@@ -10,4 +10,19 @@ $22.97 including shipping and PayPal fee
 as-delivered
 width of 3-segment display is wrong, will need to bend all leads to fit
 IS 22.86 mm (0.9")
-**SHOULD BE just under 1.00" 
+***SHOULD BE just under 1.00" 
+
+require stand-alone programming pins
+https://www.avdweb.nl/arduino/samd21/samd21-programmer
+***SHOULD BE ICE header
+- pull-up on SWCLK pin 1k (10k?) [has internal pull-up at start-up per page 88 of SAML21 foc, 15.6.2]
+https://learn.adafruit.com/programming-an-m0-using-an-arduino
+- 100k on SWDIO https://www.microchip.com/webdoc/GUID-B2CE0E6C-70BF-42CF-B0CF-6705800FC877/index.html?GUID-18A97AEC-DA07-42C5-A2DA-478F7092C442
+
+***consider through-hole 10k thermistor
+***add /MR reset to allow toggle of 18.8V rail
+
+1/12/19 lots of issues determining how to program SAML21 vs the ATTINY85 in the last project
+need special debugger, beware educaton license limitations.  Was assuming everything could be done over USB - but only true after first flash
+
+solder stencil tutorial https://www.meatandnetworking.com/tutorials/creating-svg-files-worth-of-creating-solder-stencils-from-kicad/

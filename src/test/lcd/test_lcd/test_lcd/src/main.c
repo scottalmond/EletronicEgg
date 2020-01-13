@@ -48,6 +48,8 @@
 
 //#define F_CPU 4000000UL
 
+//8 MHz default clock
+
 void setOutput(int pin_id);
 void digitalWrite(int pin_id,bool is_HIGH,bool is_high_impedance);
 
@@ -59,6 +61,45 @@ const int PIN_LIST[]={EXT1_PIN_3,EXT1_PIN_5,EXT1_PIN_7,EXT1_PIN_9,EXT1_PIN_4,EXT
 //const int d=1;
 const int pattern[]={0,1,0,0,0,0,1,0,0,1,1,0,
 					 0,0,1,1,d,1,1,1,d,1,1,1};
+
+const unsigned short alpha_numeric[]={//MSB .. dp, a, b, .. f, g .. LSB
+	0x7E, //0
+	0x30, //1
+	0x6D, //2
+	0x79, //3
+	0x33, //4
+	0x5B, //5
+	0x5F, //6
+	0x70, //7
+	0x7F, //8
+	0x7B, //9
+	0x77, //A
+	0x1F, //b
+	0x0D, //c
+	0x3D, //d
+	0x4F, //E
+	0x47, //F
+	0x7B, //g
+	0x17, //h
+	0x10, //i
+	0x3C, //J
+	0x37, //K
+	0x0E, //L
+	0x55, //m
+	0x15, //n
+	0x1D, //o
+	0x67, //P
+	0x73, //q
+	0x05, //r
+	0x5B, //S
+	0x0F, //t
+	0x1C, //u
+	0x23, //v
+	0x2B, //w
+	0x25, //x
+	0x3B, //Y
+	0x6D  //Z
+};
 
 int COM_INDEX=11;
 //int COM_INDEX2=11;
@@ -72,7 +113,7 @@ int main (void)
 
 	/* Insert application code here, after the board has been initialized. */
 
-	int delay_period_ms=500;
+	int delay_period_ms=20;
 	
 	for(int iter=0;iter<PIN_COUNT;iter++) setOutput(PIN_LIST[iter]);
 
@@ -154,22 +195,17 @@ int main (void)
 	//}
 }
 
-/*void writeText(char* arr)
+void displayText(char* arr)
 {
 	
 }
 
-void writeChar(char letter,bool is_decimal,int position)
+void displayChar(char letter,bool is_decimal,int position)
 {
-	
+	unsigned short segment_byte=0x00;//dp, a-f; [SPACE]
+	if()
+	if((letter-'0')<10) return 
 }
-
-short isON(char letter)
-{
-	if(letter=='8') return bool[]{1,1,1,1,1,1,1,0};
-	if(letter=='1') return bool[]{1,1,1,1,1,1,1,0};
-	return bool[]{0,0,0,0,0,0,0};
-}*/
 
 void setOutput(int pin_id){
 	struct port_config pin_conf;

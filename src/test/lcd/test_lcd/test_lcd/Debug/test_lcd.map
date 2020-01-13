@@ -2531,6 +2531,8 @@ Discarded input sections
                 0x00000000        0x4 src/main.o
  .rodata.PIN_COUNT
                 0x00000000        0x4 src/main.o
+ .rodata.alpha_numeric
+                0x00000000       0x4a src/main.o
  .debug_macro   0x00000000      0x8b6 src/main.o
  .debug_macro   0x00000000      0x16d src/main.o
  .debug_macro   0x00000000      0x708 src/main.o
@@ -3043,7 +3045,7 @@ OUTPUT(test_lcd.elf elf32-littlearm)
  .comment       0x00000059       0x5a src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
  .comment       0x00000059       0x5a src/main.o
 
-.debug_info     0x00000000    0x1019a
+.debug_info     0x00000000    0x101c6
  .debug_info    0x00000000      0xb8d src/ASF/common2/services/delay/sam0/systick_counter.o
  .debug_info    0x00000b8d      0xb05 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
  .debug_info    0x00001692     0x12ad src/ASF/sam0/boards/samd21_xplained_pro/board_init.o
@@ -3053,7 +3055,7 @@ OUTPUT(test_lcd.elf elf32-littlearm)
  .debug_info    0x00009266     0x13f3 src/ASF/sam0/drivers/system/pinmux/pinmux.o
  .debug_info    0x0000a659      0xa73 src/ASF/sam0/drivers/system/system.o
  .debug_info    0x0000b0cc     0x3a3f src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
- .debug_info    0x0000eb0b     0x168f src/main.o
+ .debug_info    0x0000eb0b     0x16bb src/main.o
 
 .debug_abbrev   0x00000000     0x1d79
  .debug_abbrev  0x00000000      0x24b src/ASF/common2/services/delay/sam0/systick_counter.o
@@ -3255,7 +3257,7 @@ OUTPUT(test_lcd.elf elf32-littlearm)
  .debug_line    0x000051e1      0x669 src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
  .debug_line    0x0000584a      0xc43 src/main.o
 
-.debug_str      0x00000000    0x8bb69
+.debug_str      0x00000000    0x8bb77
  .debug_str     0x00000000    0x83628 src/ASF/common2/services/delay/sam0/systick_counter.o
                               0x83ec7 (size before relaxing)
  .debug_str     0x00083628       0x94 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
@@ -3274,8 +3276,8 @@ OUTPUT(test_lcd.elf elf32-littlearm)
                               0x83d94 (size before relaxing)
  .debug_str     0x0008aa29      0xf3d src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
                               0x6edbb (size before relaxing)
- .debug_str     0x0008b966      0x203 src/main.o
-                              0x880b6 (size before relaxing)
+ .debug_str     0x0008b966      0x211 src/main.o
+                              0x880c4 (size before relaxing)
 
 .debug_frame    0x00000000      0x564
  .debug_frame   0x00000000       0x64 src/ASF/common2/services/delay/sam0/systick_counter.o
@@ -3392,6 +3394,7 @@ _system_dummy_init                                src/ASF/sam0/drivers/system/sy
 _system_events_init                               src/ASF/sam0/drivers/system/system.o
 _system_extint_init                               src/ASF/sam0/drivers/system/system.o
 _szero                                            src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
+alpha_numeric                                     src/main.o
 atexit                                            c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/crt0.o
 board_init                                        src/ASF/sam0/boards/samd21_xplained_pro/board_init.o
 cpu_irq_enter_critical                            src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
