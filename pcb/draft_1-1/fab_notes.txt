@@ -26,3 +26,6 @@ https://learn.adafruit.com/programming-an-m0-using-an-arduino
 need special debugger, beware educaton license limitations.  Was assuming everything could be done over USB - but only true after first flash
 
 solder stencil tutorial https://www.meatandnetworking.com/tutorials/creating-svg-files-worth-of-creating-solder-stencils-from-kicad/
+
+voltera stencil
+https://www.voltera.io/docs/export/kicad/
