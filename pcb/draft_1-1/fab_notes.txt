@@ -29,3 +29,18 @@ solder stencil tutorial https://www.meatandnetworking.com/tutorials/creating-svg
 
 voltera stencil
 https://www.voltera.io/docs/export/kicad/
+
+***add compressed air and flux to parts list
+
+***typo on "electronic" missing 'c'
+
+- 1/16/20
+
+need BOM print out for CCA fab, part placement
+0402 heats up quickly during rework (bkth ends of part)
+desire refactot with 0805 since 0402 are challenging to work with
+not all parts (0805) lie perfectly flat
+issue with gettting solder out of voltera for larger pcb pads (hot/dry solder?)
+observe short (?) under usb header
+PMIC has no bond (solder reflow point is higher than default Votera temperature)
+reworked other issues by hand (incomplete passive bonding, SAML lead bridging)
