@@ -44,3 +44,9 @@ issue with gettting solder out of voltera for larger pcb pads (hot/dry solder?)
 observe short (?) under usb header
 PMIC has no bond (solder reflow point is higher than default Votera temperature)
 reworked other issues by hand (incomplete passive bonding, SAML lead bridging)
+
+- 1/17/20
+***1.8V and 3.3V are shorted
+***add test point for every voltage, i2c
+
+***add place for debug led (no-pop in final model?)

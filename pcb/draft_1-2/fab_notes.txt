@@ -1,0 +1,24 @@
+--1/30/20
+as-delivered
+width of 3-segment display is wrong, will need to bend all leads to fit
+IS 22.86 mm (0.9")
+x ***SHOULD BE just under 1.00" 
+
+require stand-alone programming pins
+https://www.avdweb.nl/arduino/samd21/samd21-programmer
+***SHOULD BE ICE header
+- pull-up on SWCLK pin 1k (10k?) [has internal pull-up at start-up per page 88 of SAML21 foc, 15.6.2]
+https://learn.adafruit.com/programming-an-m0-using-an-arduino
+- 100k on SWDIO https://www.microchip.com/webdoc/GUID-B2CE0E6C-70BF-42CF-B0CF-6705800FC877/index.html?GUID-18A97AEC-DA07-42C5-A2DA-478F7092C442
+
+***consider through-hole 10k thermistor
+***add /MR reset to allow toggle of 1.8V rail
+
+***add compressed air and flux to parts list [why air...?]
+
+x ***typo on "electronic" missing 'c'
+
+x ***1.8V and 3.3V are shorted
+***add test point for every voltage, i2c
+
+***add place for debug led (no-pop in final model?)
