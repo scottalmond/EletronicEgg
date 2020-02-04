@@ -12,13 +12,34 @@ https://learn.adafruit.com/programming-an-m0-using-an-arduino
 - 100k on SWDIO https://www.microchip.com/webdoc/GUID-B2CE0E6C-70BF-42CF-B0CF-6705800FC877/index.html?GUID-18A97AEC-DA07-42C5-A2DA-478F7092C442
 
 ***consider through-hole 10k thermistor
-***add /MR reset to allow toggle of 1.8V rail
+x ***add /MR reset to allow toggle of 1.8V rail
 
-***add compressed air and flux to parts list [why air...?]
+x ***add compressed air and flux to parts list [why air...?]
 
 x ***typo on "electronic" missing 'c'
 
 x ***1.8V and 3.3V are shorted
-***add test point for every voltage, i2c
+x ***add test point for every voltage, i2c.  5V, 3V3, 1V8, GND, SDA, SCL
 
 ***add place for debug led (no-pop in final model?)
+
+ice header
+https://www.segger.com/products/debug-probes/j-link/accessories/adapters/6-pin-needle-adapter/
+https://www.segger.com/fileadmin/images/products/J-Link/Accessory/Adapters/J-Link-6-Pin-Adapter-Pinout.png
+https://www.segger.com/fileadmin/images/products/J-Link/Accessory/Adapters/J-Link-6-Pin-Adapter-Schematic.png
+https://forum.arduino.cc/index.php?topic=442133.0
+
+*** review power connections to saml21 vs checklist
+
+*** review v1.1 mock-up functionality
+
+*** 2.2 --> 10uF?
+
+glue pcbs together for badge
+ cyanoacrylate glue
+https://hackaday.io/project/168314-pcb-badge-holder
+
+*** will 100 mil header fit adjacent to 3 segment screen?
+*** verify each silkscreen identified is exactly next to associated pad, not one over
+
+get wire cutters that sever really close to onee edge for flat finish

@@ -1524,7 +1524,7 @@
     )
   )
 
-  (gr_text "SWDIO   VREF \nSWCLK   ~RESET\n  NC   GND" (at 138.303 90.678) (layer B.SilkS) (tstamp 5E39B8E4)
+  (gr_text "SWDIO  VREF \nSWCLK  ~RESET\n  NC  GND" (at 138.303 90.678) (layer B.SilkS) (tstamp 5E39B8E4)
     (effects (font (size 0.762 0.762) (thickness 0.127)) (justify mirror))
   )
   (gr_text "ScottAlmond\nElectronicEgg\nGithub" (at 149.86 95.631 90) (layer F.SilkS) (tstamp 5E38E7CF)
