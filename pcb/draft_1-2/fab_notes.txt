@@ -43,3 +43,7 @@ https://hackaday.io/project/168314-pcb-badge-holder
 *** verify each silkscreen identified is exactly next to associated pad, not one over
 
 get wire cutters that sever really close to onee edge for flat finish
+
+*** straighten test points
+
+buy extra batty bq25155 ICs
