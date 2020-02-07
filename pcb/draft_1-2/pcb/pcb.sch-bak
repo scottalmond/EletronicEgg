@@ -692,11 +692,11 @@ Wire Wire Line
 	8500 1250 9100 1250
 Wire Wire Line
 	8900 2000 9450 2000
-Text GLabel 7500 3200 0    50   Input ~ 0
+Text GLabel 7500 3000 0    50   Input ~ 0
 INT1
 Text GLabel 7500 3100 0    50   Input ~ 0
 INT2
-Text GLabel 7500 3000 0    50   Input ~ 0
+Text GLabel 7500 3200 0    50   Input ~ 0
 INT3
 Text GLabel 10050 5300 3    50   Input ~ 0
 SDA

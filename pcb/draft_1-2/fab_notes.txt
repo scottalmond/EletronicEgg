@@ -1,4 +1,7 @@
 --1/30/20
+v1.2 dims: 1.16 x 1.55", 29.46 x 39.37 mm
+AllPCB
+
 as-delivered
 width of 3-segment display is wrong, will need to bend all leads to fit
 IS 22.86 mm (0.9")
@@ -56,6 +59,7 @@ x *** avoid vias under silkscren as it makes text hard to read
 
 *** buy digikey parts including through-hole thermistor
 *** and close wire cutters
+1.3" lead length-ish
 
 is useful to put test point pads directly opposite foot prints used by ICs (no overlap of vias/traces)
 

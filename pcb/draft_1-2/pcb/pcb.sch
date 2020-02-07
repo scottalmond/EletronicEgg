@@ -706,7 +706,7 @@ Wire Wire Line
 	9400 5950 9400 5900
 Wire Wire Line
 	2000 5300 2000 5350
-Text Notes 9850 6000 0    50   ~ 0
+Text Notes 9900 5750 0    50   ~ 0
 SERCOM5 I2C\nPAD[0] SDA, PAD[1] SCL
 Text Label 7550 3300 0    50   ~ 0
 1A

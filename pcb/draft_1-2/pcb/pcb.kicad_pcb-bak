@@ -1308,7 +1308,7 @@
   (module USB4110-GF-A:GCT_USB4110-GF-A (layer F.Cu) (tedit 5E0A9348) (tstamp 5E0AEA18)
     (at 141.605 93.853 180)
     (path /5E09DDDF)
-    (fp_text reference J1 (at -3.429 5.334) (layer F.SilkS)
+    (fp_text reference J1 (at 0 -2.794) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_text value USB4110-GF-A (at 5.56 7.265) (layer F.Fab)
