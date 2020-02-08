@@ -73,4 +73,5 @@ PayPal balance
 $24.00 including shipping
 ETA 2/15/20
 
-*** take pngs of cad
+x *** take pngs of cad
+x *** bom xlsx to csv
