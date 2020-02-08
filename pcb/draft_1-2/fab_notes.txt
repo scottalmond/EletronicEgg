@@ -52,15 +52,15 @@ x *** review bq25155, determine what caps are used on dev board
 
 x *** avoid vias under silkscren as it makes text hard to read
 
-***buy flux in next order
+x ***buy flux in next order
 
-*** buy digikey parts including through-hole thermistor
-*** and close wire cutters
+x *** buy digikey parts including through-hole thermistor
+x *** and close wire cutters
 1.3" lead length-ish
 
 is useful to put test point pads directly opposite foot prints used by ICs (no overlap of vias/traces)
 
-*** buy clip leads for bq25155 breadboarding
+x *** buy clip leads for bq25155 breadboarding
 
 2/7/20
 
@@ -73,3 +73,4 @@ PayPal balance
 $24.00 including shipping
 ETA 2/15/20
 
+*** take pngs of cad
