@@ -97,3 +97,5 @@ plan to recharge once a year
 
 battery, uP, accel, screen, current limit resistors --> ~$25 part cost
   could save ~4 bucks by getting H3LIS100DL accel instead with range limited to 100g's
+
+add LED for status
