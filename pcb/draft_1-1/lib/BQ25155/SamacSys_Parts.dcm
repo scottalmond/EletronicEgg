@@ -1,0 +1,15 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP NE555DR
+D Single Precision Timer
+K
+F http://www.ti.com/lit/ds/symlink/ne555.pdf
+$ENDCMP
+#
+$CMP BQ21061YFPR
+D 500-mA 1-cell linear charger with 10-nA ship mode, power-path, regulated system voltage and LDO</
+K
+F https://www.ti.com/lit/gpn/BQ21061
+$ENDCMP
+#
+#End Doc Library

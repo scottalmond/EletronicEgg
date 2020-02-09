@@ -1,0 +1,77 @@
+--1/30/20
+as-delivered
+width of 3-segment display is wrong, will need to bend all leads to fit
+IS 22.86 mm (0.9")
+x ***SHOULD BE just under 1.00" 
+
+require stand-alone programming pins
+https://www.avdweb.nl/arduino/samd21/samd21-programmer
+x ***SHOULD BE ICE header
+- pull-up on SWCLK pin 1k (10k?) [has internal pull-up at start-up per page 88 of SAML21 foc, 15.6.2]
+https://learn.adafruit.com/programming-an-m0-using-an-arduino
+- 100k on SWDIO https://www.microchip.com/webdoc/GUID-B2CE0E6C-70BF-42CF-B0CF-6705800FC877/index.html?GUID-18A97AEC-DA07-42C5-A2DA-478F7092C442
+
+x ***consider through-hole 10k thermistor
+x ***add /MR reset to allow toggle of 1.8V rail
+
+x ***add compressed air and flux to parts list [why air...?]
+
+x ***typo on "electronic" missing 'c'
+
+x ***1.8V and 3.3V are shorted
+x ***add test point for every voltage, i2c.  5V, 3V3, 1V8, GND, SDA, SCL
+
+x ***add place for debug led (no-pop in final model?)
+
+ice header
+https://www.segger.com/products/debug-probes/j-link/accessories/adapters/6-pin-needle-adapter/
+https://www.segger.com/fileadmin/images/products/J-Link/Accessory/Adapters/J-Link-6-Pin-Adapter-Pinout.png
+https://www.segger.com/fileadmin/images/products/J-Link/Accessory/Adapters/J-Link-6-Pin-Adapter-Schematic.png
+https://forum.arduino.cc/index.php?topic=442133.0
+
+x *** review power connections to saml21 vs checklist
+
+x *** review v1.1 mock-up functionality
+
+x *** 2.2 --> 10uF?
+
+option to glue pcbs together for badge
+ cyanoacrylate glue
+https://hackaday.io/project/168314-pcb-badge-holder
+
+x *** will 100 mil header fit adjacent to 3 segment screen?
+x *** verify each silkscreen identified is exactly next to associated pad, not one over
+
+get wire cutters that sever really close to onee edge for flat finish
+
+x *** straighten test points
+
+buy extra batty bq25155 ICs
+
+x *** review bq25155, determine what caps are used on dev board
+
+x *** avoid vias under silkscren as it makes text hard to read
+
+x ***buy flux in next order
+
+x *** buy digikey parts including through-hole thermistor
+x *** and close wire cutters
+1.3" lead length-ish
+
+is useful to put test point pads directly opposite foot prints used by ICs (no overlap of vias/traces)
+
+x *** buy clip leads for bq25155 breadboarding
+
+2/7/20
+
+v1.2 dims: 1.16 x 1.55", 29.46 x 39.37 mm [30 x 40 mm]
+AllPCB
+set to IS 6mil spacing (default WAS 8)
+set min hole size to 0.3mm since there was no impact on cost
+H44159AS5G10 2/8/20
+PayPal balance
+$24.00 including shipping
+ETA 2/15/20
+
+x *** take pngs of cad
+x *** bom xlsx to csv
