@@ -218,5 +218,51 @@ note: first time doing an i2c read on a SMT board
 
 want >2.16V on high-g accel
 
+!!! bq25155 i2c disabled in low power mode
+
+did ALLPCB remove the values on the TP markers?
+looking for TP5 to change
+
+first attempt NOT successful to write LDO disabled.  Try different methods...
+
+*** double-check bq25155 caps against table 64 recommended values
+
+blue SDA TP8
+green SCL TP7
+
+*** buy 2 channel oscope and/or multi high-impednace digital oscope
+
+re-soldered pin 48 until top of pin read 1.8V
+observed 1.7V/GND toggling on pin 1 of screen (PA14) (IS) that was NOT seen previously (WAS)
+confirms theory about presence of manufacturing defects: 3 of the VDDIO pins apparently were NOT making contact with PCB
+still do NOT see toggling on PB22/PB23 LED
+
+re-factored code to use transfer for i2c
+https://www.avrfreaks.net/forum/i2cmsynccmdwrite-confusion
+TP5 is GND
+
+allow to settle OFF for a while, still over low voltages on TPR 4, 5 after turn-ON
+
+TP2 5.17
+tp4 4.52
+tp5 1.78
+tp6 1.78
+
+set reg 0x36 to 0x03 (disable PMID)
+
+TP2 5.17
+tp4 0.43 and slowly discharging
+tp5 0.18 and slowly discharging
+tp6 1.77
+
+set reg 0x36 to 0x00 (enable PMID)
+
+TP2 5.17
+tp4 4.52
+tp5 1.77
+tp6 1.77
+
+
+
 
 

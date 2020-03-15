@@ -238,7 +238,7 @@ void system_init(void)
 		for(int iter=0;iter<2;iter++)
 		{
 			gpio_set_pin_level(PB22,iter>0);
-			gpio_set_pin_level(PB23,iter>0);
+			gpio_set_pin_level(PB23,iter<1);
 			gpio_set_pin_level(PB30,iter>0);
 			gpio_set_pin_level(PB31,iter>0);
 			gpio_set_pin_level(PA14,iter>0);
