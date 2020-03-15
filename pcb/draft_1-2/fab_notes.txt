@@ -75,3 +75,112 @@ ETA 2/15/20
 
 x *** take pngs of cad
 x *** bom xlsx to csv
+*** assign names to traces
+*** usb test points, all spi
+*** buy solder head with hose shoe tip
+*** loopback geological identifier
+
+-- 2/16/20
+
+stencil 2.315x2.902
+3 mil Polyimide
+0.75" boarder (min available?)
+$5 minimum order
+$2.95 shipping domestic, 2-7 days
+https://www.oshstencils.com
+
+-- 2/23/20
+
+***test points missing labels "5V0", etc, only list "TP7", etc (even though they appear in CAD view...)
+
+-- 3/1/20
+
+as-assembled
+3V0 input from battery
+tp1 gnd 0.00
+tp3 !mp 2.62
+tp8 sda 0.00
+tp7 scl 0.00
+
+tp2 5V0 0.00
+tp4 PMID 0.00
+tp5 3V3 0.06
+tp6 1V8 0.00 expect 1.8V
+
+tried tying !MR to GND, but observe no distinct change in 1V8.  Unclear is !MP remains low after toggle...
+
+usb in
+tp1 gnd 0.00
+tp3 !mp 0.00
+tp8 sda 1.66
+tp7 scl 1.78
+
+tp2 5V0 5.18
+tp4 PMID 4.53
+tp5 3V3 1.79
+tp6 1V8 1.79
+appears microprocessor is reciving 1V8 power (3V3 being clamped low?)
+
+held !mr for 8 seconds with 3.7V on vbat:
+tp1 gnd 0.00
+tp3 !mp 3.27
+tp8 sda 1.67
+tp7 scl 1.78
+
+tp2 5V0 0.00
+tp4 PMID 3.70
+tp5 3V3 1.79
+tp6 1V8 1.79
+
+current draw...
+
+few nA in ship mode (nosie on measurements)
+unable to remain OUT of ship mode with current monitor in circuit, but works as expected when current monitor is REMOVED (tying !MR low HOLDs OUT of ship mode)
+even setting current monitor to uA range specifically still seems to have issue. Observe 3.69V with current monitor at UUT, 3.70V WITHOUT current monitor, so not a voltage drop issue...
+in the realm of 300-500 uA in !MR reset
+
+VLDO_4:0 - LDO output default to ENABLED and 1.8V
+
+Project:
+delay
+PB22 and PB23 as output
+USB Device CDC ACM
+I2C SERCOM5, SCL PB31, SDA PB30
+[will need interrupts...]
+set processor to saml21j16b
+
+*** query battery voltage when first connected to USB
+- 3/2/20
+rework saml, reflow processor
+
+3.7V on battery, hold !MP low 5sec
+tp1 0.00V
+tp3 skip
+tp8 1.76V
+tp7 1.77V
+tp2 0.00
+tp4 3.70
+tp5 1.79
+tp6 1.79
+
+ICE
+GND 3, 5, 9
+VTG/vref 1
+nRST 10
+SWDIO 2
+SWDCLK 4
+
+flashed blink program, but NO illumination
+voltage on LED ~0.21V
+unable to observe toggling voltages on several pins attempted PA14, PA23, PB23, PB22
+
+3/5/20
+
+*** add section to write in serial # on silkscreen
+usb shells out of stock...
+
+3/14/20
+
+experiment to drive pins low that are externally weakly pulled high
+
+successfully toggled PB30: 0V LOW 1 second, 1.8V HIGH 1 second
