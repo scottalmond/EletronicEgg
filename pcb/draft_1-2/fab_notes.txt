@@ -184,3 +184,39 @@ usb shells out of stock...
 experiment to drive pins low that are externally weakly pulled high
 
 successfully toggled PB30: 0V LOW 1 second, 1.8V HIGH 1 second
+
+plan: re-attempt to toggle other pins, using PB30 as known-good debug
+plan: try to get serial over usb
+
+ATSAML21J16B
+
+hmm, no test point on usb serial communication...
+are pins not pulled HIGH when set as a "digital output" by atmel start project?
+seeingly only PB30 and PB31 working so far...
+could talk with BQ25155 if there was a serial output...
+
+even with pull, PA14 still appears LOW
+
+plan: can I get BQ25155 to output >1.8V?
+
+*** consider for the future: processor has analog measure of VDD input: ensure NOT 0V to ensure processor is bonded to PCB properly
+
+probing pin 48: pad is 1.8V, but processor pin ~0.1V
+probably not getting VDDIO delivered properly somehow...
+  design flaw or manufacturing flaw?
+  why PB22 and PB23 non-responsive despite being on same bank as PB30 and PB31?
+
+measuring internal voltage refernece to determine VDDIN...?
+
+3/15/20
+
+what is it about Atmel Studio and Atmel projects on Github that no one comments their code?  how to I2C @ device, register?
+https://github.com/tinic/Pendant2019/blob/master/sdd1306.cpp
+
+succesfully read 0x53 from reg 0x6F
+note: first time doing an i2c read on a SMT board
+
+want >2.16V on high-g accel
+
+
+
