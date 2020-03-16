@@ -232,7 +232,7 @@ green SCL TP7
 
 *** buy 2 channel oscope and/or multi high-impednace digital oscope
 
-re-soldered pin 48 until top of pin read 1.8V
+re-soldered pin 48 until top of pin read 1.8V (discovere applying pressure to pin altered whetehr 1.8V was being delivered or not)
 observed 1.7V/GND toggling on pin 1 of screen (PA14) (IS) that was NOT seen previously (WAS)
 confirms theory about presence of manufacturing defects: 3 of the VDDIO pins apparently were NOT making contact with PCB
 still do NOT see toggling on PB22/PB23 LED
@@ -257,10 +257,57 @@ tp6 1.77
 
 set reg 0x36 to 0x00 (enable PMID)
 
-TP2 5.17
-tp4 4.52
-tp5 1.77
-tp6 1.77
+TP2 5.17 5V0
+tp4 4.52 PMID
+tp5 1.77 3V3
+tp6 1.77 1V8
+
+using a combination of troubleshooting:
+- is issue from hardware (bad assembly), design (bad routing/layout or understanding of the pdf's), or bad software (don't understand IDE)
+- use tools available (single channel oscope), but find NO toggling on clock line despite infinite loop.  Find that reading using the digital inputs terminated the operation of the IC (troubleshooting tool introduces a fault condition)
+- analog oscope shows some oscillations, but hard to line up between two channels when can only capture one at a time
+- use solution online for the same problem I have, works to fix software issue
+
+-- disable LDO
+write 0x30 to 0x1D
+
+TP2 5V0  5.16
+tp4 PMID 4.52
+tp5 3V3  0.01 LDO
+tp6 1V8  1.77
+
+-- set LDO to 2.3V
+
+TP2 5V0  5.16
+tp4 PMID 4.51
+tp5 3V3  2.27 LDO
+tp6 1V8  1.77
+
+-- read who am i from accel
+
+*** add I2C addresses to schematic for each device (0x6F for PMIC, 0x18 for accel)
+  because connection of external pins can impact address, ref the accel address LSB dependence
+
+device 0x18
+reg 0x0F
+value read: 0x32
+
+*** consider 50 mil header for easier SWD interfacing
+
+plan: write over i2c to accel
+plan: usb serial
+plan: usb programming
+  plan: README.txt appears when plugging in as a mass storage device
+  instructions to install Arduino IDE for terminal, then set terminal to 115200 baud
+when charging: alternate between  "Chg" with osillating period, and a percent full (0-100), or a countdown (x minutes)
+
+-- write with effect
+
+reg 0x30 (INT1 config)
+value 0x80 (default 0x00)
+read back: 0x80, so read/write appears to be working to accel
+
+
 
 
 

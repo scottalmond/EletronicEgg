@@ -3,37 +3,37 @@ My Project.elf:     file format elf32-littlearm
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000dbc  00000000  00000000  00010000  2**2
+  0 .text         00000e44  00000000  00000000  00010000  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .relocate     00000000  20000000  20000000  00010dbc  2**0
+  1 .relocate     00000000  20000000  20000000  00010e44  2**0
                   CONTENTS
-  2 .lpram        00000000  30000000  30000000  00010dbc  2**0
+  2 .lpram        00000000  30000000  30000000  00010e44  2**0
                   CONTENTS
   3 .bss          00000040  20000000  20000000  00020000  2**2
                   ALLOC
   4 .stack        00000800  20000040  20000040  00020000  2**0
                   ALLOC
-  5 .ARM.attributes 00000028  00000000  00000000  00010dbc  2**0
+  5 .ARM.attributes 00000028  00000000  00000000  00010e44  2**0
                   CONTENTS, READONLY
-  6 .comment      00000059  00000000  00000000  00010de4  2**0
+  6 .comment      00000059  00000000  00000000  00010e6c  2**0
                   CONTENTS, READONLY
-  7 .debug_info   00014931  00000000  00000000  00010e3d  2**0
+  7 .debug_info   00014a8d  00000000  00000000  00010ec5  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_abbrev 00001f81  00000000  00000000  0002576e  2**0
+  8 .debug_abbrev 00001f81  00000000  00000000  00025952  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_loc    000090e1  00000000  00000000  000276ef  2**0
+  9 .debug_loc    000090e1  00000000  00000000  000278d3  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_aranges 000007f8  00000000  00000000  000307d0  2**0
+ 10 .debug_aranges 000007f8  00000000  00000000  000309b4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000c68  00000000  00000000  00030fc8  2**0
+ 11 .debug_ranges 00000c68  00000000  00000000  000311ac  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_macro  00019f1b  00000000  00000000  00031c30  2**0
+ 12 .debug_macro  00019f1b  00000000  00000000  00031e14  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_line   0000c93a  00000000  00000000  0004bb4b  2**0
+ 13 .debug_line   0000c999  00000000  00000000  0004bd2f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    0008d55a  00000000  00000000  00058485  2**0
+ 14 .debug_str    0008d5c7  00000000  00000000  000586c8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_frame  000013ac  00000000  00000000  000e59e0  2**2
+ 15 .debug_frame  000013ac  00000000  00000000  000e5c90  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -68,7 +68,7 @@ Disassembly of section .text:
   ce:	bd10      	pop	{r4, pc}
   d0:	20000000 	.word	0x20000000
   d4:	00000000 	.word	0x00000000
-  d8:	00000dbc 	.word	0x00000dbc
+  d8:	00000e44 	.word	0x00000e44
 
 000000dc <frame_dummy>:
   dc:	4b08      	ldr	r3, [pc, #32]	; (100 <frame_dummy+0x24>)
@@ -91,8 +91,8 @@ Disassembly of section .text:
   fe:	e7f9      	b.n	f4 <frame_dummy+0x18>
  100:	00000000 	.word	0x00000000
  104:	20000004 	.word	0x20000004
- 108:	00000dbc 	.word	0x00000dbc
- 10c:	00000dbc 	.word	0x00000dbc
+ 108:	00000e44 	.word	0x00000e44
+ 10c:	00000e44 	.word	0x00000e44
  110:	00000000 	.word	0x00000000
 
 00000114 <atmel_start_init>:
@@ -187,7 +187,7 @@ void Dummy_Handler(void)
  18a:	4798      	blx	r3
  18c:	e7fe      	b.n	18c <Reset_Handler+0x68>
  18e:	46c0      	nop			; (mov r8, r8)
- 190:	00000dbc 	.word	0x00000dbc
+ 190:	00000e44 	.word	0x00000e44
  194:	20000000 	.word	0x20000000
  198:	20000000 	.word	0x20000000
  19c:	20000004 	.word	0x20000004
@@ -196,7 +196,7 @@ void Dummy_Handler(void)
  1a8:	e000ed00 	.word	0xe000ed00
  1ac:	00000000 	.word	0x00000000
  1b0:	41004000 	.word	0x41004000
- 1b4:	00000d05 	.word	0x00000d05
+ 1b4:	00000d8d 	.word	0x00000d8d
  1b8:	00000c71 	.word	0x00000c71
 
 000001bc <I2C_0_PORT_init>:
@@ -542,7 +542,7 @@ int32_t i2c_m_sync_init(struct i2c_m_sync_desc *i2c, void *hw)
 }
  344:	bd70      	pop	{r4, r5, r6, pc}
  346:	46c0      	nop			; (mov r8, r8)
- 348:	00000d4c 	.word	0x00000d4c
+ 348:	00000dd4 	.word	0x00000dd4
  34c:	000003d9 	.word	0x000003d9
  350:	000005f1 	.word	0x000005f1
  354:	000002ed 	.word	0x000002ed
@@ -1012,7 +1012,7 @@ static int8_t _get_i2cm_index(const void *const hw)
  502:	bd10      	pop	{r4, pc}
  504:	43000400 	.word	0x43000400
  508:	0000039b 	.word	0x0000039b
- 50c:	00000d80 	.word	0x00000d80
+ 50c:	00000e08 	.word	0x00000e08
  510:	000003d9 	.word	0x000003d9
 
 00000514 <_i2c_m_sync_init_impl>:
@@ -1197,7 +1197,7 @@ static inline void hri_sercomi2cm_write_ADDR_HS_bit(const void *const hw, bool v
  5e0:	bd70      	pop	{r4, r5, r6, pc}
  5e2:	46c0      	nop			; (mov r8, r8)
  5e4:	000004e1 	.word	0x000004e1
- 5e8:	00000d68 	.word	0x00000d68
+ 5e8:	00000df0 	.word	0x00000df0
  5ec:	ffffbfff 	.word	0xffffbfff
 
 000005f0 <_i2c_m_sync_init>:
@@ -1223,7 +1223,7 @@ static inline void hri_sercomi2cm_write_ADDR_HS_bit(const void *const hw, bool v
 }
  60e:	bd70      	pop	{r4, r5, r6, pc}
  610:	0000050a 	.word	0x0000050a
- 614:	00000d80 	.word	0x00000d80
+ 614:	00000e08 	.word	0x00000e08
  618:	000003d9 	.word	0x000003d9
  61c:	00000515 	.word	0x00000515
 
@@ -1313,7 +1313,7 @@ static inline void hri_sercomi2cm_clear_STATUS_reg(const void *const hw, hri_ser
 	return _i2c_m_enable_implementation(i2c_dev->hw);
  68c:	e7fb      	b.n	686 <_i2c_m_sync_enable+0x66>
  68e:	46c0      	nop			; (mov r8, r8)
- 690:	00000d80 	.word	0x00000d80
+ 690:	00000e08 	.word	0x00000e08
  694:	00000527 	.word	0x00000527
  698:	000003d9 	.word	0x000003d9
  69c:	000005f7 	.word	0x000005f7
@@ -1796,7 +1796,7 @@ static inline void hri_sercomi2cm_clear_STATUS_reg(const void *const hw, hri_ser
  98a:	421a      	tst	r2, r3
  98c:	d1fc      	bne.n	988 <STACK_SIZE+0x188>
  98e:	e0b6      	b.n	afe <STACK_SIZE+0x2fe>
- 990:	00000d80 	.word	0x00000d80
+ 990:	00000e08 	.word	0x00000e08
  994:	000005c2 	.word	0x000005c2
  998:	000003d9 	.word	0x000003d9
  99c:	000005c3 	.word	0x000005c3
@@ -2290,45 +2290,45 @@ int32_t bq25155_dev_write_reg(struct i2c_m_sync_desc *const i2c, uint8_t reg_add
 int main(void)
 {
  c70:	b5f0      	push	{r4, r5, r6, r7, lr}
- c72:	46d6      	mov	lr, sl
- c74:	464f      	mov	r7, r9
- c76:	4646      	mov	r6, r8
- c78:	b5c0      	push	{r6, r7, lr}
- c7a:	b082      	sub	sp, #8
+ c72:	46de      	mov	lr, fp
+ c74:	4657      	mov	r7, sl
+ c76:	464e      	mov	r6, r9
+ c78:	4645      	mov	r5, r8
+ c7a:	b5e0      	push	{r5, r6, r7, lr}
+ c7c:	b083      	sub	sp, #12
 	/* Initializes MCU, drivers and middleware */
 	atmel_start_init();
- c7c:	4b19      	ldr	r3, [pc, #100]	; (ce4 <main+0x74>)
- c7e:	4798      	blx	r3
-	/* Replace with your application code */
-	while (1) {
-			struct io_descriptor *I2C_0_io;
-
-			uint8_t reg_id_addr = 0x6F;
+ c7e:	4b3b      	ldr	r3, [pc, #236]	; (d6c <main+0xfc>)
+ c80:	4798      	blx	r3
 			uint8_t reg_id_value = 0x00; //expect 0x35 on reset (53 dec)
- c80:	466b      	mov	r3, sp
- c82:	1c9f      	adds	r7, r3, #2
- c84:	2300      	movs	r3, #0
- c86:	4699      	mov	r9, r3
- c88:	469a      	mov	sl, r3
- c8a:	4653      	mov	r3, sl
- c8c:	703b      	strb	r3, [r7, #0]
+
+			int16_t address_BQ25155=0x6B;
+			int16_t address_H3LIS200DL=0x18;
 
 			i2c_m_sync_get_io_descriptor(&I2C_0, &I2C_0_io);
- c8e:	4c16      	ldr	r4, [pc, #88]	; (ce8 <main+0x78>)
+ c82:	4b3b      	ldr	r3, [pc, #236]	; (d70 <main+0x100>)
+ c84:	469b      	mov	fp, r3
+			uint8_t reg_id_value = 0x00; //expect 0x35 on reset (53 dec)
+ c86:	2300      	movs	r3, #0
+ c88:	4699      	mov	r9, r3
+ c8a:	466b      	mov	r3, sp
+ c8c:	464a      	mov	r2, r9
+ c8e:	701a      	strb	r2, [r3, #0]
+			i2c_m_sync_get_io_descriptor(&I2C_0, &I2C_0_io);
  c90:	a901      	add	r1, sp, #4
- c92:	0020      	movs	r0, r4
- c94:	4b15      	ldr	r3, [pc, #84]	; (cec <main+0x7c>)
- c96:	4798      	blx	r3
+ c92:	4838      	ldr	r0, [pc, #224]	; (d74 <main+0x104>)
+ c94:	47d8      	blx	fp
 			i2c_m_sync_enable(&I2C_0);
- c98:	0020      	movs	r0, r4
- c9a:	4b15      	ldr	r3, [pc, #84]	; (cf0 <main+0x80>)
- c9c:	4798      	blx	r3
-			i2c_m_sync_set_slaveaddr(&I2C_0, 0x6B, I2C_M_SEVEN);//IC address; BQ25155: 
- c9e:	2280      	movs	r2, #128	; 0x80
- ca0:	0112      	lsls	r2, r2, #4
- ca2:	216b      	movs	r1, #107	; 0x6b
- ca4:	0020      	movs	r0, r4
- ca6:	4b13      	ldr	r3, [pc, #76]	; (cf4 <main+0x84>)
+ c96:	4837      	ldr	r0, [pc, #220]	; (d74 <main+0x104>)
+ c98:	4b37      	ldr	r3, [pc, #220]	; (d78 <main+0x108>)
+ c9a:	4798      	blx	r3
+			i2c_m_sync_set_slaveaddr(&I2C_0, address_BQ25155, I2C_M_SEVEN);//IC address; BQ25155: 
+ c9c:	2280      	movs	r2, #128	; 0x80
+ c9e:	0112      	lsls	r2, r2, #4
+ ca0:	216b      	movs	r1, #107	; 0x6b
+ ca2:	4834      	ldr	r0, [pc, #208]	; (d74 <main+0x104>)
+ ca4:	4b35      	ldr	r3, [pc, #212]	; (d7c <main+0x10c>)
+ ca6:	469a      	mov	sl, r3
  ca8:	4798      	blx	r3
 			
 			delay_ms(reg_id_value);
@@ -2337,129 +2337,226 @@ int main(void)
 			//reg_id_value = 0x00;
 			i2c_m_sync_cmd_read(&I2C_0, reg_id_addr, &reg_id_value, 1);
  caa:	2301      	movs	r3, #1
- cac:	003a      	movs	r2, r7
+ cac:	466a      	mov	r2, sp
  cae:	216f      	movs	r1, #111	; 0x6f
- cb0:	0020      	movs	r0, r4
- cb2:	4d11      	ldr	r5, [pc, #68]	; (cf8 <main+0x88>)
- cb4:	46a8      	mov	r8, r5
- cb6:	47a8      	blx	r5
+ cb0:	4830      	ldr	r0, [pc, #192]	; (d74 <main+0x104>)
+ cb2:	4e33      	ldr	r6, [pc, #204]	; (d80 <main+0x110>)
+ cb4:	47b0      	blx	r6
 			delay_ms(reg_id_value);
- cb8:	7838      	ldrb	r0, [r7, #0]
- cba:	4d10      	ldr	r5, [pc, #64]	; (cfc <main+0x8c>)
+ cb6:	466b      	mov	r3, sp
+ cb8:	7818      	ldrb	r0, [r3, #0]
+ cba:	4d32      	ldr	r5, [pc, #200]	; (d84 <main+0x114>)
  cbc:	47a8      	blx	r5
 			
-			*/
+			// ---------------------------
+			//disable LDO
 			
-			
-			uint8_t reg_ICCTRL1_addr=0x36;
-			uint8_t reg_ICCTRL1_value = 0b00000000;//11;//0b00110000;//disable ldo
+			uint8_t reg_ldoctrl_addr=0x1D;
+			uint8_t reg_ldoctrl_value = 0b00110000;//LDO disabled, set voltage to 2.2V (0.6V + 0x10 * 0.1V)
  cbe:	466b      	mov	r3, sp
- cc0:	1cde      	adds	r6, r3, #3
- cc2:	464b      	mov	r3, r9
- cc4:	7033      	strb	r3, [r6, #0]
-			//i2c_m_sync_get_io_descriptor(&I2C_0, &I2C_0_io);
-			//i2c_m_sync_enable(&I2C_0);
-			//i2c_m_sync_set_slaveaddr(&I2C_0, 0x6B, I2C_M_SEVEN);//IC address; BQ25155:    | 0b10000000
-			
-			//write --> transfer https://www.avrfreaks.net/forum/i2cmsynccmdwrite-confusion
-			bq25155_dev_write_reg(&I2C_0, reg_ICCTRL1_addr, reg_ICCTRL1_value); 
- cc6:	464a      	mov	r2, r9
- cc8:	2136      	movs	r1, #54	; 0x36
- cca:	0020      	movs	r0, r4
- ccc:	4b0c      	ldr	r3, [pc, #48]	; (d00 <main+0x90>)
- cce:	4798      	blx	r3
-			
+ cc0:	1c5c      	adds	r4, r3, #1
+ cc2:	2330      	movs	r3, #48	; 0x30
+ cc4:	7023      	strb	r3, [r4, #0]
+			bq25155_dev_write_reg(&I2C_0, reg_ldoctrl_addr, reg_ldoctrl_value);
+ cc6:	2230      	movs	r2, #48	; 0x30
+ cc8:	211d      	movs	r1, #29
+ cca:	482a      	ldr	r0, [pc, #168]	; (d74 <main+0x104>)
+ ccc:	4f2e      	ldr	r7, [pc, #184]	; (d88 <main+0x118>)
+ cce:	47b8      	blx	r7
 			delay_ms(100);
  cd0:	2064      	movs	r0, #100	; 0x64
  cd2:	47a8      	blx	r5
-			
-			//i2c_m_sync_get_io_descriptor(&I2C_0, &I2C_0_io);
-			//i2c_m_sync_enable(&I2C_0);
-			//i2c_m_sync_set_slaveaddr(&I2C_0, 0x6B, I2C_M_SEVEN);//IC address; BQ25155: 
-			i2c_m_sync_cmd_read(&I2C_0, reg_ICCTRL1_addr, &reg_ICCTRL1_value, 1);
+			i2c_m_sync_cmd_read(&I2C_0, reg_ldoctrl_addr, &reg_ldoctrl_value, 1);
  cd4:	2301      	movs	r3, #1
- cd6:	0032      	movs	r2, r6
- cd8:	2136      	movs	r1, #54	; 0x36
- cda:	0020      	movs	r0, r4
- cdc:	47c0      	blx	r8
-			
-			delay_ms(reg_ICCTRL1_value); //TP5 is LDO output
- cde:	7830      	ldrb	r0, [r6, #0]
+ cd6:	0022      	movs	r2, r4
+ cd8:	211d      	movs	r1, #29
+ cda:	4826      	ldr	r0, [pc, #152]	; (d74 <main+0x104>)
+ cdc:	47b0      	blx	r6
+			delay_ms(reg_ldoctrl_value); //TP5 is LDO output
+ cde:	7820      	ldrb	r0, [r4, #0]
  ce0:	47a8      	blx	r5
- ce2:	e7d2      	b.n	c8a <main+0x1a>
- ce4:	00000115 	.word	0x00000115
- ce8:	20000020 	.word	0x20000020
- cec:	000003d1 	.word	0x000003d1
- cf0:	0000035d 	.word	0x0000035d
- cf4:	00000369 	.word	0x00000369
- cf8:	0000037d 	.word	0x0000037d
- cfc:	0000029d 	.word	0x0000029d
- d00:	00000c45 	.word	0x00000c45
+			
+			// ---------------------------
+			//set LDO to 2.3V
+			
+			reg_ldoctrl_addr=0x1D;
+			reg_ldoctrl_value = 0b01000100;//LDO disabled, set voltage to 2.2V (0.6V + 0x10 * 0.1V)
+ ce2:	2344      	movs	r3, #68	; 0x44
+ ce4:	7023      	strb	r3, [r4, #0]
+			bq25155_dev_write_reg(&I2C_0, reg_ldoctrl_addr, reg_ldoctrl_value);
+ ce6:	2244      	movs	r2, #68	; 0x44
+ ce8:	211d      	movs	r1, #29
+ cea:	4822      	ldr	r0, [pc, #136]	; (d74 <main+0x104>)
+ cec:	47b8      	blx	r7
+			delay_ms(100);
+ cee:	2064      	movs	r0, #100	; 0x64
+ cf0:	47a8      	blx	r5
+			i2c_m_sync_cmd_read(&I2C_0, reg_ldoctrl_addr, &reg_ldoctrl_value, 1);
+ cf2:	2301      	movs	r3, #1
+ cf4:	0022      	movs	r2, r4
+ cf6:	211d      	movs	r1, #29
+ cf8:	481e      	ldr	r0, [pc, #120]	; (d74 <main+0x104>)
+ cfa:	47b0      	blx	r6
+			delay_ms(reg_ldoctrl_value); //TP5 is LDO output
+ cfc:	7820      	ldrb	r0, [r4, #0]
+ cfe:	47a8      	blx	r5
+			
+			// ---------------------------
+			//enable LDO
+			
+			reg_ldoctrl_addr=0x1D;
+			reg_ldoctrl_value |= 0b10000000;//LDO disabled, set voltage to 2.2V (0.6V + 0x10 * 0.1V)
+ d00:	7822      	ldrb	r2, [r4, #0]
+ d02:	2380      	movs	r3, #128	; 0x80
+ d04:	425b      	negs	r3, r3
+ d06:	4698      	mov	r8, r3
+ d08:	431a      	orrs	r2, r3
+ d0a:	b2d2      	uxtb	r2, r2
+ d0c:	7022      	strb	r2, [r4, #0]
+			bq25155_dev_write_reg(&I2C_0, reg_ldoctrl_addr, reg_ldoctrl_value);
+ d0e:	211d      	movs	r1, #29
+ d10:	4818      	ldr	r0, [pc, #96]	; (d74 <main+0x104>)
+ d12:	47b8      	blx	r7
+			delay_ms(100);
+ d14:	2064      	movs	r0, #100	; 0x64
+ d16:	47a8      	blx	r5
+			i2c_m_sync_cmd_read(&I2C_0, reg_ldoctrl_addr, &reg_ldoctrl_value, 1);
+ d18:	2301      	movs	r3, #1
+ d1a:	0022      	movs	r2, r4
+ d1c:	211d      	movs	r1, #29
+ d1e:	4815      	ldr	r0, [pc, #84]	; (d74 <main+0x104>)
+ d20:	47b0      	blx	r6
+			delay_ms(reg_ldoctrl_value); //TP5 is LDO output
+ d22:	7820      	ldrb	r0, [r4, #0]
+ d24:	47a8      	blx	r5
+			
+			// ---------------------------
+			//query ID register of accel
+			i2c_m_sync_set_slaveaddr(&I2C_0, address_H3LIS200DL, I2C_M_SEVEN);
+ d26:	2280      	movs	r2, #128	; 0x80
+ d28:	0112      	lsls	r2, r2, #4
+ d2a:	2118      	movs	r1, #24
+ d2c:	4811      	ldr	r0, [pc, #68]	; (d74 <main+0x104>)
+ d2e:	47d0      	blx	sl
+			
+			uint8_t reg_WHO_AM_I_addr=0x0F;
+			uint8_t reg_WHO_AM_I_value = 0x00;
+ d30:	466b      	mov	r3, sp
+ d32:	1c9c      	adds	r4, r3, #2
+ d34:	464b      	mov	r3, r9
+ d36:	7023      	strb	r3, [r4, #0]
+			i2c_m_sync_cmd_read(&I2C_0, reg_WHO_AM_I_addr, &reg_WHO_AM_I_value, 1);
+ d38:	2301      	movs	r3, #1
+ d3a:	0022      	movs	r2, r4
+ d3c:	210f      	movs	r1, #15
+ d3e:	480d      	ldr	r0, [pc, #52]	; (d74 <main+0x104>)
+ d40:	47b0      	blx	r6
+			delay_ms(reg_WHO_AM_I_value);
+ d42:	7820      	ldrb	r0, [r4, #0]
+ d44:	47a8      	blx	r5
+			
+			// ----------------------------
+			//write with effect: change content of the interrupt config register
+			
+			uint8_t reg_INT1_CFG_addr=0x30;
+			uint8_t reg_INT1_CFG_value = 0x80;
+ d46:	466b      	mov	r3, sp
+ d48:	1cdc      	adds	r4, r3, #3
+ d4a:	4643      	mov	r3, r8
+ d4c:	7023      	strb	r3, [r4, #0]
+			bq25155_dev_write_reg(&I2C_0, reg_INT1_CFG_addr, reg_INT1_CFG_value);
+ d4e:	2280      	movs	r2, #128	; 0x80
+ d50:	2130      	movs	r1, #48	; 0x30
+ d52:	4808      	ldr	r0, [pc, #32]	; (d74 <main+0x104>)
+ d54:	47b8      	blx	r7
+			//delay_ms(100);
+			reg_INT1_CFG_value=0x00;
+ d56:	464b      	mov	r3, r9
+ d58:	7023      	strb	r3, [r4, #0]
+			i2c_m_sync_cmd_read(&I2C_0, reg_INT1_CFG_addr, &reg_INT1_CFG_value, 1);
+ d5a:	2301      	movs	r3, #1
+ d5c:	0022      	movs	r2, r4
+ d5e:	2130      	movs	r1, #48	; 0x30
+ d60:	4804      	ldr	r0, [pc, #16]	; (d74 <main+0x104>)
+ d62:	47b0      	blx	r6
+			delay_ms(reg_INT1_CFG_value);
+ d64:	7820      	ldrb	r0, [r4, #0]
+ d66:	47a8      	blx	r5
+ d68:	e78d      	b.n	c86 <main+0x16>
+ d6a:	46c0      	nop			; (mov r8, r8)
+ d6c:	00000115 	.word	0x00000115
+ d70:	000003d1 	.word	0x000003d1
+ d74:	20000020 	.word	0x20000020
+ d78:	0000035d 	.word	0x0000035d
+ d7c:	00000369 	.word	0x00000369
+ d80:	0000037d 	.word	0x0000037d
+ d84:	0000029d 	.word	0x0000029d
+ d88:	00000c45 	.word	0x00000c45
 
-00000d04 <__libc_init_array>:
- d04:	b570      	push	{r4, r5, r6, lr}
- d06:	2600      	movs	r6, #0
- d08:	4d0c      	ldr	r5, [pc, #48]	; (d3c <__libc_init_array+0x38>)
- d0a:	4c0d      	ldr	r4, [pc, #52]	; (d40 <__libc_init_array+0x3c>)
- d0c:	1b64      	subs	r4, r4, r5
- d0e:	10a4      	asrs	r4, r4, #2
- d10:	42a6      	cmp	r6, r4
- d12:	d109      	bne.n	d28 <__libc_init_array+0x24>
- d14:	2600      	movs	r6, #0
- d16:	f000 f841 	bl	d9c <_init>
- d1a:	4d0a      	ldr	r5, [pc, #40]	; (d44 <__libc_init_array+0x40>)
- d1c:	4c0a      	ldr	r4, [pc, #40]	; (d48 <__libc_init_array+0x44>)
- d1e:	1b64      	subs	r4, r4, r5
- d20:	10a4      	asrs	r4, r4, #2
- d22:	42a6      	cmp	r6, r4
- d24:	d105      	bne.n	d32 <__libc_init_array+0x2e>
- d26:	bd70      	pop	{r4, r5, r6, pc}
- d28:	00b3      	lsls	r3, r6, #2
- d2a:	58eb      	ldr	r3, [r5, r3]
- d2c:	4798      	blx	r3
- d2e:	3601      	adds	r6, #1
- d30:	e7ee      	b.n	d10 <__libc_init_array+0xc>
- d32:	00b3      	lsls	r3, r6, #2
- d34:	58eb      	ldr	r3, [r5, r3]
- d36:	4798      	blx	r3
- d38:	3601      	adds	r6, #1
- d3a:	e7f2      	b.n	d22 <__libc_init_array+0x1e>
- d3c:	00000da8 	.word	0x00000da8
- d40:	00000da8 	.word	0x00000da8
- d44:	00000da8 	.word	0x00000da8
- d48:	00000dac 	.word	0x00000dac
- d4c:	682f2e2e 	.word	0x682f2e2e
- d50:	732f6c61 	.word	0x732f6c61
- d54:	682f6372 	.word	0x682f6372
- d58:	695f6c61 	.word	0x695f6c61
- d5c:	6d5f6332 	.word	0x6d5f6332
- d60:	6e79735f 	.word	0x6e79735f
- d64:	00632e63 	.word	0x00632e63
+00000d8c <__libc_init_array>:
+ d8c:	b570      	push	{r4, r5, r6, lr}
+ d8e:	2600      	movs	r6, #0
+ d90:	4d0c      	ldr	r5, [pc, #48]	; (dc4 <__libc_init_array+0x38>)
+ d92:	4c0d      	ldr	r4, [pc, #52]	; (dc8 <__libc_init_array+0x3c>)
+ d94:	1b64      	subs	r4, r4, r5
+ d96:	10a4      	asrs	r4, r4, #2
+ d98:	42a6      	cmp	r6, r4
+ d9a:	d109      	bne.n	db0 <__libc_init_array+0x24>
+ d9c:	2600      	movs	r6, #0
+ d9e:	f000 f841 	bl	e24 <_init>
+ da2:	4d0a      	ldr	r5, [pc, #40]	; (dcc <__libc_init_array+0x40>)
+ da4:	4c0a      	ldr	r4, [pc, #40]	; (dd0 <__libc_init_array+0x44>)
+ da6:	1b64      	subs	r4, r4, r5
+ da8:	10a4      	asrs	r4, r4, #2
+ daa:	42a6      	cmp	r6, r4
+ dac:	d105      	bne.n	dba <__libc_init_array+0x2e>
+ dae:	bd70      	pop	{r4, r5, r6, pc}
+ db0:	00b3      	lsls	r3, r6, #2
+ db2:	58eb      	ldr	r3, [r5, r3]
+ db4:	4798      	blx	r3
+ db6:	3601      	adds	r6, #1
+ db8:	e7ee      	b.n	d98 <__libc_init_array+0xc>
+ dba:	00b3      	lsls	r3, r6, #2
+ dbc:	58eb      	ldr	r3, [r5, r3]
+ dbe:	4798      	blx	r3
+ dc0:	3601      	adds	r6, #1
+ dc2:	e7f2      	b.n	daa <__libc_init_array+0x1e>
+ dc4:	00000e30 	.word	0x00000e30
+ dc8:	00000e30 	.word	0x00000e30
+ dcc:	00000e30 	.word	0x00000e30
+ dd0:	00000e34 	.word	0x00000e34
+ dd4:	682f2e2e 	.word	0x682f2e2e
+ dd8:	732f6c61 	.word	0x732f6c61
+ ddc:	682f6372 	.word	0x682f6372
+ de0:	695f6c61 	.word	0x695f6c61
+ de4:	6d5f6332 	.word	0x6d5f6332
+ de8:	6e79735f 	.word	0x6e79735f
+ dec:	00632e63 	.word	0x00632e63
 
-00000d68 <_i2cms>:
- d68:	00000005 00200014 00000100 00000f0e     ...... .........
- d78:	00d70000 003d0900 682f2e2e 732f6c70     ......=.../hpl/s
- d88:	6f637265 70682f6d 65735f6c 6d6f6372     ercom/hpl_sercom
- d98:	0000632e                                .c..
+00000df0 <_i2cms>:
+ df0:	00000005 00200014 00000100 00000f0e     ...... .........
+ e00:	00d70000 003d0900 682f2e2e 732f6c70     ......=.../hpl/s
+ e10:	6f637265 70682f6d 65735f6c 6d6f6372     ercom/hpl_sercom
+ e20:	0000632e                                .c..
 
-00000d9c <_init>:
- d9c:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- d9e:	46c0      	nop			; (mov r8, r8)
- da0:	bcf8      	pop	{r3, r4, r5, r6, r7}
- da2:	bc08      	pop	{r3}
- da4:	469e      	mov	lr, r3
- da6:	4770      	bx	lr
+00000e24 <_init>:
+ e24:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ e26:	46c0      	nop			; (mov r8, r8)
+ e28:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ e2a:	bc08      	pop	{r3}
+ e2c:	469e      	mov	lr, r3
+ e2e:	4770      	bx	lr
 
-00000da8 <__init_array_start>:
- da8:	000000dd 	.word	0x000000dd
+00000e30 <__init_array_start>:
+ e30:	000000dd 	.word	0x000000dd
 
-00000dac <_fini>:
- dac:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- dae:	46c0      	nop			; (mov r8, r8)
- db0:	bcf8      	pop	{r3, r4, r5, r6, r7}
- db2:	bc08      	pop	{r3}
- db4:	469e      	mov	lr, r3
- db6:	4770      	bx	lr
+00000e34 <_fini>:
+ e34:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ e36:	46c0      	nop			; (mov r8, r8)
+ e38:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ e3a:	bc08      	pop	{r3}
+ e3c:	469e      	mov	lr, r3
+ e3e:	4770      	bx	lr
 
-00000db8 <__fini_array_start>:
- db8:	000000b5 	.word	0x000000b5
+00000e40 <__fini_array_start>:
+ e40:	000000b5 	.word	0x000000b5
