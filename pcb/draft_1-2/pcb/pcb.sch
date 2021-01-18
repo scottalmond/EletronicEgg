@@ -457,7 +457,7 @@ Connection ~ 5050 2550
 Wire Wire Line
 	5050 2550 5250 2550
 Text Notes 4300 1100 0    50   ~ 0
-refactor cap values for cap bias voltage\nhttps://www.murata.com/en-us/support/faqs/products/capacitor/mlcc/char/0005
+refactor cap values for cap bias voltage\nhttps://www.murata.com/en-us/support/faqs/products/capacitor/mlcc/char/0005\nlayout/schematic ref: https://www.ti.com/lit/ug/sluubw6/sluubw6.pdf?&ts=1589795659725
 Text GLabel 3650 2550 0    50   Input ~ 0
 INT3
 Text GLabel 1150 2250 0    50   Input ~ 0

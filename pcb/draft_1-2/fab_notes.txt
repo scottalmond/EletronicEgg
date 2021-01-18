@@ -307,9 +307,56 @@ reg 0x30 (INT1 config)
 value 0x80 (default 0x00)
 read back: 0x80, so read/write appears to be working to accel
 
+started today with no communication (LED non-responsive)
+then got I2C to demo a read
+troubleshooting to resolve issue with writing
+demo'd reading/writing to two I2C devices
+  needed communciation with PMIC first to enable proper voltage for core of accel (presumably, who am i may have worked without 2.3V, but not verified)
 
+plan: go in and out of deep sleep modes
 
+tried example projects emulating serial terminal (echo) and mass storage device\
+  in both cases, NO detetion of new device plugged in.  Appears USB operations are non-operational on this hardware (may be a soldering issue)
 
+question for assembling another unit: is the DESIGN correct? vs spinning a new PCB
 
+plan: see if triggering/reading interrupts is possible
+plan: what percent of LCD outputs are non-operable?  may inform how many hardwares are actualy present within this unit
 
+configure_usart
+http://ww1.microchip.com/downloads/en/AppNotes/Atmel-42699-ASF-Manual-(SAML21)_ApplicationNote_AT11513.pdf
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+static struct usart_module cdc_uart_module;
+static struct tc_module tc_instance;
+/**
+ *  Configure UART console.
+ */
+static void configure_console(void)
+{
+	struct usart_config usart_conf;
+
+	usart_get_config_defaults(&usart_conf);
+	usart_conf.mux_setting = CONF_STDIO_MUX_SETTING; //USART_RX_1_TX_0_XCK_1
+	usart_conf.pinmux_pad0 = CONF_STDIO_PINMUX_PAD0; //PINMUX_PA22C_SERCOM3_PAD0
+	usart_conf.pinmux_pad1 = CONF_STDIO_PINMUX_PAD1; //PINMUX_PA23C_SERCOM3_PAD1
+	usart_conf.pinmux_pad2 = CONF_STDIO_PINMUX_PAD2; //PINMUX_UNUSED
+	usart_conf.pinmux_pad3 = CONF_STDIO_PINMUX_PAD3; //PINMUX_UNUSED
+	usart_conf.baudrate    = CONF_STDIO_BAUDRATE;
+
+	stdio_serial_init(&cdc_uart_module, CONF_STDIO_USART_MODULE, &usart_conf); //SERCOM3
+	usart_enable(&cdc_uart_module);
+}
+
+need to have PA22 and PA23 in order to do serial????
+
+Table 7-6 lists clusters around voltage inputs vddio, vswout...
+
+Is GETTING_STARTED demo doing UART through *target* usb or *edge debugger* usb?
+
+~~ 1/17/21
+
+added 2*3 100 mil header to BOM:
+https://www.digikey.com/product-detail/en/PH2-06-UA/2057-PH2-06-UA-ND/9830396/?itemSeq=351205478
