@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- SAM9X60.qml -->
+  <title>SAM9X60 QML Type | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#properties">Properties</a></li>
+<li class="level1"><a href="#methods">Methods</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+<li class="level2"><a href="#applets">Applets</a></li>
+<li class="level3"><a href="#external-ram-applet">External RAM Applet</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">SAM9X60 QML Type</h1>
+<span class="subtitle"></span>
+<!-- $$$SAM9X60-brief -->
+<p>Contains chip-specific information about SAM9X60 device. <a href="#details">More...</a></p>
+<!-- @@@SAM9X60 -->
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> Import Statement:</td><td class="memItemRight bottomAlign"> import SAMBA.Device.SAM9X60 3.2</td></tr><tr><td class="memItemLeft rightAlign topAlign"> Inherits:</td><td class="memItemRight bottomAlign"> <p><a href="qml-samba-device.html">Device</a></p>
+</td></tr><tr><td class="memItemLeft rightAlign topAlign"> Inherited By:</td><td class="memItemRight bottomAlign"> <p><a href="qml-samba-device-sam9x60-sam9x60ek.html">SAM9X60EK</a></p>
+</td></tr></table></div><ul>
+<li><a href="qml-samba-device-sam9x60-sam9x60-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="properties"></a>
+<h2 id="properties">Properties</h2>
+<ul>
+<li class="fn"><b><b><a href="qml-samba-device-sam9x60-sam9x60.html#config-prop">config</a></b></b> : alias</li>
+</ul>
+<a name="methods"></a>
+<h2 id="methods">Methods</h2>
+<ul>
+<li class="fn"><b><b><a href="qml-samba-device-sam9x60-sam9x60.html#commandLineSecureCommand-method">commandLineSecureCommand</a></b></b>(<i>command</i>, <i>args</i>)</li>
+<li class="fn"><b><b><a href="qml-samba-device-sam9x60-sam9x60.html#commandLineSecureCommandHelp-method">commandLineSecureCommandHelp</a></b></b>(<i>command</i>)</li>
+<li class="fn"><b><b><a href="qml-samba-device-sam9x60-sam9x60.html#commandLineSecureCommands-method">commandLineSecureCommands</a></b></b>()</li>
+<li class="fn"><b><b><a href="qml-samba-device-sam9x60-sam9x60.html#initialize-method">initialize</a></b></b>()</li>
+</ul>
+<!-- $$$SAM9X60-description -->
+<a name="details"></a>
+<h2 id="details">Detailed Description</h2>
+<p>This QML type contains configuration, applets and tools for supporting the SAM9X60 device.</p>
+<a name="applets"></a>
+<h2 id="applets">Applets</h2>
+<p>SAM-BA uses small programs called &quot;Applets&quot; to initialize the device or flash external memories. Please see <a href="qml-samba-applet.html">SAMBA::Applet</a> for more information on the applet mechanism.</p>
+<a name="external-ram-applet"></a>
+<h3 >External RAM Applet</h3>
+<p>This applet is in charge of configuring the external RAM.</p>
+<p>The Low-Level applet must have been initialized first.</p>
+<p>The only supported command is &quot;init&quot;.</p>
+<!-- @@@SAM9X60 -->
+<h2>Property Documentation</h2>
+<!-- $$$config -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="config-prop">
+<td class="tblQmlPropNode"><p>
+<a name="config-prop"></a><span class="name">config</span> : <span class="type">alias</span></p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>The device configuration used by applets (peripherals, I/O sets, etc.)</p>
+<p><b>See also </b><a href="qml-samba-device-sam9x60-sam9x60config.html">SAM9X60Config</a>.</p>
+</div></div><!-- @@@config -->
+<br/>
+<h2>Method Documentation</h2>
+<!-- $$$commandLineSecureCommand -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="commandLineSecureCommand-method">
+<td class="tblQmlFuncNode"><p>
+<a name="commandLineSecureCommand-method"></a><span class="name">commandLineSecureCommand</span>(<i>command</i>, <i>args</i>)</p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>Handle monitor commands through a SecureConnection</p>
+<p>Handle secure commands specific to the secure SAM-BA monitor of SAM9X60 devices.</p>
+</div></div><!-- @@@commandLineSecureCommand -->
+<br/>
+<!-- $$$commandLineSecureCommandHelp -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="commandLineSecureCommandHelp-method">
+<td class="tblQmlFuncNode"><p>
+<a name="commandLineSecureCommandHelp-method"></a><span class="name">commandLineSecureCommandHelp</span>(<i>command</i>)</p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>Show help for monitor commands supported by a SecureConnection</p>
+</div></div><!-- @@@commandLineSecureCommandHelp -->
+<br/>
+<!-- $$$commandLineSecureCommands -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="commandLineSecureCommands-method">
+<td class="tblQmlFuncNode"><p>
+<a name="commandLineSecureCommands-method"></a><span class="name">commandLineSecureCommands</span>()</p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>List SAM9X60 specific commands for its secure SAM-BA monitor</p>
+</div></div><!-- @@@commandLineSecureCommands -->
+<br/>
+<!-- $$$initialize -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="initialize-method">
+<td class="tblQmlFuncNode"><p>
+<a name="initialize-method"></a><span class="name">initialize</span>()</p></td></tr>
+</table></div>
+</div><div class="qmldoc"><p>Initialize the SAM9X60 device using the current connection.</p>
+<p>This method calls checkDeviceID.</p>
+</div></div><!-- @@@initialize -->
+<br/>
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

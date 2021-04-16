@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- devices.qdoc -->
+  <title>Selecting the target device/board | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>Selecting the target device/board</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#the-d-device-option">The &quot;<i>-d, --device</i>&quot; option</a></li>
+<li class="level1"><a href="#the-b-board-option">The &quot;<i>-b, --board</i>&quot; option</a></li>
+<li class="level1"><a href="#selecting-the-applet-console">Selecting the applet console</a></li>
+<li class="level1"><a href="#supported-devices">Supported Devices</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">Selecting the target device/board</h1>
+<span class="subtitle"></span>
+<!-- $$$devices.html-description -->
+<div class="descr"> <a name="details"></a>
+<a name="the-d-device-option"></a>
+<h2 id="the-d-device-option">The &quot;<i>-d, --device</i>&quot; option</h2>
+<p>The &quot;<i>-d, --device</i>&quot; should be passed to the command line unless either the &quot;<i>-b, --board</i>&quot; option or <a href="script.html#the-x-execute-option">&quot;<i>-x, -execute</i>&quot;</a> option is provided.</p>
+<p>The list of the supported devices can be displayed with the following command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d help
+Known devices: sam9x60<span class="operator">,</span> sam9xx5<span class="operator">,</span> sama5d2<span class="operator">,</span> sama5d3<span class="operator">,</span> sama5d4<span class="operator">,</span> samv71</pre>
+<a name="the-b-board-option"></a>
+<h2 id="the-b-board-option">The &quot;<i>-b, --board</i>&quot; option</h2>
+<p>The &quot;<i>-b, --board</i>&quot; option can be substituted to the &quot;<i>-d, --device</i>&quot; option. More precisely, a board extends a device with default configuration and settings such as the console instance/ioset for applets to print traces or memory controllers instance/ioset to be used to drive and program the external NVM.</p>
+<p>The list of the supported boards can be displayed wit the following command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b help
+Known boards: sam9x60<span class="operator">-</span>ek<span class="operator">,</span> sam9xx5<span class="operator">-</span>ek<span class="operator">,</span> sama5d2<span class="operator">-</span>ptc<span class="operator">-</span>ek<span class="operator">,</span> sama5d2<span class="operator">-</span>xplained<span class="operator">,</span> sama5d27<span class="operator">-</span>som1<span class="operator">,</span> sama5d27<span class="operator">-</span>som1<span class="operator">-</span>ek<span class="operator">,</span> sama5d3<span class="operator">-</span>ek<span class="operator">,</span> sama5d3<span class="operator">-</span>xplained<span class="operator">,</span> sama5d4<span class="operator">-</span>ek<span class="operator">,</span> sama5d4<span class="operator">-</span>xplained<span class="operator">,</span> same70<span class="operator">-</span>xplained<span class="operator">,</span> samv71<span class="operator">-</span>xplained</pre>
+<a name="selecting-the-applet-console"></a>
+<h2 id="selecting-the-applet-console">Selecting the applet console</h2>
+<p>Two optional parameters can be provided on the command line after either the &quot;<i>-d, --device</i>&quot; or &quot;<i>-b, --board</i>&quot; options: the console <i>instance</i> and <i>ioset</i>. They override the default settings and tell any applet which DBGU/UART/USART/FLEXCOM_USART device and which I/O pins to be used for console outputs. When the &quot;<i>-d, --device</i>&quot; option is used, by default, console outputs are disabled.</p>
+<pre class="cpp">sam<span class="operator">-</span>ba <span class="operator">-</span>p <span class="operator">&lt;</span>port<span class="operator">&gt;</span> <span class="operator">-</span>d <span class="operator">&lt;</span>device<span class="operator">&gt;</span>:help
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2:help
+Syntax: sama5d2:<span class="operator">[</span><span class="operator">&lt;</span>instance<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>ioset<span class="operator">&gt;</span><span class="operator">]</span>
+Parameters:
+    instance   Serial console peripheral number
+    ioset      Serial console I<span class="operator">/</span>O set
+Examples:
+    sama5d2       use <span class="keyword">default</span> device<span class="operator">/</span>board settings
+    sama5d2:<span class="number">1</span>:<span class="number">2</span>   use fully custom settings (peripheral number <span class="number">1</span><span class="operator">,</span> I<span class="operator">/</span>O set <span class="number">2</span>)
+    sama5d2<span class="operator">::</span><span class="number">2</span>    use <span class="keyword">default</span> device<span class="operator">/</span>board settings but force use of I<span class="operator">/</span>O set <span class="number">2</span>
+Note:
+    Peripheral numbers and I<span class="operator">/</span>O sets are device specific<span class="operator">.</span> Please see device documentation in <span class="char">'doc'</span> directory<span class="operator">.</span></pre>
+<p>Supported console {<i>&lt;instance&gt;</i>, <i>&lt;ioset&gt;</i>} pairs are device specific; please refer to the <i>Serial Console Configuration</i> section of the device configuration:</p>
+<ul>
+<li><a href="qml-samba-device-sam9xx5-sam9xx5config.html#serial-console-configuration">SAM9xx5 Serial Console Configuration</a></li>
+<li><a href="qml-samba-device-sam9x60-sam9x60config.html#serial-console-configuration">SAM9X60 Serial Console Configuration</a></li>
+<li><a href="qml-samba-device-sama5d2-sama5d2config.html#serial-console-configuration">SAMA5D2 Serial Console Configuration</a></li>
+<li><a href="qml-samba-device-sama5d3-sama5d3config.html#serial-console-configuration">SAMA5D3 Serial Console Configuration</a></li>
+<li><a href="qml-samba-device-sama5d4-sama5d4config.html#serial-console-configuration">SAMA5D4 Serial Console Configuration</a></li>
+<li><a href="qml-samba-device-samv71-samv71config.html#serial-console-configuration">SAMV71 Serial Console Configuration</a></li>
+</ul>
+<a name="supported-devices"></a>
+<h2 id="supported-devices">Supported Devices</h2>
+<p>The sam-ba program supports the following Microchip SAM devices:</p>
+<ul>
+<li><a href="sam9x60.html">Getting started with SAM-BA on SAM9X60</a></li>
+<li><a href="sam9xx5.html">Getting started with SAM-BA on SAM9XX5</a></li>
+<li><a href="sama5d2.html">Getting started with SAM-BA on SAMA5D2</a></li>
+<li><a href="sama5d3.html">Getting started with SAM-BA on SAMA5D3</a></li>
+<li><a href="sama5d4.html">Getting started with SAM-BA on SAMA5D4</a></li>
+<li><a href="samv71.html">Getting started with SAM-BA on SAMV71</a></li>
+</ul>
+</div>
+<!-- @@@devices.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

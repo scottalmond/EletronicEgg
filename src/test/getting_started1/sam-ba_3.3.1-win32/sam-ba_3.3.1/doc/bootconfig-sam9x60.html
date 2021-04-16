@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- bootconfig_sam9x60.qdoc -->
+  <title>SAM-BA bootconfig applet for SAM9X60 devices | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>SAM-BA bootconfig applet for SAM9X60 devices</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#applet-initialization">Applet initialization</a></li>
+<li class="level1"><a href="#supported-commands">Supported commands</a></li>
+<li class="level2"><a href="#the-readcfg-command">The readcfg command</a></li>
+<li class="level2"><a href="#the-writecfg-command">The writecfg command</a></li>
+<li class="level2"><a href="#the-invalidatecfg-command">The invalidatecfg command</a></li>
+<li class="level2"><a href="#the-lockcfg-command">The lockcfg command</a></li>
+<li class="level2"><a href="#the-refreshcfg-command">The refreshcfg command</a></li>
+<li class="level2"><a href="#the-resetemul-command">The resetemul command</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">SAM-BA bootconfig applet for SAM9X60 devices</h1>
+<span class="subtitle"></span>
+<!-- $$$bootconfig_sam9x60.html-description -->
+<div class="descr"> <a name="details"></a>
+<a name="applet-initialization"></a>
+<h2 id="applet-initialization">Applet initialization</h2>
+<p>The <i>bootconfig</i> applet for SAM9X60 doesn't accept any parameter to be initialized.</p>
+<a name="supported-commands"></a>
+<h2 id="supported-commands">Supported commands</h2>
+<p>The list of all supported commands can be displayed by the following command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sam9x60 <span class="operator">-</span>a bootconfig <span class="operator">-</span>c help</pre>
+<a name="the-readcfg-command"></a>
+<h3 >The readcfg command</h3>
+<p>The <i>readcfg</i> command reads either the current <b>Boot Configuration Packet (BCP)</b> or the current <b>User Hardware Configuration Packet (UHCP)</b> from the User Area of the OTPC. If the emulation mode of the OTPC is enabled then packets in the User Area are stored in the internal SRAM1. Otherwise packets are stored inside the OTP matrix.</p>
+<p>The <i>readcfg</i> command can also read the <b>Boot Sequence Control Register (BSCR)</b> to check whether the emulation mode will be enabled by the ROM code on the next reset, before reading its BCP.</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sam9x60<span class="operator">-</span>ek <span class="operator">-</span>a bootconfig <span class="operator">-</span>c readcfg:help
+ <span class="operator">*</span> readcfg <span class="operator">-</span> read boot configuration
+Syntax:
+    readcfg:(bcp<span class="operator">-</span>otp<span class="operator">|</span>bcp<span class="operator">-</span>emul<span class="operator">|</span>uhcp<span class="operator">-</span>otp<span class="operator">|</span>uhcp<span class="operator">-</span>emul<span class="operator">|</span>sbcp<span class="operator">-</span>emul<span class="operator">|</span>sbcp<span class="operator">-</span>otp<span class="operator">|</span>bscr)
+Examples:
+    readcfg:bcp<span class="operator">-</span>otp   read the boot config packet from OTP matrix
+    readcfg:bcp<span class="operator">-</span>emul  read the boot config packet from OTP emulation mode
+    readcfg:uhcp<span class="operator">-</span>otp  read the user hardware config packet from OTP matrix
+    readcfg:uhcp<span class="operator">-</span>emul read the user hardware config packet from OTP emulation mode
+    readcfg:sbcp<span class="operator">-</span>otp  read the secure boot config packet from OTP matrix
+    readcfg:sbcp<span class="operator">-</span>emul read the secure boot config packet from OTP emulation mode
+    readcfg:bscr      read the boot sequence control <span class="keyword">register</span> (BSCR)</pre>
+<a name="the-writecfg-command"></a>
+<h3 >The writecfg command</h3>
+<p>The <i>writecfg</i> command programs either the <b>Boot Configuration Packet (BCP)</b> or the <b>User Hardware Configuration Packet (UHCP)</b> into the User Area of the OTPC. If the emulation mode of the OTPC is enabled then packets in the User Area are stored in the internal SRAM1. Otherwise packets are stored inside the OTP matrix.</p>
+<p>The <i>writecfg</i> command can also program the <b>Boot Sequence Control Register (BSCR)</b> to tell the ROM code whether it should enable the emulation mode before reading its BCP.</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sam9x60<span class="operator">-</span>ek <span class="operator">-</span>a bootconfig <span class="operator">-</span>c writecfg:help
+<span class="operator">*</span> writecfg <span class="operator">-</span> write boot configuration
+Syntax:
+    writecfg:(bcp<span class="operator">-</span>otp<span class="operator">|</span>bcp<span class="operator">-</span>emul):<span class="operator">&lt;</span>boot_config_text<span class="operator">&gt;</span>
+    writecfg:(uhcp<span class="operator">-</span>otp<span class="operator">|</span>uhcp<span class="operator">-</span>emul):<span class="operator">&lt;</span>user_hw_config_text<span class="operator">&gt;</span>
+    writecfg:(sbcp<span class="operator">-</span>otp<span class="operator">|</span>sbcp<span class="operator">-</span>emul):
+    writecfg:bscr:<span class="operator">&lt;</span>bscr_value<span class="operator">&gt;</span>
+
+    <span class="operator">&lt;</span>bscr_value<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="string">&quot;EMULATION_DISABLED&quot;</span> <span class="operator">|</span> <span class="string">&quot;EMULATION_ENABLED&quot;</span>
+
+    <span class="operator">&lt;</span>boot_config_text<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="operator">&lt;</span>global_settings<span class="operator">&gt;</span> <span class="operator">|</span> <span class="operator">[</span> <span class="operator">&lt;</span>global_settings<span class="operator">&gt;</span> <span class="string">&quot;,&quot;</span> <span class="operator">]</span> <span class="operator">[</span> <span class="operator">&lt;</span>boot_sequence<span class="operator">&gt;</span> <span class="operator">]</span>
+
+    <span class="operator">&lt;</span>global_settings<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="operator">&lt;</span>global_setting<span class="operator">&gt;</span> <span class="operator">|</span> <span class="operator">&lt;</span>global_setting<span class="operator">&gt;</span> <span class="string">&quot;,&quot;</span> <span class="operator">&lt;</span>global_settings<span class="operator">&gt;</span>
+
+    <span class="operator">&lt;</span>global_setting<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="string">&quot;MONITOR_DISABLED&quot;</span> <span class="operator">|</span> <span class="operator">&lt;</span>console_ioset<span class="operator">&gt;</span>
+
+    <span class="operator">&lt;</span>console_ioset<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="string">&quot;DBGU&quot;</span> <span class="operator">|</span> <span class="string">&quot;FLEXCOM0_USART_IOSET1&quot;</span> <span class="operator">|</span> <span class="operator">.</span><span class="operator">.</span><span class="operator">.</span> <span class="operator">|</span> <span class="string">&quot;FLEXCOM12_USART_IOSET1&quot;</span>
+
+    <span class="operator">&lt;</span>boot_sequence<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="operator">&lt;</span>boot_entry<span class="operator">&gt;</span> <span class="operator">|</span> <span class="operator">&lt;</span>boot_entry<span class="operator">&gt;</span> <span class="string">&quot;,&quot;</span> <span class="operator">&lt;</span>boot_sequence<span class="operator">&gt;</span>
+
+    <span class="operator">&lt;</span>boot_entry<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="operator">&lt;</span>spi_entry<span class="operator">&gt;</span> <span class="operator">|</span> <span class="operator">&lt;</span>qspi_entry<span class="operator">&gt;</span> <span class="operator">|</span> <span class="operator">&lt;</span>sdmmc_entry<span class="operator">&gt;</span> <span class="operator">|</span> <span class="operator">&lt;</span>nfc_entry<span class="operator">&gt;</span>
+
+    <span class="operator">&lt;</span>spi_entry<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="operator">&lt;</span>spi0_entry<span class="operator">&gt;</span> <span class="operator">|</span> <span class="operator">&lt;</span>spi1_entry<span class="operator">&gt;</span> <span class="operator">|</span> <span class="operator">&lt;</span>spi2_entry<span class="operator">&gt;</span> <span class="operator">|</span> <span class="operator">&lt;</span>spi3_entry<span class="operator">&gt;</span> <span class="operator">|</span> <span class="operator">&lt;</span>spi4_entry<span class="operator">&gt;</span> <span class="operator">|</span> <span class="operator">&lt;</span>spi5_entry<span class="operator">&gt;</span>
+
+    <span class="operator">&lt;</span>spi0_entry<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="string">&quot;FLEXCOM0_SPI_IOSET1&quot;</span> <span class="operator">|</span> <span class="string">&quot;FLEXCOM0_SPI_IOSET2&quot;</span>
+
+    <span class="operator">&lt;</span>spi1_entry<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="string">&quot;FLEXCOM1_SPI_IOSET1&quot;</span> <span class="operator">|</span> <span class="string">&quot;FLEXCOM1_SPI_IOSET2&quot;</span>
+
+    <span class="operator">&lt;</span>spi2_entry<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="string">&quot;FLEXCOM2_SPI_IOSET1&quot;</span> <span class="operator">|</span> <span class="string">&quot;FLEXCOM2_SPI_IOSET2&quot;</span>
+
+    <span class="operator">&lt;</span>spi3_entry<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="string">&quot;FLEXCOM3_SPI_IOSET1&quot;</span> <span class="operator">|</span> <span class="string">&quot;FLEXCOM3_SPI_IOSET2&quot;</span>
+
+    <span class="operator">&lt;</span>spi4_entry<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="string">&quot;FLEXCOM4_SPI_IOSET1&quot;</span> <span class="operator">|</span> <span class="string">&quot;FLEXCOM4_SPI_IOSET2&quot;</span> <span class="operator">|</span> <span class="string">&quot;FLEXCOM4_SPI_IOSET3&quot;</span> <span class="operator">|</span> <span class="string">&quot;FLEXCOM4_SPI_IOSET4&quot;</span> <span class="operator">|</span> <span class="string">&quot;FLEXCOM4_SPI_IOSET5&quot;</span> <span class="operator">|</span> <span class="string">&quot;FLEXCOM4_SPI_IOSET6&quot;</span>
+
+    <span class="operator">&lt;</span>spi5_entry<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="string">&quot;FLEXCOM5_SPI_IOSET1&quot;</span> <span class="operator">|</span> <span class="string">&quot;FLEXCOM5_SPI_IOSET2&quot;</span> <span class="operator">|</span> <span class="string">&quot;FLEXCOM5_SPI_IOSET3&quot;</span> <span class="operator">|</span> <span class="string">&quot;FLEXCOM5_SPI_IOSET4&quot;</span> <span class="operator">|</span> <span class="string">&quot;FLEXCOM5_SPI_IOSET5&quot;</span>
+
+    <span class="operator">&lt;</span>qspi_entry<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="string">&quot;QSPI0_IOSET1&quot;</span> <span class="operator">|</span> <span class="string">&quot;QSPI0_IOSET1_XIP&quot;</span>
+
+    <span class="operator">&lt;</span>sdmmc_entry<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="operator">&lt;</span>sdmmc_controller<span class="operator">&gt;</span> <span class="operator">[</span> <span class="char">'_'</span> <span class="operator">&lt;</span>card_detect_pin<span class="operator">&gt;</span> <span class="operator">]</span>
+
+    <span class="operator">&lt;</span>sdmmc_controller<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="string">&quot;SDMMC0_IOSET1&quot;</span><span class="operator">,</span> <span class="string">&quot;SDMMC1_IOSET1&quot;</span>
+
+    <span class="operator">&lt;</span>card_detect_pin<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="string">&quot;P&quot;</span> <span class="operator">&lt;</span>pio_instance<span class="operator">&gt;</span> <span class="operator">&lt;</span>pin_number<span class="operator">&gt;</span>
+
+    <span class="operator">&lt;</span>pio_instance<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="string">&quot;A&quot;</span> <span class="operator">|</span> <span class="string">&quot;B&quot;</span> <span class="operator">|</span> <span class="string">&quot;C&quot;</span> <span class="operator">|</span> <span class="string">&quot;D&quot;</span>
+
+    <span class="operator">&lt;</span>pin_number<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="string">&quot;0&quot;</span> <span class="operator">|</span> <span class="string">&quot;1&quot;</span> <span class="operator">|</span> <span class="string">&quot;2&quot;</span> <span class="operator">|</span> <span class="string">&quot;3&quot;</span> <span class="operator">|</span> <span class="string">&quot;4&quot;</span> <span class="operator">|</span> <span class="string">&quot;5&quot;</span> <span class="operator">|</span> <span class="operator">.</span><span class="operator">.</span><span class="operator">.</span> <span class="operator">|</span> <span class="string">&quot;29&quot;</span> <span class="operator">|</span> <span class="string">&quot;30&quot;</span> <span class="operator">|</span> <span class="string">&quot;31&quot;</span>
+
+    <span class="operator">&lt;</span>nfc_entry<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="string">&quot;NFC_IOSET1&quot;</span> <span class="operator">|</span> <span class="string">&quot;NFC_IOSET2&quot;</span>
+
+    <span class="operator">&lt;</span>user_hw_config_text<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="string">&quot;&quot;</span> <span class="operator">|</span> <span class="operator">&lt;</span>user_hw_setting<span class="operator">&gt;</span> <span class="operator">|</span> <span class="operator">&lt;</span>user_hw_setting<span class="operator">&gt;</span> <span class="string">&quot;,&quot;</span> <span class="operator">&lt;</span>user_hw_config_text<span class="operator">&gt;</span>
+
+    <span class="operator">&lt;</span>user_hw_setting<span class="operator">&gt;</span> :<span class="operator">=</span> <span class="string">&quot;JTAGDIS&quot;</span> <span class="operator">|</span> <span class="string">&quot;URDDIS&quot;</span> <span class="operator">|</span> <span class="string">&quot;UPGDIS&quot;</span> <span class="operator">|</span> <span class="string">&quot;URFDIS&quot;</span> <span class="operator">|</span>
+                         <span class="string">&quot;UHCINVDIS&quot;</span> <span class="operator">|</span> <span class="string">&quot;UHCLKDIS&quot;</span> <span class="operator">|</span> <span class="string">&quot;UHCPGDIS&quot;</span> <span class="operator">|</span>
+                         <span class="string">&quot;BCINVDIS&quot;</span> <span class="operator">|</span> <span class="string">&quot;BCLKDIS&quot;</span> <span class="operator">|</span> <span class="string">&quot;BCPGDIS&quot;</span> <span class="operator">|</span>
+                         <span class="string">&quot;SBCINVDIS&quot;</span> <span class="operator">|</span> <span class="string">&quot;SBCLKDIS&quot;</span> <span class="operator">|</span> <span class="string">&quot;SBCPGDIS&quot;</span> <span class="operator">|</span>
+                         <span class="string">&quot;CINVDIS&quot;</span> <span class="operator">|</span> <span class="string">&quot;CLKDIS&quot;</span> <span class="operator">|</span> <span class="string">&quot;CPGDIS&quot;</span>
+
+Examples:
+    writecfg:bscr:EMULATION_ENABLED                           enable OTP emulation mode
+    writecfg:bscr:EMULATION_DISABLED                          disable OTP emulation mode
+    writecfg:bcp<span class="operator">-</span>emul:DBGU                                    empty boot config (console on DBGU) stored in OTP emulation mode
+    writecfg:bcp<span class="operator">-</span>otp:FLEXCOM0_USART_IOSET1<span class="operator">,</span>SDMMC1_IOSET1_PA10 boot config with console on FLEXCOM0<span class="operator">,</span> boot from SDMMC1 (PA10 as card<span class="operator">-</span>detect pin) stored in OTP matrix
+    writecfg:sbcp<span class="operator">-</span>emul:                                       empty secure boot config stored in OTP emulation mode
+    writecfg:sbcp<span class="operator">-</span>otp:                                        empty secure boot config stored in OTP matrix</pre>
+<a name="the-invalidatecfg-command"></a>
+<h3 >The invalidatecfg command</h3>
+<p>The <i>invalidatecfg</i> command invalidates either the current <b>Boot Configuration Packet (BCP)</b> or the current <b>User Hardware Configuration Packet (UHCP)</b>. An invalidated packet is ignored by the OTPC and the ROM code.</p>
+<pre class="cpp"><span class="operator">*</span> invalidatecfg <span class="operator">-</span> invalidate the boot config packet
+Syntax:
+    invalidatecfg:(bcp<span class="operator">-</span>otp<span class="operator">|</span>bcp<span class="operator">-</span>emul<span class="operator">|</span>uhcp<span class="operator">-</span>otp<span class="operator">|</span>uhcp<span class="operator">-</span>emul<span class="operator">|</span>sbcp<span class="operator">-</span>otp<span class="operator">|</span>sbcp<span class="operator">-</span>emul)
+Examples:
+    invalidatecfg:bcp<span class="operator">-</span>otp   invalidate the boot config packet in OTP matrix
+    invalidatecfg:bcp<span class="operator">-</span>emul  invalidate the boot config packet in OTP emulation mode
+    invalidatecfg:uhcp<span class="operator">-</span>otp  invalidate the user hardware config packet in OTP matrix
+    invalidatecfg:uhcp<span class="operator">-</span>emul invalidate the user hardware config packet in OTP emulation mode
+    invalidatecfg:sbcp<span class="operator">-</span>otp  invalidate the secure boot config packet in OTP matrix
+    invalidatecfg:sbcp<span class="operator">-</span>emul invalidate the secure boot config packet in OTP emulation mode</pre>
+<a name="the-lockcfg-command"></a>
+<h3 >The lockcfg command</h3>
+<p>The <i>lockcfg</i> command tells the OTPC to compute the checksum of either the current <b>Boot Configuration Packet (BCP)</b> or the current <b>User Hardware Configuration Packet (UHCP)</b> to discard any further modification of this packet, except invalidating it.</p>
+<pre class="cpp"><span class="operator">*</span> lockcfg <span class="operator">-</span> lock the boot config packet
+Syntax:
+    lockcfg:(bcp<span class="operator">-</span>otp<span class="operator">|</span>bcp<span class="operator">-</span>emul<span class="operator">|</span>uhcp<span class="operator">-</span>otp<span class="operator">|</span>uhcp<span class="operator">-</span>emul<span class="operator">|</span>sbcp<span class="operator">-</span>top<span class="operator">|</span>sbcp<span class="operator">-</span>emul)
+Examples:
+    lockcfg:bcp<span class="operator">-</span>otp   lock the boot config packet in OTP matrix
+    lockcfg:bcp<span class="operator">-</span>emul  lock the boot config packet in OTP emulation mode
+    lockcfg:uhcp<span class="operator">-</span>otp  lock the user hardware config packet in OTP matrix
+    lockcfg:uhcp<span class="operator">-</span>emul lock the user hardware config packet in OTP emulation mode
+    lockcfg:sbcp<span class="operator">-</span>otp  lock the secure boot config packet in OTP matrix
+    lockcfg:sbcp<span class="operator">-</span>emul lock the secure boot config packet in OTP emulation mode</pre>
+<a name="the-refreshcfg-command"></a>
+<h3 >The refreshcfg command</h3>
+<p>The <i>refreshcfg</i> command tells the OTPC to either enable or disable its emulation mode before scanning again all packets in the User Area.</p>
+<pre class="cpp"><span class="operator">*</span> refreshcfg <span class="operator">-</span> refresh the OTP matrix <span class="keyword">or</span> emulation mode
+Syntax:
+    refreshcfg:(otp<span class="operator">|</span>emul)
+Examples:
+    refreshcfg:otp   disable the OTP emulation mode<span class="operator">,</span> <span class="keyword">if</span> needed<span class="operator">,</span> then refresh the OTPC
+    refreshcfg:emul  enable the OTP emulation mode<span class="operator">,</span> <span class="keyword">if</span> needed<span class="operator">,</span> then refresh the OTPC</pre>
+<a name="the-resetemul-command"></a>
+<h3 >The resetemul command</h3>
+<p>The <i>resetemul</i> command must be called once for all before any other command accessing the SRAM1, including the <i>refreshcfg:emul</i> command. Indeed the <i>resetemul</i> command resets to zero the whole SRAM1.</p>
+</div>
+<!-- @@@bootconfig_sam9x60.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

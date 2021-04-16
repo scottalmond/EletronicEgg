@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- pairingmode_sam9x60.qdoc -->
+  <title>SAM-BA pairingmode applet | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>SAM-BA pairingmode applet</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#applet-initialization">Applet initialization</a></li>
+<li class="level1"><a href="#supported-commands">Supported commands</a></li>
+<li class="level2"><a href="#the-translate-command">The translate command</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">SAM-BA pairingmode applet</h1>
+<span class="subtitle"></span>
+<!-- $$$pairingmode_sam9x60.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>The <i>pairingmode</i> applet translates some bootstrap master image into another bootstrap image, which is paired to the target device.</p>
+<p>Hence, the <i>pairingmode</i> applet can be run <i>only</i> through a connection to the secure SAM-BA monitor as it assumes the bootstrap master image to be ciphered with the AES-256-CBC algorithm using the secret customer key.</p>
+<p>This customer key <i>must</i> have been programmed into the target device, with the <a href="sam9x60.html#secure-boot-mode">write_customer_key</a> built-in monitor command, prior to execute the <i>pairingmode</i> applet.</p>
+<p>Also the paring mode must be enabled <i>after</i> the customer key has been programmed, running the <a href="sam9x60.html#enabling-the-pairing-mode">enable_pairing</a> built-in monitor command.</p>
+<a name="applet-initialization"></a>
+<h2 id="applet-initialization">Applet initialization</h2>
+<p>The <i>pairingmode</i> applet accepts a single mandatory parameter, <i>algo</i>.</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p secure <span class="operator">-</span>d sam9x60 <span class="operator">-</span>a pairingmode:help
+Syntax: pairingmode:<span class="operator">[</span><span class="operator">&lt;</span>algo<span class="operator">&gt;</span><span class="operator">]</span>
+Parameters:
+    algo            Signature algorithm <span class="keyword">for</span> authentication (cmac <span class="keyword">or</span> rsa)
+Examples:
+    pairingmode:cmac  Signature algorithm is set to AES<span class="operator">-</span><span class="number">256</span><span class="operator">-</span>CMAC
+    pairingmode:rsa   Signature algorithm is set to RSA</pre>
+<a name="supported-commands"></a>
+<h2 id="supported-commands">Supported commands</h2>
+<p>The list of commands supported by the <i>pairingmode</i> applet can be displayed with the following command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p secure <span class="operator">-</span>d sam9x60 <span class="operator">-</span>a pairingmode <span class="operator">-</span>c help</pre>
+<a name="the-translate-command"></a>
+<h3 >The translate command</h3>
+<p>The <i>translate</i> command transforms the input stream of binary data, loaded from the bootstrap master image file <i>&lt;master_input&gt;</i>, into the output stream of binary data, saved into the bootstrap paired image file <i>&lt;paired_output&gt;</i>.</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p secure <span class="operator">-</span>d sam9x60 <span class="operator">-</span>a pairingmode <span class="operator">-</span>c translate:help
+<span class="operator">*</span> translate <span class="operator">-</span> convert a bootstrap master image into a bootstrap paired image
+Syntax:
+    translate:<span class="operator">&lt;</span>master_input<span class="operator">&gt;</span>:<span class="operator">&lt;</span>paired_output<span class="operator">&gt;</span>
+Examples:
+    translate:at91bootstrap<span class="operator">.</span>cip:at91bootstrap_paired<span class="operator">.</span>cip</pre>
+</div>
+<!-- @@@pairingmode_sam9x60.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

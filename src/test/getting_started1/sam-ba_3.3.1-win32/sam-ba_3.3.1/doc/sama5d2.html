@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- sama5d2.qdoc -->
+  <title>Getting started with SAM-BA on SAMA5D2 devices | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>Getting started with SAM-BA on SAMA5D2 devices</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#connecting-to-the-sam-ba-monitor">Connecting to the SAM-BA monitor</a></li>
+<li class="level1"><a href="#predefined-boards-and-customer-board-designs">Predefined boards and customer board designs</a></li>
+<li class="level1"><a href="#supported-applets">Supported applets</a></li>
+<li class="level1"><a href="#boot-configuration">Boot Configuration</a></li>
+<li class="level2"><a href="#boot-configuration-word">Boot Configuration word</a></li>
+<li class="level2"><a href="#rom-code-console">ROM Code console</a></li>
+<li class="level2"><a href="#nvm-boot-sequence">NVM boot sequence</a></li>
+<li class="level2"><a href="#programming-a-boot-configuration-word">Programming a Boot Configuration word</a></li>
+<li class="level2"><a href="#reading-back-the-boot-configuration-word">Reading back the Boot Configuration word</a></li>
+<li class="level1"><a href="#programming-a-qspi-nor-flash">Programming a QSPI NOR flash</a></li>
+<li class="level1"><a href="#programming-a-spi-nor-flash">Programming a SPI NOR flash</a></li>
+<li class="level1"><a href="#programming-a-sdcard-or-e-mmc-user-partition">Programming a SDCard or e.MMC user partition</a></li>
+<li class="level1"><a href="#programming-a-raw-nand-flash">Programming a raw NAND flash</a></li>
+<li class="level1"><a href="#secure-boot-mode">Secure Boot Mode</a></li>
+<li class="level2"><a href="#storing-keys-in-either-securam-or-fuses">Storing keys in either SECURAM or fuses</a></li>
+<li class="level2"><a href="#programming-the-customer-keys">Programming the Customer Keys</a></li>
+<li class="level2"><a href="#selecting-rsa-signatures">Selecting RSA signatures</a></li>
+<li class="level2"><a href="#enabling-the-boot-from-external-nvm">Enabling the boot from external NVM</a></li>
+<li class="level2"><a href="#disabling-the-secure-sam-ba-monitor">Disabling the secure SAM-BA monitor</a></li>
+<li class="level2"><a href="#persistently-disabling-the-buregx-registers">Persistently disabling the BUREGx registers</a></li>
+<li class="level2"><a href="#persistently-disabling-the-jtag-port">Persistently disabling the JTAG port</a></li>
+<li class="level2"><a href="#setting-the-secure-debug-bit">Setting the SECURE_DEBUG bit</a></li>
+<li class="level2"><a href="#enabling-the-pairing-mode">Enabling the pairing mode</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">Getting started with SAM-BA on SAMA5D2 devices</h1>
+<span class="subtitle"></span>
+<!-- $$$sama5d2.html-description -->
+<div class="descr"> <a name="details"></a>
+<a name="connecting-to-the-sam-ba-monitor"></a>
+<h2 id="connecting-to-the-sam-ba-monitor">Connecting to the SAM-BA monitor</h2>
+<p>For USB connection, the host running <i>sam-ba</i> should be connected to the <b>USB device port</b> of the SAMA5D2 board design. on SAMA5D2-Xplained boards, this port is labeled <b>A5-USB-A (J23)</b>.</p>
+<p><b>The USB device port must not be confused with other USB connectors such as EDBG-USB (J14)</b>.</p>
+<a name="predefined-boards-and-customer-board-designs"></a>
+<h2 id="predefined-boards-and-customer-board-designs">Predefined boards and customer board designs</h2>
+<p>The <i>sam-ba</i> program comes with predefined <i>sama5d2-xplained</i>, <i>sama5d2-ptc-ek</i> and <i>sama5d27-som1-ek</i> boards that set default values for different settings such as the <i>applet console</i> or memory controller <i>instances</i> and <i>iosets</i>.</p>
+<p>Those predefined boards can be selected wit the <i>-b sama5d2-xplained</i>, <i>-b sama5d2-ptc-ek</i> or <i>-b sama5d27-som1-ek</i> options on the <i>sam-ba</i> command line.</p>
+<p>However the <i>-d sama5d2</i> option should be used instead on customer board designs not to load any default settings. Instead, additionnal parameters may be passed to the <a href="qml-samba-device-sama5d2-sama5d2config.html#serial-console-configuration">-d sama5d2:&lt;console_instance&gt;:&lt;console_ioset&gt; </a> option to select the <i>applet console</i>. The <i>applet console</i>, when enabled, is used by any applet to print its traces.</p>
+<p>Also, default memory controller settings, if any, can be overridden too, passing additionnal arguments to the <a href="applet.html#the-a-applet-option">-a &lt;applet&gt;</a> option for the applet managing the memory controller.</p>
+<a name="supported-applets"></a>
+<h2 id="supported-applets">Supported applets</h2>
+<p>The list of supported applets can be displayed with the following command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a help
+Known applets: bootconfig<span class="operator">,</span> lowlevel<span class="operator">,</span> extram<span class="operator">,</span> serialflash<span class="operator">,</span> qspiflash<span class="operator">,</span> nandflash<span class="operator">,</span> sdmmc<span class="operator">,</span> internalrc<span class="operator">,</span> reset<span class="operator">,</span> readuniqueid</pre>
+<div class="table"><table class="generic">
+ <thead><tr class="qt-style"><th >Applet</th><th >Short description</th><th >Examples</th></tr></thead>
+<tr valign="top" class="odd"><td ><a href="bootconfig-sama5d2.html">bootconfig</a></td><td >Manage boot configuration of the device, select boot media</td><td ><a href="sama5d2.html#programming-a-boot-configuration-word">Programming a Boot Configuration word</a></td></tr>
+<tr valign="top" class="even"><td ><a href="extram.html">extram</a></td><td >Initialize the external RAM (not needed by any other applets)</td><td ></td></tr>
+<tr valign="top" class="odd"><td ><a href="internalrc.html">internalrc</a></td><td ><b>MUST be called once per boot before programming any fuse in <i>SFC_DR[]</i> registers of the <i>Secure Flash Controller (SFC)</i></b></td><td ></td></tr>
+<tr valign="top" class="even"><td ><a href="lowlevel.html">lowlevel</a></td><td >Setup the clock tree (only needed by the <i>extram</i> applet)</td><td ></td></tr>
+<tr valign="top" class="odd"><td ><a href="nandflash.html">nandflash</a></td><td >Manage raw NAND flash memories connected to the EBI and driven by the SMC</td><td ><a href="sama5d2.html#programming-a-raw-nand-flash">Programming a raw NAND flash</a></td></tr>
+<tr valign="top" class="even"><td ><a href="pairingmode-sama5d2.html">pairingmode</a></td><td >Translate a bootstrap master image into a bootstrap paired image</td><td ></td></tr>
+<tr valign="top" class="odd"><td ><a href="qspiflash.html">qspiflash</a></td><td >Manage (Q)SPI NOR flash memories connected to the QSPI controller</td><td ><a href="sama5d2.html#programming-a-qspi-nor-flash">Programming a QSPI NOR flash</a></td></tr>
+<tr valign="top" class="even"><td ><a href="readuniqueid.html">readuniqueid</a></td><td >Read the device unique ID</td><td ></td></tr>
+<tr valign="top" class="odd"><td ><a href="reset.html">reset</a></td><td >Reset the target device</td><td ></td></tr>
+<tr valign="top" class="even"><td ><a href="sdmmc.html">sdmmc</a></td><td >Manage e.MMC and SD Cards connected to some SDMMC instance</td><td ><a href="sama5d2.html#programming-a-sdcard-or-e-mmc-user-partition">Programming a SD Card or e.MMC</a></td></tr>
+<tr valign="top" class="odd"><td ><a href="serialflash.html">serialflash</a></td><td >Manage (Q)SPI NOR flash memories connected to some FLEXCOM SPI instance</td><td ><a href="sama5d2.html#programming-a-spi-nor-flash">Programming a SPI NOR flash</a></td></tr>
+</table></div>
+<a name="boot-configuration"></a>
+<h2 id="boot-configuration">Boot Configuration</h2>
+<p>The ROM code of SAMA5D2 devices is the 1st stage boot loader responsible for the system boot. Hence, the ROM code fetches the <a href="sama5d2.html#boot-configuration-word">Boot Configuration word</a> in order to get boot settings such as the <a href="sama5d2.html#rom-code-console">ROM code console</a> and the active controllers in the <a href="sama5d2.html#nvm-boot-sequence">NVM boot sequence</a>.</p>
+<a name="boot-configuration-word"></a>
+<h3 >Boot Configuration word</h3>
+<p>On power-on or reset, the ROM code first reads the <i>SFC_DR[16]</i> register of the Secure Flash Controller (SFC) and tests its <i>BSCR_DISABLE</i> bit (bit 22).</p>
+<p>This fuse bit is 0 on factory defaults.</p>
+<p>If the <i>BSCR_DISABLE</i> bit is set, then the value of the <i>SFC_DR[16]</i> register is used as the <i>Boot Configuration</i> word.</p>
+<p>Otherwise, <b>the ROM code samples the value of the <i>BSCR</i> register on power-on or reset</b>. If the <i>VALID</i> bit (bit 2) is set in the <i>sample</i> value, then <i>BSCR[1:0]</i> bits selects which <i>BUREGx</i> register is used by the ROM code to load its <i>Boot Configuration</i> word.</p>
+<p>During developments and tests, we recommend the user to configure the <i>BSCR</i> register in order to program the <i>Boot Configuration</i> word into some <i>BUREGx</i>. Indeed, <i>BUREGx</i> registers can be written and updated any number of times, whereas the <i>SFC_DR[16]</i> register is stored in fuses, hence bits set to 1 cannot be reset to 0.</p>
+<p>The <a href="bootconfig-sama5d2.html">bootconfig</a> applet provides the user with helper commands to manage the Boot Configuration word and its storage in a SAMA5D2 device.</p>
+<p>As <i>BUREGx</i> registers are powered by VDDBBU, hence backed up, their values are kept after reset. However, those registers remain ignored by the ROM code unless the proper value is written into the <i>BSCR</i> register, for intance by executing the <a href="bootconfig-sama5d2.html#the-writecfg-command">writecfg:bscr:buregX,valid</a> command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a bootconfig <span class="operator">-</span>c writecfg:bscr:bureg0<span class="operator">,</span>valid</pre>
+<p>Also the user can check whether the ROM code is configured to fetch its <a href="sama5d2.html#boot-configuration">Boot Configuration</a> word from any <i>BUREGx</i> register by reading back the <i>BSCR</i> register with the <a href="bootconfig-sama5d2.html#the-readcfg-command">readcfg:bscr</a> command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a bootconfig <span class="operator">-</span>c readcfg:bscr</pre>
+<p><b>WARNING: New values or register selections for the <i>Boot Configuration</i> word are <i>not</i> taken into account by non-secure or secure SAM-BA monitors until the next power-on or reset!</b></p>
+<a name="rom-code-console"></a>
+<h3 >ROM Code console</h3>
+<p>The <i>Boot Configuration</i> word tells the ROM code which RS-232 UART is to be used for the console. For instance, the &quot;RomBOOT&quot; string is always printed on power-on or reset on this console. Also, the ROM code console is used by SAM-BA monitors to communicate with the <i>sam-ba</i> program when USB is not available.</p>
+<p>On SAMA5D2, the default <i>ROM code console</i> is UART1 but it can be set to another U(S)ART. Please note that the <i>ROM code console</i> may be different from the <a href="sama5d2.html#predefined-boards-and-customer-board-designs">applet console</a></p>
+<a name="nvm-boot-sequence"></a>
+<h3 >NVM boot sequence</h3>
+<p>The Non-Volatile Memory (NVM) boot sequence selects the controllers mananing external NVM where the ROM code tries to load the user applicaiton (or 2nd stage boot loader) from.</p>
+<p>On SAMA5D2, boot sequence is:</p>
+<div class="table"><table class="generic">
+ <thead><tr class="qt-style"><th >Position</th><th >Controller</th><th >Memory type</th><th >Selected by default</th></tr></thead>
+<tr valign="top" class="odd"><td >1</td><td >SDMMC1</td><td >e.MMC or SD Card</td><td >yes (ioset 1)</td></tr>
+<tr valign="top" class="even"><td >2</td><td >SDMMC0</td><td >e.MMC or SD Card</td><td >yes (ioset 1)</td></tr>
+<tr valign="top" class="odd"><td >3</td><td >NFC</td><td >raw NAND flash</td><td >no</td></tr>
+<tr valign="top" class="even"><td >4</td><td >SPI0 (chip-select 0)</td><td >SPI NOR flash (AT25/M25P compatible)</td><td >no</td></tr>
+<tr valign="top" class="odd"><td >5</td><td >SPI1 (chip-select 0)</td><td >SPI NOR flash (AT25/M25P compatible)</td><td >no</td></tr>
+<tr valign="top" class="even"><td >6</td><td >QSPI0</td><td >QSPI NOR flash (JESD216B comtabible)</td><td >no</td></tr>
+<tr valign="top" class="odd"><td >7</td><td >QSPI1</td><td >QSPI NOR flash (JESD216B compatible)</td><td >no</td></tr>
+</table></div>
+<a name="programming-a-boot-configuration-word"></a>
+<h3 >Programming a Boot Configuration word</h3>
+<p>The user can program his first <i>Boot Configuration</i> word with the <a href="bootconfig-sama5d2.html#the-writecfg-command">writecfg:fuse / writecfg:buregx</a> command:</p>
+<p><b>WARNING: Before executing any <a href="bootconfig-sama5d2.html#the-writecfg-command">writecfg:fuse</a> command, the user <i>MUST</i> execute the <a href="internalrc.html">internalrc</a> applet once per boot.</b></p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a internalrc
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a bootconfig <span class="operator">-</span>c writecfg:fuse:QSPI0_IOSET3<span class="operator">,</span>EXT_MEM_BOOT</pre>
+<p>or</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d27<span class="operator">-</span>som1<span class="operator">-</span>ek <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a bootconfig <span class="operator">-</span>c writecfg:bureg0:SDMMC1_IOSET1<span class="operator">,</span>QSPI1_IOSET2<span class="operator">,</span>EXT_MEM_BOOT</pre>
+<p>In both examples, UART1 is implicitly chosen as the <i>ROM code console</i> and the boot from external memories is enabled too by the <b><i>EXT_MEM_BOOT</i></b> token.</p>
+<p>Then the 1st example selects QSPI0 ioset3 on a SAMA5D2 Xplained board as the only boot medium in the boot sequence whereas the 2nd example selects SDMMC1 ioset1 and QSPI1 ioset2 on a SAMA5D2 SOM1 EK board as boot media.</p>
+<a name="reading-back-the-boot-configuration-word"></a>
+<h3 >Reading back the Boot Configuration word</h3>
+<p>The <i>Boot Configuration</i> word can be read-back from <i>SFC_DR[16]</i> or <i>BUREGx</i> registers with the <a href="bootconfig-sama5d2.html#the-readcfg-command">readcfg:fuse / readcfg:buregx</a> command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a bootconfig <span class="operator">-</span>c readcfg:fuse</pre>
+<p>or</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d27<span class="operator">-</span>som1<span class="operator">-</span>ek <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a bootconfig <span class="operator">-</span>c readcfg:bureg0</pre>
+<a name="programming-a-qspi-nor-flash"></a>
+<h2 id="programming-a-qspi-nor-flash">Programming a QSPI NOR flash</h2>
+<p>In the following example, we program the <i>at91bootstrap.bin</i>, <i>u-boot.bin</i>, <i>zImage</i> and <i>at91-sama5d2_xplained.dtb</i> files into the embedded QSPI NOR flash of the SAMA5D2 Xplained board:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a qspiflash <span class="operator">-</span>c erase
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a qspiflash <span class="operator">-</span>c writeboot:at91bootstrap<span class="operator">.</span>bin <span class="operator">-</span>c verifyboot:at91bootstrap<span class="operator">.</span>bin
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a qspiflash <span class="operator">-</span>c write:u<span class="operator">-</span>boot<span class="operator">.</span>bin:<span class="number">0x00040000</span> <span class="operator">-</span>c verify:u<span class="operator">-</span>boot<span class="operator">.</span>bin:<span class="number">0x00040000</span>
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a qspiflash <span class="operator">-</span>c write:at91<span class="operator">-</span>sama5d2_xplained<span class="operator">.</span>dtb:<span class="number">0x00180000</span> <span class="operator">-</span>c verify:at91<span class="operator">-</span>sama5d2_xplained<span class="operator">.</span>dtb:<span class="number">0x00180000</span>
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a qspiflash <span class="operator">-</span>c write:zImage:<span class="number">0x00200000</span> <span class="operator">-</span>c verify:zImage:<span class="number">0x00200000</span></pre>
+<p>Most QSPI NOR flash memories are too small to store the Linux root file-system; this should be programmed into another NVM.</p>
+<p><b>If the QSPI NOR flash memory is connected to a custom board design, then additional parameters should be passed to the <i>-a qspiflash</i> option in above examples.</b></p>
+<p>The list of those parameters is given by the command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a qspiflash:help
+Syntax: qspiflash:<span class="operator">[</span><span class="operator">&lt;</span>instance<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>ioset<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>frequency<span class="operator">&gt;</span><span class="operator">]</span>
+Parameters:
+    instance   QSPI controller instance
+    ioset      QSPI I<span class="operator">/</span>O set
+    frequency  QSPI clock frequency in MHz
+Examples:
+    qspiflash         use <span class="keyword">default</span> board settings
+    qspiflash:<span class="number">0</span>:<span class="number">3</span>:<span class="number">66</span>  use fully custom settings (QSPI0<span class="operator">,</span> IOSET3<span class="operator">,</span> <span class="number">66Mhz</span>)
+    qspiflash<span class="operator">::</span>:<span class="number">20</span>    use <span class="keyword">default</span> board settings but force frequency to <span class="number">20Mhz</span></pre>
+<p>Supported <i>&lt;instance&gt;</i> and <i>&lt;ioset&gt;</i> for QSPI on SAMA5D2 devices are listed <a href="qml-samba-device-sama5d2-sama5d2config.html#qspi-flash-configuration">here</a>.</p>
+<a name="programming-a-spi-nor-flash"></a>
+<h2 id="programming-a-spi-nor-flash">Programming a SPI NOR flash</h2>
+<p>In the following example, we program the <i>at91bootstrap.bin</i>, <i>u-boot.bin</i>, <i>zImage</i> and <i>at91-sama5d2-xplained.dtb</i> files into the embedded SPI NOR flash of the SAMA5D2 Xplained board:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a serialflash <span class="operator">-</span>c erase
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a serialflash <span class="operator">-</span>c writeboot:at91bootstrap<span class="operator">.</span>bin <span class="operator">-</span>c verifyboot:at91bootstrap<span class="operator">.</span>bin
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a serialflash <span class="operator">-</span>c write:u<span class="operator">-</span>boot<span class="operator">.</span>bin:<span class="number">0x00008000</span> <span class="operator">-</span>c verify:u<span class="operator">-</span>boot<span class="operator">.</span>bin:<span class="number">0x00008000</span>
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a serialflash <span class="operator">-</span>c write:at91<span class="operator">-</span>sama5d2<span class="operator">-</span>xplained<span class="operator">.</span>dtb:<span class="number">0x00060000</span> <span class="operator">-</span>c verify:at91<span class="operator">-</span>sama5d2<span class="operator">-</span>xplained<span class="operator">.</span>dtb:<span class="number">0x00060000</span>
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a serialflash <span class="operator">-</span>c write:zImage:<span class="number">0x0006c000</span> <span class="operator">-</span>c verify:zImage:<span class="number">0x0006c000</span></pre>
+<p>SPI NOR flashes are likely to be too small to store the Linux root file-system; this should be programmed into another NVM.</p>
+<p><b>If the SPI NOR flash memory is connected to a custom board design, then additional parameters should be passed to the <i>-a serialflash</i> option in above examples.</b></p>
+<p>The list of those parameters is given by the command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a serialflash:help
+Syntax: serialflash:<span class="operator">[</span><span class="operator">&lt;</span>instance<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>ioset<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>npcs<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>frequency<span class="operator">&gt;</span><span class="operator">]</span>
+Parameters:
+    instance   SPI controller instance
+    ioset      I<span class="operator">/</span>O set
+    npcs       SPI chip select number
+    frequency  SPI clock frequency in MHz
+Examples:
+    serialflash           use <span class="keyword">default</span> board settings
+    serialflash:<span class="number">0</span>:<span class="number">1</span>:<span class="number">0</span>:<span class="number">66</span>  use fully custom settings (SPI0<span class="operator">,</span> IOSET1<span class="operator">,</span> NPCS0<span class="operator">,</span> <span class="number">66Mhz</span>)
+    serialflash<span class="operator">::</span><span class="operator">::</span><span class="number">20</span>     use <span class="keyword">default</span> board settings but force frequency to <span class="number">20Mhz</span></pre>
+<p>Supported <i>&lt;instance&gt;</i>, <i>&lt;ioset&gt;</i> and <i>&lt;npcs&gt;</i> for SPI on SAMA5D2 devices are listed <a href="qml-samba-device-sama5d2-sama5d2config.html#spi-serial-flash-configuration">here</a>.</p>
+<a name="programming-a-sdcard-or-e-mmc-user-partition"></a>
+<h2 id="programming-a-sdcard-or-e-mmc-user-partition">Programming a SDCard or e.MMC user partition</h2>
+<p>In the following example, the <i>sdcard.img</i> file is a raw image of a SD Card, hence starting with a Master Boot Record (MBR) containing a valid partition table. The first partition is formatted with a FAT32 file-system, which gathers four files in its root directory:</p>
+<ul>
+<li>a <i>boot.bin</i> file: the <i>at91bootstrap.bin</i> file renammed into <i>boot.bin</i></li>
+<li>a <i>u-boot.bin</i> file: the u-boot binary image, loaded then executed by <i>boot.bin</i></li>
+<li>a <i>zImage</i> file: the compressed image of a Linux kernel, loaded then executed by u-boot</li>
+<li>a <i>at91-sama5d2-xplained.dtb</i>: the device-tree binary for the Linux kernel, loaded by u-boot at the same time as the <i>zImage</i> file</li>
+</ul>
+<p>The second partition is formatted in EXT4 and contains the root file-system used by the Linux kernel</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a sdmmc <span class="operator">-</span>c write:sdcard<span class="operator">.</span>img</pre>
+<p><b>If the SD Card or e.MMC memory is connected to a customer board design, then additional parameters should be passed to the <i>-a sdmmc</i> option in above examples.</b></p>
+<p>The list of those parameters is given by the command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a sdmmc:help
+Syntax: sdmmc:<span class="operator">[</span><span class="operator">&lt;</span>instance<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>ioset<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>partition<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>bus_width<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>voltages<span class="operator">&gt;</span><span class="operator">]</span>
+Parameters:
+    instance   SDMMC controller number
+    ioset      SDMMC I<span class="operator">/</span>O set
+    partition  Partition number (<span class="number">0</span><span class="operator">=</span>user partition<span class="operator">,</span> x<span class="operator">&gt;</span><span class="number">0</span><span class="operator">=</span>boot partition x)
+    bus_width  Data bus width (<span class="number">0</span><span class="operator">=</span>controller max<span class="operator">,</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span><span class="operator">-</span>bit<span class="operator">,</span> <span class="number">4</span><span class="operator">=</span><span class="number">4</span><span class="operator">-</span>bit<span class="operator">,</span> <span class="number">8</span><span class="operator">=</span><span class="number">8</span><span class="operator">-</span>bit)
+    voltages   Supported voltages (bitfield: <span class="number">1</span><span class="operator">=</span><span class="number">1.8V</span><span class="operator">,</span> <span class="number">2</span><span class="operator">=</span><span class="number">3.0V</span><span class="operator">,</span> <span class="number">4</span><span class="operator">=</span><span class="number">3.3V</span>)
+Examples:
+    sdmmc           use <span class="keyword">default</span> board settings
+    sdmmc:<span class="number">0</span>:<span class="number">1</span>:<span class="number">1</span>:<span class="number">8</span>:<span class="number">5</span> use fully custom settings (SDMMC0<span class="operator">,</span> IOSET1<span class="operator">,</span> first boot partition<span class="operator">,</span> <span class="number">8</span><span class="operator">-</span>bit<span class="operator">,</span> <span class="number">1.8V</span><span class="operator">/</span><span class="number">3.3V</span>)
+    sdmmc:<span class="number">0</span><span class="operator">::</span><span class="number">1</span>      use <span class="keyword">default</span> board settings but force use of SDMMC0<span class="operator">,</span> first boot partition</pre>
+<p>Supported <i>&lt;instance&gt;</i> and <i>&lt;ioset&gt;</i> for SDMMC on SAMA5D2 devices are listed <a href="qml-samba-device-sama5d2-sama5d2config.html#sd-mmc-configuration">here</a>.</p>
+<a name="programming-a-raw-nand-flash"></a>
+<h2 id="programming-a-raw-nand-flash">Programming a raw NAND flash</h2>
+<p>In the following example, we program the <i>at91bootstrap.bin</i>, <i>u-boot.bin</i>, <i>zImage</i>, <i>at91-sama5d2-ptc-ek.dtb</i> and <i>rootfs.ubi</i> files into the embedded NAND flash of a SAMA5D2-PTC-EK board:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>ptc<span class="operator">-</span>ek <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a nandflash <span class="operator">-</span>c erase
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>ptc<span class="operator">-</span>ek <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a nandflash <span class="operator">-</span>c writeboot:at91bootstrap<span class="operator">.</span>bin <span class="operator">-</span>c verifyboot:at91bootstrap<span class="operator">.</span>bin
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>ptc<span class="operator">-</span>ek <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a nandflash <span class="operator">-</span>c write:u<span class="operator">-</span>boot<span class="operator">.</span>bin:<span class="number">0x00040000</span> <span class="operator">-</span>c verify:u<span class="operator">-</span>boot<span class="operator">.</span>bin:<span class="number">0x00040000</span>
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>ptc<span class="operator">-</span>ek <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a nandflash <span class="operator">-</span>c write:at91<span class="operator">-</span>sama5d2<span class="operator">-</span>ptc<span class="operator">-</span>ek<span class="operator">.</span>dtb:<span class="number">0x00180000</span> <span class="operator">-</span>c verify:at91<span class="operator">-</span>sama5d2<span class="operator">-</span>ptc<span class="operator">-</span>ek<span class="operator">.</span>dtb:<span class="number">0x00180000</span>
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>ptc<span class="operator">-</span>ek <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a nandflash <span class="operator">-</span>c write:zImage:<span class="number">0x00200000</span> <span class="operator">-</span>c verify:zImage:<span class="number">0x00200000</span>
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>ptc<span class="operator">-</span>ek <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a nandflash <span class="operator">-</span>c write:rootfs<span class="operator">.</span>ubi:<span class="number">0x00800000</span> <span class="operator">-</span>c verify:rootfs<span class="operator">.</span>ubi:<span class="number">0x00800000</span></pre>
+<p><b>If the raw NAND flash is connected to a custom board design, then additional parameters should be passed to the <i>-a nandflash</i> option in above examples.</b></p>
+<p>The list of those parameters is given by the command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a nandflash:help
+Syntax: nandflash:<span class="operator">[</span><span class="operator">&lt;</span>ioset<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>bus_width<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>header<span class="operator">&gt;</span><span class="operator">]</span>
+Parameters:
+    ioset      I<span class="operator">/</span>O set
+    bus_width  NAND bus width (<span class="number">8</span><span class="operator">/</span><span class="number">16</span>)
+    header     NAND header value
+Examples:
+    nandflash                 use <span class="keyword">default</span> board settings
+    nandflash:<span class="number">2</span>:<span class="number">8</span>:<span class="number">0xc0098da5</span>  use fully custom settings (IOSET2<span class="operator">,</span> <span class="number">8</span><span class="operator">-</span>bit bus<span class="operator">,</span> header is <span class="number">0xc0098da5</span>)
+    nandflash<span class="operator">::</span>:<span class="number">0xc0098da5</span>    use <span class="keyword">default</span> board settings but force header to <span class="number">0xc0098da5</span>
+For information on NAND header values<span class="operator">,</span> please refer to SAMA5D2 datasheet section <span class="string">&quot;16.4.7.1 NAND Flash Boot: NAND Flash Detection&quot;</span><span class="operator">.</span></pre>
+<p>Supported <i>&lt;ioset&gt;</i> for the NAND flash on SAMA5D2 devices are listed <a href="qml-samba-device-sama5d2-sama5d2config.html#nand-flash-configuration">here</a>.</p>
+<a name="secure-boot-mode"></a>
+<h2 id="secure-boot-mode">Secure Boot Mode</h2>
+<p>First step to benefit from secure boot features of SAMA5D2 devices is to enable this secure boot mode by setting the <i>SECURE_MODE</i> bit in the <a href="sama5d2.html#boot-configuration">Boot Configuration</a> word.</p>
+<p>For instance, if the <i>Boot Configuration</i> word is storing in the <i>BUREG0</i> register and QSPI0 ioset3 is the only boot medium, then the <i>sam-ba</i> command is:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a bootconfig <span class="operator">-</span>c writecfg:bscr:bureg0<span class="operator">,</span>valid <span class="operator">-</span>c writecfg:bureg0:SECURE_MODE<span class="operator">,</span>QSPI0_IOSET3</pre>
+<p>On the other hand, if the <i>Boot Configuration</i> word is stored in the <i>SFC_DR[16]</i> register (fuses), still with QSPI0 ioset3 as the only boot medium, then the <i>sam-ba</i> command becomes:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a internalrc
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a bootconfig <span class="operator">-</span>c writecfg:bscr:<span class="number">0</span> <span class="operator">-</span>c writecfg:fuse:SECURE_MODE<span class="operator">,</span>QSPI0_IOSET3</pre>
+<p>Once the <i>SECURE_MODE</i> bit has been set into the <i>Boot Configuration</i> word, the device must be reset so the ROM code executes its secure SAM-BA monitor:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a reset</pre>
+<p><b>From this point, the ROM code no longer executes its non-secure SAM-BA monitor but instead runs its secure SAM-BA monitor. Hence, the <a href="port.html#connecting-to-the-non-secure-sam-ba-monitor">serial</a> or <a href="port.html#connecting-through-the-j-link-port">j-link</a> ports cannot be used; the <a href="port.html#connecting-to-the-secure-sam-ba-monitor">secure</a> port must be used instead.</b></p>
+<p>Once in the secure SAM-BA monitor, some built-in commands update bits or bit-fields in the <i>Boot Configuration</i> word to enable or disable associated secure-boot features.</p>
+<div class="table"><table class="generic">
+ <thead><tr class="qt-style"><th >Built-in Command</th><th >Updated bits or bit-fields of the <i>Boot Configuration</i> word</th></tr></thead>
+<tr valign="top" class="odd"><td ><a href="sama5d2.html#enabling-the-boot-from-external-nvm">enable_boot_from_ext_memory</a></td><td ><i>EXT_MEM_BOOT</i></td></tr>
+<tr valign="top" class="even"><td ><a href="sama5d2.html#disabling-the-secure-sam-ba-monitor">disable_monitor</a></td><td ><i>DISABLE_MONITOR</i></td></tr>
+<tr valign="top" class="odd"><td ><a href="sama5d2.html#storing-keys-in-either-securam-or-fuses">store_keys_in_fuses</a></td><td ><i>KEYS_IN_FUSES</i></td></tr>
+<tr valign="top" class="even"><td ><a href="sama5d2.html#programming-the-customer-keys">write_customer_key</a></td><td ><i>KEYS_WRITTEN</i></td></tr>
+<tr valign="top" class="odd"><td ><a href="sama5d2.html#programming-the-customer-keys">write_full_customer_key</a></td><td ><i>KEYS_WRITTEN</i>, <i>EXPAND_MODE_FULL</i></td></tr>
+<tr valign="top" class="even"><td ><a href="sama5d2.html#selecting-rsa-signatures">write_rsa_hash</a></td><td ><i>SIGN_MODE_RSA</i></td></tr>
+<tr valign="top" class="odd"><td ><a href="sama5d2.html#enabling-the-pairing-mode">enable_pairing</a></td><td ><i>EXPAND_MODE_UID</i></td></tr>
+</table></div>
+<p>Other built-in commands <i>always</i> update bits or bit-fields in the <i>SFC_DR[16]</i> register, even if the <i>Boot Configuration</i> word is stored in some <i>BUREGx</i> register.</p>
+<div class="table"><table class="generic">
+ <thead><tr class="qt-style"><th >Built-in Command</th><th >Updated bits or bit-fields of the <i>SFC_DR[16]</i> register</th></tr></thead>
+<tr valign="top" class="odd"><td ><a href="sama5d2.html#persistently-disabling-the-buregx-registers">disable_bscr</a></td><td ><i>DISABLE_BSCR</i></td></tr>
+<tr valign="top" class="even"><td ><a href="sama5d2.html#persistently-disabling-the-jtag-port">disable_jtag</a></td><td ><i>DISABLE_JTAG</i></td></tr>
+<tr valign="top" class="odd"><td ><a href="sama5d2.html#setting-the-secure-debug-bit">set_secure_debug</a></td><td ><i>SECURE_DEBUG</i></td></tr>
+<tr valign="top" class="even"></tr>
+</table></div>
+<p><b>WARNING: Before running any built-in command that may program fuses through any <i>SFC_DR[]</i> registers, the user <i>MUST</i> execute the <a href="internalrc.html">internalrc</a> applet once per boot.</b></p>
+<a name="storing-keys-in-either-securam-or-fuses"></a>
+<h3 >Storing keys in either SECURAM or fuses</h3>
+<p>The user must decide whether customer keys, and the RSA hash if RSA signature is selected, should be stored either in:</p>
+<ul>
+<li><i>SECURAM</i>, so they can be reprogrammed if needed.</li>
+<li>fuses (accessed through <i>SFC_DR[]</i> registers), <b>once for all</b>.</li>
+</ul>
+<p>By default, the <i>KEYS_IN_FUSES</i> bit is 0 in the <i>Boot Configuration</i> word, hence customer keys and RSA hash are stored in <i>SECURAM</i>.</p>
+<p>However, if customer keys and RSA hash must be stored into fuses, then the user must set the <i>KEYS_IN_FUSES</i> bit in the <i>Boot Configuration</i> word <b>before</b> programming the <a href="sama5d2.html#programming-the-customer-keys">customer keys</a> or the <a href="sama5d2.html#selecting-rsa-signatures">RSA hash</a>.</p>
+<p>This <i>should not</i> be done with the <a href="bootconfig-sama5d2.html#the-writecfg-command">writecfg</a> command but <i>should</i> be done with the following <i>sam-ba</i> command instead:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p secure <span class="operator">-</span>d sama5d2 <span class="operator">-</span>m store_keys_in_fuses</pre>
+<a name="programming-the-customer-keys"></a>
+<h3 >Programming the Customer Keys</h3>
+<p>Then, another mandatory step is to program the customer key into the device. This customer key is wrapped into a ciphered and signed customer key message.</p>
+<p><b>This so called customer key message is actually generated from the <i>256-bit</i> or <i>384-bit</i> customer key by the <i>secure-sam-ba-cipher.py</i> tool. This tool is distributed under NDA, hence not covered by this documentation.</b></p>
+<p>As stated, the customer key message is ciphered to protect the customer key from eavesdropping during device provisioning in factory and is also signed so the customer key message can be authenticated by the ROM code. Only the <i>secure-sam-ba-cipher.py</i> tool with a license provided by Microchip can generate genuine customer key messages.</p>
+<p>Assumming the customer key message is packaged inside a <i>customer-key.cip</i> file, programming the customer key into the SAMA5D2 device must be done by <i>sam-ba</i> with one of those commands:</p>
+<p><b>WARNING: Before programming the Customer Keys, be sure to select the proper <a href="sama5d2.html#storing-keys-in-either-securam-or-fuses">storage area</a>.</b></p>
+<div class="table"><table class="generic">
+ <thead><tr class="qt-style"><th >Customer Key size</th><th ><i>sam-ba</i> command</th></tr></thead>
+<tr valign="top" class="odd"><td >256 bits</td><td ><pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p secure <span class="operator">-</span>d sama5d2 <span class="operator">-</span>m write_customer_key:customer<span class="operator">-</span>key<span class="operator">.</span>cip</pre>
+</td></tr>
+<tr valign="top" class="even"><td >384 bits</td><td ><pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p secure <span class="operator">-</span>d sama5d2 <span class="operator">-</span>m write_full_customer_key:customer<span class="operator">-</span>key<span class="operator">.</span>cip</pre>
+<p><b>The Full Customer Key is <i>not</i> compatible with neither RSA signature nor pairing mode</b></p>
+</td></tr>
+</table></div>
+<p>At this point and on further resets, the ROM code expects the bootstrap or user application stored into the external NVM to be both <b>ciphered with AES-256-CBC</b> and <b>signed with AES-256-CMAC</b>.</p>
+<a name="selecting-rsa-signatures"></a>
+<h3 >Selecting RSA signatures</h3>
+<p>Optionally, the shared key signature algorithm can be replaced by a public key algorithm. More precisely, the AES-256-CMAC signature is replaced by a <b>RSA signature</b> that will be verified by the ROM code at each boot to authenticate the bootstrap or user application.</p>
+<p>Indeed, a <b>chain of X.509 <i>version 3</i> certificates in DER format</b> is concatenated to the bootstrap and its RSA signature.</p>
+<p>The first certicate in this chain is called the root certificate and must be a <b>self-signed</b> certificate.</p>
+<p>Besides, except the root certificate, each certificate in the chain is signed, hence authenticated, by the previous certificate in the chain. So the root certificate, more precisely its public key, is the root of trust since it, directly or indirectly, authenticates all certificates in the chain.</p>
+<p>The <i>secure-sam-ba-cipher.py</i> tool can compute a SHA-256 digest of the public key of the root certificate. Like the customer key with the customer key message, this digest is wrapped into a ciphered and signed message called the RSA hash message.</p>
+<p><b>The generation of the RSA hash message by <i>secure-sam-ba-ciher.py</i> is not covered by this documentation.</b></p>
+<p>Then, assuming the SHA-256 digest of the public key of the X.509 root certificate is packaged inside a <i>root-cert-hash.cip</i> file, programming the digest into the SAMA5D2 device must be done by <i>sam-ba</i> with the following command:</p>
+<p><b>WARNING: Before programming the SHA-256 digest of the public key, be sure to select the proper <a href="sama5d2.html#storing-keys-in-either-securam-or-fuses">storage area</a>.</b></p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p secure <span class="operator">-</span>d sama5d2 <span class="operator">-</span>m write_rsa_hash:root<span class="operator">-</span>cert<span class="operator">-</span>hash<span class="operator">.</span>cip</pre>
+<p>After that and for each boot, the ROM code still deciphers the bootstrap or the user application with the AES-256-CBC algorithm using the same shared key as before but no longer authenticates it with an AES-256-CMAC signature.</p>
+<p>Instead, it computes the SHA-256 digest of the public key of the root certificate with the same algorithm used by the <i>secure-sam-ba-cipher.py</i> tool. Then, the ROM code authenticates the root certificate by comparing the computed digest with the one that has been programmed into the <i>SFC_DR[]</i> registers or SECURAM with the <i>write_rsa_hash</i> command.</p>
+<p>If both digests match then the root certificate is authenticated by the ROM code. Next, the ROM code authenticates each X.509 certificate of the chain by verifying its signature with the public key of the previous X.509 certificate in the chain.</p>
+<p>Finally, when all X.509 certificates in the chain have been authenticated, the ROM code uses the public key stored into the last certificate of the chain to verify the RSA signature of the bootstrap or user application stored in NVM.</p>
+<p><b>To speed-up the boot process, the X.509 certificate chain can be limited to a <i>single</i> X.509 <i>self-signed</i> certificate. In such case, this certificate is both the root certificate and the certificate used to authenticate the bootstrap or user application.</b></p>
+<p><b>Both 2048 and 4096-bit RSA signatures are supported by the SAMA5D2 devices.</b></p>
+<a name="enabling-the-boot-from-external-nvm"></a>
+<h3 >Enabling the boot from external NVM</h3>
+<p>Once customer keys, and the RSA hash if needed, has been programmed in the SAMA5D2 device, the user should set the <i>EXT_MEM_BOOT</i> bit in the <i>Boot Configuration</i> word, if not done yet:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p secure <span class="operator">-</span>d sama5d2 <span class="operator">-</span>m enable_boot_from_ext_memory</pre>
+<a name="disabling-the-secure-sam-ba-monitor"></a>
+<h3 >Disabling the secure SAM-BA monitor</h3>
+<p>The user can also disable the secure SAM-BA monitor by setting the <i>DISABLE_MONITOR</i> bit in the <i>Boot Configuration</i> word.</p>
+<p><b>This bit is not taken into account by the ROM code until the next power-on or reset.</b></p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p secure <span class="operator">-</span>d sama5d2 <span class="operator">-</span>m disable_monitor</pre>
+<a name="persistently-disabling-the-buregx-registers"></a>
+<h3 >Persistently disabling the BUREGx registers</h3>
+<p>The <i>DISABLE_BSCR</i> bit (bit 22) of the <i>SFC_DR[16]</i> register requires the ROM code to ignore the <i>BSCR</i> register, hence any <i>Boot Configuration</i> word value that could have been written into any <i>BUREGx</i> register. Indeed, setting this bit forces the ROM code to fetch its <i>Boot Configuration</i> word from the <i>SFC_DR[16]</i> register only:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p secure <span class="operator">-</span>d sama5d2 <span class="operator">-</span>m disable_bscr</pre>
+<a name="persistently-disabling-the-jtag-port"></a>
+<h3 >Persistently disabling the JTAG port</h3>
+<p>The <i>DISABLE_JTAG</i> bit (bit 31) of the <i>SFC_DR[16]</i> register disables the JTAG port <b>once for all</b>. Indeed, this fuse controls the hardware lock of the JTAG port.</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p secure <span class="operator">-</span>d sama5d2 <span class="operator">-</span>m disable_jtag</pre>
+<a name="setting-the-secure-debug-bit"></a>
+<h3 >Setting the SECURE_DEBUG bit</h3>
+<p>The <i>SECURE_DEBUG</i> bit (bit 30) of the <i>SFC_DR[16</i> register can be set with the following command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p secure <span class="operator">-</span>d sama5d2 <span class="operator">-</span>m set_secure_debug</pre>
+<a name="enabling-the-pairing-mode"></a>
+<h3 >Enabling the pairing mode</h3>
+<p>The <i>pairing mode</i> enhances the secure boot mode with an anti-cloning protection for the target device.</p>
+<p>The user can enable this mode by setting the value <i>EXPAND_MODE_UID</i> to the <i>EXPAND_MODE</i> bit-field in the <i>Boot Configuration</i> word with the following command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p secure <span class="operator">-</span>d sama5d2 <span class="operator">-</span>m enable_pairing</pre>
+</div>
+<!-- @@@sama5d2.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

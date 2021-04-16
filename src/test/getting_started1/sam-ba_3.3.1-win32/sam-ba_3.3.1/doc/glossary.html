@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- glossary.qdoc -->
+  <title>Glossary | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>Glossary</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#applets">Applets</a></li>
+<li class="level1"><a href="#board">Board</a></li>
+<li class="level1"><a href="#bootstrap">Bootstrap</a></li>
+<li class="level1"><a href="#device">Device</a></li>
+<li class="level1"><a href="#host">Host</a></li>
+<li class="level1"><a href="#non-volatile-memory-nvm">Non-Volatile Memory (NVM)</a></li>
+<li class="level1"><a href="#rom-code">ROM code</a></li>
+<li class="level1"><a href="#sam-ba-monitor">SAM-BA monitor</a></li>
+<li class="level1"><a href="#target">Target</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">Glossary</h1>
+<span class="subtitle"></span>
+<!-- $$$glossary.html-description -->
+<div class="descr"> <a name="details"></a>
+<a name="applets"></a>
+<h2 id="applets">Applets</h2>
+<p><b>Applets</b> are binary programs that can be loaded through the sam-ba connection into some RAM region of the <b>target</b> before being executed. <b>Applets</b> extend the <b>SAM-BA monitor</b> to provide more features. The main usage of <b>applets</b> is to program the <b>bootstrap</b> into some <b>Non-Volatile Memory (NVM)</b>.</p>
+<a name="board"></a>
+<h2 id="board">Board</h2>
+<p>Within the context of the sam-ba program, the <b>board</b> is the hardware design which embeds a SAM MPU <b>device</b>.</p>
+<a name="bootstrap"></a>
+<h2 id="bootstrap">Bootstrap</h2>
+<p>The <b>bootstrap</b> is the 2nd stage bootloader (or directly the user application), executed immediatly after the <b>ROM code</b>. It is a program linked to be executed from the base address of the internal SRAM0.</p>
+<a name="device"></a>
+<h2 id="device">Device</h2>
+<p>Within the context of the sam-ba program, the <b>device</b> represents the SAM MPU that drives the <b>board</b>. It is a Microchip SoC like SAMA5D2.</p>
+<a name="host"></a>
+<h2 id="host">Host</h2>
+<p>The <b>host</b> is the system running the sam-ba program. It is likely a Windows/Linux PC workstation.</p>
+<a name="non-volatile-memory-nvm"></a>
+<h2 id="non-volatile-memory-nvm">Non-Volatile Memory (NVM)</h2>
+<p><b>Non-Volatile Memory</b> are used to store the bootstrap needed by the boot sequence process. <b>NVM</b> are driven by internal controllers of the SAM MPU, such as QSPIx, SDMMCx, FLEXCOMx SPI, ..&#x2e;</p>
+<a name="rom-code"></a>
+<h2 id="rom-code">ROM code</h2>
+<p>The <b>ROM code</b> is the 1st stage boot-loader or firmware running on the <b>target</b> at power-on or reset. It is responsible for the basic initialization of the <b>target</b> and for loading then executing a <b>bootstrap</b> loaded from an external <b>Non-Volatile Memory (NVM)</b> into the internal SRAM0. If no such <b>bootstrap</b> is found, then the <b>ROM code</b> executes its <b>SAM-BA monitor</b>.</p>
+<a name="sam-ba-monitor"></a>
+<h2 id="sam-ba-monitor">SAM-BA monitor</h2>
+<p>The <b>SAM-BA monitor</b> is a sub-process of the <b>ROM code</b>, waiting for connection of the sam-ba program from either the <b>ROM code</b> console port or from the USB device port of the <b>target</b>. Once connected, the <b>SAM-BA monitor</b> provides a interactive interface and a set of basic commands to read from / write into the <b>target</b> memories or its peripheral registers. Besides, the <b>SAM-BA monitor</b> can also download <b>applets</b> through the sam-ba connection before executing them.</p>
+<a name="target"></a>
+<h2 id="target">Target</h2>
+<p>The <b>target</b> is the SAM-based <b>board</b> to be programmed with the sam-ba program.</p>
+</div>
+<!-- @@@glossary.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

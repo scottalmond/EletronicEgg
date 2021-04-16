@@ -12,7 +12,7 @@ main.d main.o: .././main.c ../atmel_start.h ../driver_init.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdbool.h \
  ../hal/utils/include/parts.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAML21_DFP\1.2.125\saml21b\include/saml21.h \
- C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAML21_DFP\1.2.125\saml21b\include/saml21j16b.h \
+ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAML21_DFP\1.2.125\saml21b\include/saml21j18b.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\arm\CMSIS\5.4.0\CMSIS\Core\Include/core_cm0plus.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\arm\CMSIS\5.4.0\CMSIS\Core\Include/cmsis_version.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\arm\CMSIS\5.4.0\CMSIS\Core\Include/cmsis_compiler.h \
@@ -86,7 +86,7 @@ main.d main.o: .././main.c ../atmel_start.h ../driver_init.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAML21_DFP\1.2.125\saml21b\include/instance/trng.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAML21_DFP\1.2.125\saml21b\include/instance/usb.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAML21_DFP\1.2.125\saml21b\include/instance/wdt.h \
- C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAML21_DFP\1.2.125\saml21b\include/pio/saml21j16b.h \
+ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAML21_DFP\1.2.125\saml21b\include/pio/saml21j18b.h \
  ../hri/hri_l21b.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAML21_DFP\1.2.125\saml21b\include/sam.h \
  ../hri/hri_ac_l21.h ../hal/include/hal_atomic.h ../hri/hri_adc_l21.h \
@@ -145,7 +145,7 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gc
 
 C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAML21_DFP\1.2.125\saml21b\include/saml21.h:
 
-C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAML21_DFP\1.2.125\saml21b\include/saml21j16b.h:
+C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAML21_DFP\1.2.125\saml21b\include/saml21j18b.h:
 
 C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\arm\CMSIS\5.4.0\CMSIS\Core\Include/core_cm0plus.h:
 
@@ -293,7 +293,7 @@ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAML21_DFP\1.2.125\saml21b
 
 C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAML21_DFP\1.2.125\saml21b\include/instance/wdt.h:
 
-C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAML21_DFP\1.2.125\saml21b\include/pio/saml21j16b.h:
+C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\atmel\SAML21_DFP\1.2.125\saml21b\include/pio/saml21j18b.h:
 
 ../hri/hri_l21b.h:
 

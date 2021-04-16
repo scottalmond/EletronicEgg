@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- qspiflash.qdoc -->
+  <title>SAM-BA qspiflash applet | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>SAM-BA qspiflash applet</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#supported-qspi-nor-flash-memories">Supported QSPI NOR flash memories</a></li>
+<li class="level1"><a href="#applet-initialization">Applet initialization</a></li>
+<li class="level2"><a href="#instance-and-i-o-set">Instance and I/O set</a></li>
+<li class="level2"><a href="#frequency">Frequency</a></li>
+<li class="level1"><a href="#supported-commands">Supported commands</a></li>
+<li class="level2"><a href="#the-erase-command">The erase command</a></li>
+<li class="level2"><a href="#the-write-and-writeboot-commands">The write and writeboot commands</a></li>
+<li class="level2"><a href="#the-read-command">The read command</a></li>
+<li class="level2"><a href="#the-verify-and-verifyboot-commands">The verify and verifyboot commands</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">SAM-BA qspiflash applet</h1>
+<span class="subtitle"></span>
+<!-- $$$qspiflash.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>The <i>qspiflash</i> applet drives any QSPIx controller to program an external QSPI <b>NOR</b> flash memory embedded on the board and connected to the SAM MPU device.</p>
+<a name="supported-qspi-nor-flash-memories"></a>
+<h2 id="supported-qspi-nor-flash-memories">Supported QSPI NOR flash memories</h2>
+<p>The list of all QSPI NOR flash memories supported by the <i>qspiflash</i> applet is available <a href="https://github.com/atmelcorp/atmel-software-package/blob/v2.17/drivers/nvm/spi-nor/spi-nor-ids.c#L141">here</a>.</p>
+<a name="applet-initialization"></a>
+<h2 id="applet-initialization">Applet initialization</h2>
+<p>The list of parameters to initialize the <i>qspiflash</i> applet can be displayed with the following command:</p>
+<pre class="cpp">sam<span class="operator">-</span>ba <span class="operator">-</span>p <span class="operator">&lt;</span>port<span class="operator">&gt;</span> <span class="operator">-</span>d <span class="operator">&lt;</span>device<span class="operator">&gt;</span> <span class="operator">-</span>a qspiflash:help
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a qspiflash:help
+Syntax: qspiflash:<span class="operator">[</span><span class="operator">&lt;</span>instance<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>ioset<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>frequency<span class="operator">&gt;</span><span class="operator">]</span>
+Parameters:
+    instance   QSPI controller instance
+    ioset      QSPI I<span class="operator">/</span>O set
+    frequency  QSPI clock frequency in MHz
+Examples:
+    qspiflash         use <span class="keyword">default</span> board settings
+    qspiflash:<span class="number">0</span>:<span class="number">3</span>:<span class="number">66</span>  use fully custom settings (QSPI0<span class="operator">,</span> IOSET3<span class="operator">,</span> <span class="number">66MHz</span>)
+    qspiflash<span class="operator">::</span>:<span class="number">20</span>    use <span class="keyword">default</span> board settings but force frequency to <span class="number">20MHz</span></pre>
+<a name="instance-and-i-o-set"></a>
+<h3 >Instance and I/O set</h3>
+<p>An instance parameter <i>x</i> tells the <i>qspiflash</i> applet to use the <i>QSPIx</i> controller. The <i>ioset</i> parameter is an index that represents a group of I/O pins muxed to the QSPIx controller. The {Instance, I/O set} pairs are device specific; please refer to the <i>qspiflash</i> section of the device configuration:</p>
+<ul>
+<li><a href="qml-samba-device-sam9xx5-sam9xx5config.html">SAM9xx5 configuration</a></li>
+<li><a href="qml-samba-device-sam9x60-sam9x60config.html">SAM9X60 configuration</a></li>
+<li><a href="qml-samba-device-sama5d2-sama5d2config.html">SAMA5D2 configuration</a></li>
+<li><a href="qml-samba-device-sama5d3-sama5d3config.html">SAMA5D3 configuration</a></li>
+<li><a href="qml-samba-device-sama5d4-sama5d4config.html">SAMA5D4 configuration</a></li>
+</ul>
+<a name="frequency"></a>
+<h3 >Frequency</h3>
+<p>The <i>frequency</i> parameter expresses the SPI bus clock frequency in MHz.</p>
+<a name="supported-commands"></a>
+<h2 id="supported-commands">Supported commands</h2>
+<p>The list of commands supported by the <i>qspiflash</i> applet can be displayed with the following commands:</p>
+<pre class="cpp">sam<span class="operator">-</span>ba <span class="operator">-</span>p <span class="operator">&lt;</span>port<span class="operator">&gt;</span> <span class="operator">-</span>d <span class="operator">&lt;</span>device<span class="operator">&gt;</span> <span class="operator">-</span>a qspiflash <span class="operator">-</span>c help
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a qspiflash <span class="operator">-</span>c help</pre>
+<a name="the-erase-command"></a>
+<h3 >The erase command</h3>
+<p>The <i>erase</i> command resets to 0xFF a range of erase blocks. The size of those erase blocks depends on the manufacturer and memory part. Typical erase block sizes are 8KiB, 32KiB, 64KiB, 128KiB or 256KiB of data.</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sam9x60<span class="operator">-</span>ek <span class="operator">-</span>a qspiflash <span class="operator">-</span>c erase:help
+<span class="operator">*</span> erase <span class="operator">-</span> erase all <span class="keyword">or</span> part of the memory
+Syntax:
+    erase:<span class="operator">[</span><span class="operator">&lt;</span>addr<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>length<span class="operator">&gt;</span><span class="operator">]</span>
+Examples:
+    erase                 erase all
+    erase:<span class="number">4096</span>            erase from <span class="number">4096</span> to end
+    erase:<span class="number">0x1000</span>:<span class="number">0x10000</span>  erase from <span class="number">0x1000</span> to <span class="number">0x11000</span>
+    erase<span class="operator">::</span><span class="number">0x1000</span>         erase from <span class="number">0</span> to <span class="number">0x1000</span></pre>
+<a name="the-write-and-writeboot-commands"></a>
+<h3 >The write and writeboot commands</h3>
+<p>The <i>write</i> and <i>writeboot</i> commands program data from a binary file into the QSPI flash pages. The blocks containing the pages to be programmed should be erased first with the <i>erase</i> command. Padding bytes are added to align programmed data to the page boundary. Typical page sizes are 256 or 512 bytes. Prior to what both commands do, the <i>writeboot</i> command also modifies the relevant unused ARM exception vector to store the size of the bootstrap binary, as required by the ROM code during the boot process.</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sam9x60<span class="operator">-</span>ek <span class="operator">-</span>a qspiflash <span class="operator">-</span>c write:help
+<span class="operator">*</span> write <span class="operator">-</span> write to memory from a file
+Syntax:
+    write:<span class="operator">&lt;</span>filename<span class="operator">&gt;</span>:<span class="operator">[</span><span class="operator">&lt;</span>addr<span class="operator">&gt;</span><span class="operator">]</span>
+Examples:
+    write:bootstrap<span class="operator">.</span>bin         write bootstrap<span class="operator">.</span>bin to start of memory
+    write:u<span class="operator">-</span>boot<span class="operator">.</span>bin:<span class="number">0x10000</span>    write u<span class="operator">-</span>boot<span class="operator">.</span>bin at offset <span class="number">0x10000</span>
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sam9x60<span class="operator">-</span>ek <span class="operator">-</span>a qspiflash <span class="operator">-</span>c writeboot:help
+Syntax:
+    writeboot:<span class="operator">&lt;</span>filename<span class="operator">&gt;</span>
+Example:
+    writeboot:bootstrap<span class="operator">.</span>bin     write bootstrap<span class="operator">.</span>bin as boot program at start of memory</pre>
+<a name="the-read-command"></a>
+<h3 >The read command</h3>
+<p>The <i>read</i> command loads data from the QSPI flash into a binary file.</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sam9x60<span class="operator">-</span>ek <span class="operator">-</span>a qspiflash <span class="operator">-</span>c read:help
+<span class="operator">*</span> read <span class="operator">-</span> read from memory to a file
+Syntax:
+    read:<span class="operator">&lt;</span>filename<span class="operator">&gt;</span>:<span class="operator">[</span><span class="operator">&lt;</span>addr<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>length<span class="operator">&gt;</span><span class="operator">]</span>
+Examples:
+    read:firmware<span class="operator">.</span>bin              read all to firmware<span class="operator">.</span>bin
+    read:firmware<span class="operator">.</span>bin:<span class="number">0x1000</span>       read from <span class="number">0x1000</span> to end into firmware<span class="operator">.</span>bin
+    read:firmware<span class="operator">.</span>bin:<span class="number">0x1000</span>:<span class="number">1024</span>  read <span class="number">1024</span> bytes from <span class="number">0x1000</span> into firmware<span class="operator">.</span>bin
+    read:firmware<span class="operator">.</span>bin<span class="operator">::</span><span class="number">1024</span>        read <span class="number">1024</span> bytes from start of memory into firmware<span class="operator">.</span>bin</pre>
+<a name="the-verify-and-verifyboot-commands"></a>
+<h3 >The verify and verifyboot commands</h3>
+<p>The <i>verify</i> and <i>verifyboot</i> compare the data programmed in the QSPI flash with the content of a given binary file. Unlike the <i>verify</i> command, the <i>verifyboot</i> command ignores the actual value of the relevant unused ARM exception vector in the binary file and does as if the value were the size of the binary file.</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sam9x60<span class="operator">-</span>ek <span class="operator">-</span>a qspiflash <span class="operator">-</span>c verify:help
+<span class="operator">*</span> verify <span class="operator">-</span> verify memory from a file
+Syntax:
+    verify:<span class="operator">&lt;</span>filename<span class="operator">&gt;</span>:<span class="operator">[</span><span class="operator">&lt;</span>addr<span class="operator">&gt;</span><span class="operator">]</span>
+Examples:
+    verify:firmware<span class="operator">.</span>bin         verify that start of memory matches firmware<span class="operator">.</span>bin
+    verify:firmware<span class="operator">.</span>bin:<span class="number">0x1000</span>  verify that memory at offset <span class="number">0x1000</span> matches firmware<span class="operator">.</span>bin
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sam9x60<span class="operator">-</span>ek <span class="operator">-</span>a qspiflash <span class="operator">-</span>c verifyboot:help
+<span class="operator">*</span> verifyboot <span class="operator">-</span> verify boot program from a file
+Syntax:
+    verifyboot:<span class="operator">&lt;</span>filename<span class="operator">&gt;</span>
+Example:
+    verifyboot:bootstrap<span class="operator">.</span>bin    verify that start of memory matches boot program bootstrap<span class="operator">.</span>bin</pre>
+</div>
+<!-- @@@qspiflash.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

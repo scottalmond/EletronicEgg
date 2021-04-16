@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- bootconfig_sama5d2.qdoc -->
+  <title>SAM-BA bootconfig applet for SAMA5D2 devices | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>SAM-BA bootconfig applet for SAMA5D2 devices</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#applet-initialization">Applet initialization</a></li>
+<li class="level1"><a href="#supported-commands">Supported commands</a></li>
+<li class="level2"><a href="#the-readcfg-command">The readcfg command</a></li>
+<li class="level2"><a href="#the-writecfg-command">The writecfg command</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">SAM-BA bootconfig applet for SAMA5D2 devices</h1>
+<span class="subtitle"></span>
+<!-- $$$bootconfig_sama5d2.html-description -->
+<div class="descr"> <a name="details"></a>
+<a name="applet-initialization"></a>
+<h2 id="applet-initialization">Applet initialization</h2>
+<p>The <i>bootconfig</i> applet for SAMA5D2 doesn't accept any parameter to be initialized.</p>
+<a name="supported-commands"></a>
+<h2 id="supported-commands">Supported commands</h2>
+<p>The list of all supported commands can be displayed by the following command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a bootconfig <span class="operator">-</span>c help</pre>
+<a name="the-readcfg-command"></a>
+<h3 >The readcfg command</h3>
+<p>The <i>readcfg</i> command reads the <b>Boot Config Word</b> either from the Secure Fuse Controller (SFC) or from one of the four Backup Registers (BUREGx).</p>
+<p>The <i>readcfg</i> command can also read the <b>Boot Sequence Control Register (BSCR)</b> to check whether the ROM code will fetch its Boot Config Word from fuses or some BSCRx on subsequent resets.</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>som1<span class="operator">-</span>ek <span class="operator">-</span>a bootconfig <span class="operator">-</span>c readcfg:help
+Syntax:
+    readcfg:(fuse<span class="operator">|</span>bureg0<span class="operator">|</span>bureg1<span class="operator">|</span>bureg2<span class="operator">|</span>bureg3<span class="operator">|</span>bscr)
+Examples:
+    readcfg:fuse    read boot configuration word in fuses
+    readcfg:bureg0  read boot configuration word in BUREG0
+    readcfg:bscr    read boot sequence <span class="keyword">register</span> (BSCR)</pre>
+<a name="the-writecfg-command"></a>
+<h3 >The writecfg command</h3>
+<p>The <i>writecfg</i> command programs the <b>Boot Config Word</b> either persistently in the SFC_DR[16] word of the Secure Fuse Controller (SFC), or in one of the four BUREGx.</p>
+<p>The <i>writecfg</i> command can also program the <b>Boot Sequence Control Regsiter (BSCR)</b> to tell the ROM code whether it should fetch its Boot Config Word from either the SFC or some BUREGx.</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>som1<span class="operator">-</span>ek <span class="operator">-</span>a bootconfig <span class="operator">-</span>c writecfg:help
+<span class="operator">*</span> writecfg <span class="operator">-</span> write boot configuration
+Syntax:
+    writecfg:(fuse<span class="operator">|</span>bureg0<span class="operator">|</span>bureg1<span class="operator">|</span>bureg2<span class="operator">|</span>bureg3<span class="operator">|</span>bscr):<span class="operator">&lt;</span>configuration<span class="operator">&gt;</span>
+Examples:
+    writecfg:fuse:<span class="number">0x440000</span>                     write boot configuration word <span class="number">0x440000</span> in fuses
+    writecfg:bureg0:<span class="number">0x40fcf</span>                    write boot configuration word <span class="number">0x40fcf</span> in BUREG0
+    writecfg:bureg2:QSPI0_IOSET2<span class="operator">,</span>EXT_MEM_BOOT  write boot configuration word <span class="number">0x40001</span> in BUREG2
+    writecfg:bscr:<span class="number">4</span>                            write boot sequence <span class="keyword">register</span> (BUREG0<span class="operator">,</span> VALID)
+    writecfg:bscr:bureg0<span class="operator">,</span>valid                 write boot sequence <span class="keyword">register</span> (BUREG0<span class="operator">,</span> VALID)
+Configuration value can be either a number <span class="keyword">or</span> a sequence of tokens separated by commas<span class="operator">.</span>
+    BSCR tokens:
+        BUREG0<span class="operator">*</span><span class="operator">,</span> BUREG1<span class="operator">,</span> BUREG2<span class="operator">,</span> BUREG3 <span class="operator">-</span><span class="operator">&gt;</span> to select which BUREG to use
+        VALID <span class="operator">-</span><span class="operator">&gt;</span> to validate the BSCR and use the selected BUREG
+    BUREG<span class="operator">/</span>Fuse tokens:
+        UART1_IOSET1<span class="operator">*</span><span class="operator">,</span> UART0_IOSET1<span class="operator">,</span> UART1_IOSET2<span class="operator">,</span> UART2_IOSET1<span class="operator">,</span> UART2_IOSET2<span class="operator">,</span> UART2_IOSET3<span class="operator">,</span> UART3_IOSET1<span class="operator">,</span> UART3_IOSET2<span class="operator">,</span> UART3_IOSET3<span class="operator">,</span> UART4_IOSET1<span class="operator">,</span> UART_DISABLED<span class="operator">,</span>
+        JTAG_IOSET1<span class="operator">*</span><span class="operator">,</span> JTAG_IOSET2<span class="operator">,</span> JTAG_IOSET3<span class="operator">,</span> JTAG_IOSET4<span class="operator">,</span>
+        QSPI0_IOSET1<span class="operator">*</span><span class="operator">,</span> QSPI0_IOSET2<span class="operator">,</span> QSPI0_IOSET3<span class="operator">,</span> QSPI0_DISABLED<span class="operator">,</span>
+        QSPI1_IOSET1<span class="operator">*</span><span class="operator">,</span> QSPI1_IOSET2<span class="operator">,</span> QSPI1_IOSET<span class="operator">,</span> QSPI1_DISABLED<span class="operator">,</span>
+        SPI0_IOSET1<span class="operator">*</span><span class="operator">,</span> SPI0_IOSET2<span class="operator">,</span> SPI0_DISABLED<span class="operator">,</span>
+        SPI1_IOSET1<span class="operator">*</span><span class="operator">,</span> SPI1_IOSET2<span class="operator">,</span> SPI1_IOSET3<span class="operator">,</span> SPI1_DISABLED<span class="operator">,</span>
+        NFC_IOSET1<span class="operator">*</span><span class="operator">,</span> NFC_IOSET2<span class="operator">,</span> NFC_DISABLED<span class="operator">,</span>
+        SDMMC0<span class="operator">*</span><span class="operator">,</span> SDMMC0_DISABLED<span class="operator">,</span>
+        SDMMC1<span class="operator">*</span><span class="operator">,</span> SDMMC1_DISABLED<span class="operator">,</span>
+        EXT_MEM_BOOT<span class="operator">,</span>
+        QSPI_XIP_MODE<span class="operator">,</span>
+        DISABLE_BSCR<span class="operator">,</span>
+        DISABLE_MONITOR<span class="operator">,</span>
+        SECURE_MODE<span class="operator">,</span>
+    Tokens with a star (<span class="operator">*</span>) are selected by <span class="keyword">default</span> <span class="keyword">if</span> no token from the same line is provided (field value is <span class="number">0</span>)<span class="operator">.</span>
+    Please refer to SAMA5D2 Datasheet section <span class="string">&quot;16.5 Boot configuration&quot;</span> <span class="keyword">for</span> information on boot settings<span class="operator">.</span></pre>
+</div>
+<!-- @@@bootconfig_sama5d2.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

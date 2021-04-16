@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- lowlevel.qdoc -->
+  <title>SAM-BA lowlevel applet | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>SAM-BA lowlevel applet</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#applet-initialization">Applet initialization</a></li>
+<li class="level2"><a href="#cpu-and-master-clock-frequencies">CPU and Master clock frequencies</a></li>
+<li class="level1"><a href="#supported-commands">Supported commands</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">SAM-BA lowlevel applet</h1>
+<span class="subtitle"></span>
+<!-- $$$lowlevel.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>The <i>lowlevel</i> applet initializes the device clock tree: PLLA, CPU clock, Master clock (MCK), ..&#x2e; The targetted frequencies are specific to each device. This applet should be executed only once afer reset, prior to the <a href="extram.html"><i>extram</i></a> applet.</p>
+<a name="applet-initialization"></a>
+<h2 id="applet-initialization">Applet initialization</h2>
+<p>The <i>lowlevel</i> applet doesn't accept any parameter to be initialized. The only exception is for SAM9X60 devices. In this later case, the list of supported parameters to initialize the applet can be displayed with the following command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sam9x60 <span class="operator">-</span>a lowlevel:help
+Syntax: lowlevel:<span class="operator">[</span><span class="operator">&lt;</span>preset<span class="operator">&gt;</span><span class="operator">]</span>
+Parameters:
+    preset  System clock configuration
+Examples:
+    lowlevel    use <span class="keyword">default</span> board settings <span class="keyword">if</span> defined<span class="operator">,</span> preset <span class="number">0</span> otherwise
+    lowlevel:<span class="number">0</span>  use preset <span class="number">0</span> <span class="keyword">for</span> system clock configuration</pre>
+<a name="cpu-and-master-clock-frequencies"></a>
+<h3 >CPU and Master clock frequencies</h3>
+<div class="table"><table class="generic">
+ <thead><tr class="qt-style"><th >Device</th><th >Preset</th><th >CPU clock (MHz)</th><th >Master clock (MHz)</th></tr></thead>
+<tr valign="top" class="odd"><td >SAMV71</td><td >N/A</td><td >300</td><td >150</td></tr>
+<tr valign="top" class="even"><td ><a href="extram.html#sam9xx5">SAM9xx5</a></td><td >N/A</td><td >399</td><td >133</td></tr>
+<tr valign="top" class="odd"><td >SAM9X60</td><td >0</td><td >600</td><td >200</td></tr>
+<tr valign="top" class="even"><td >SAM9X60</td><td >1</td><td >500</td><td >166</td></tr>
+<tr valign="top" class="odd"><td >SAMA5D2</td><td >N/A</td><td >498</td><td >166</td></tr>
+<tr valign="top" class="even"><td >SAMA5D3</td><td >N/A</td><td >528</td><td >133</td></tr>
+<tr valign="top" class="odd"><td >SAMA5D4</td><td >N/A</td><td >600</td><td >200</td></tr>
+</table></div>
+<a name="supported-commands"></a>
+<h2 id="supported-commands">Supported commands</h2>
+<p>The <i>lowlevel</i> applet doesn't support any command.</p>
+</div>
+<!-- @@@lowlevel.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

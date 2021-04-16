@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- internalrc.qdoc -->
+  <title>SAM-BA internalrc applet | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>SAM-BA internalrc applet</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#applet-initialization">Applet initialization</a></li>
+<li class="level1"><a href="#supported-commands">Supported commands</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">SAM-BA internalrc applet</h1>
+<span class="subtitle"></span>
+<!-- $$$internalrc.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>The <i>internalrc</i> applet forces the selection of the internal 12MHz RC, instead of any external crystal oscillator, as the source the MAIN clock (MAINCK).</p>
+<p>This is a work-around that must be called once for all after each reset before programming any fuse word in the Secure Fuse Controller (SFC) on board designs using an external crystal oscillator with a frequency different from 12MHz. Indeed, internal timings of the SFC for programming fuse words are only valid for MAINCK running at 12MHz.</p>
+<a name="applet-initialization"></a>
+<h2 id="applet-initialization">Applet initialization</h2>
+<p>The <i>internalrc</i> applet doesn't accept any parameter to be initialized.</p>
+<a name="supported-commands"></a>
+<h2 id="supported-commands">Supported commands</h2>
+<p>The <i>internalrc</i> applet doesn't support any command.</p>
+</div>
+<!-- @@@internalrc.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

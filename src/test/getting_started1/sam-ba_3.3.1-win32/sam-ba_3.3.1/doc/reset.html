@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- reset.qdoc -->
+  <title>SAM-BA reset applet | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>SAM-BA reset applet</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#resetting-the-target">Resetting the target</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">SAM-BA reset applet</h1>
+<span class="subtitle"></span>
+<!-- $$$reset.html-description -->
+<div class="descr"> <a name="details"></a>
+<a name="resetting-the-target"></a>
+<h2 id="resetting-the-target">Resetting the target</h2>
+<p>The <b>reset</b> applet writes into the Control Register (CR) of the Reset Controller (RSTC) to reset the SAM MPU device on the target. Depending on the board design, other peripherals such as external NVM may or may not be reset as well.</p>
+<pre class="cpp">sam<span class="operator">-</span>ba <span class="operator">-</span>p <span class="operator">&lt;</span>port<span class="operator">&gt;</span> <span class="operator">-</span>d <span class="operator">&lt;</span>device<span class="operator">&gt;</span> <span class="operator">-</span>a reset
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a reset</pre>
+</div>
+<!-- @@@reset.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

@@ -360,3 +360,265 @@ Is GETTING_STARTED demo doing UART through *target* usb or *edge debugger* usb?
 
 added 2*3 100 mil header to BOM:
 https://www.digikey.com/product-detail/en/PH2-06-UA/2057-PH2-06-UA-ND/9830396/?itemSeq=351205478
+
+~~ 2/6/21
+
+reflow
+
+note: should have brought solder wick
+applied too much solder, got several bridges between saml21 pins
+*** could really use a horse shoe solder tip (and a reflow oven and digital microscope and pick/place machine)
+solution to resolving bridges was a combination of connecting the solder tip to the lead and pulling the solder tip away from the chip - into the solder wick
+
+3.7 on BAT, <10 mA per power supply
+
+as-assembled, BAT power:
+TP2  5V0 0.00
+TP4 PMID 0.00
+TP5  3V3 0.23
+TP6  1V8 0.00
+
+TP1  GND 0.00
+TP3  ~MR 3.29
+TP8  SDA 0.00
+TP7  SCL 0.00
+
+tie TP3 ~MR to GND for 5 sec
+
+TP2  5V0 0.00
+TP4 PMID 3.72
+TP5  3V3 1.80
+TP6  1V8 1.79
+
+TP1  GND 0.00
+TP3  ~MR 3.29
+TP8  SDA 1.78
+TP7  SCL 1.78
+
+odd to 3V3 come up as 1.8, thought it start up OFF...?
+but IS consistent with past readings, so continue
+
+remove BAT connection
+***use USB 3... got <0.2V.  seems PC sets this to OFF at the PC port...? (need 57 kOhm connections?)
+plug usb A to USB adapter, seems to work now
+
+TP2  5V0 5.17
+TP4 PMID 4.49
+TP5  3V3 1.80
+TP6  1V8 1.79
+
+TP1  GND 0.00
+TP3  ~MR 0.00
+TP8  SDA 1.78
+TP7  SCL 1.78
+
+ATmel ICE connections for SWD
+ICE pin 10 --> egg SWD pin nReset
+ICE pin 1 --> egg vRef
+ICE pin 2 --> egg SWDIO
+ICE pin 4 --> egg swclk
+ICE pin 3, 5, 6 --> ground together and connect to egg pin GND
+
+connect usb C (though adapter to USB A) to PC
+connect Atmel ICE
+
+atmel ICE LEDs are (from edge to center) green-red-OFF
+(disconnecting egg USB power input, Atmel ICE connections are OFF-red-OFF, reconnect egg USB power)
+
+open Atmel Studio, create project
+atsaml21j16b, TQFP
+add:
+x - USB UART Click --> no USART on SAML [PA24, PA25]
+- I2C [SERCOM_5 PAD[0] SDA/PB30, PAD[1] SCL/PB31]  baud rate? 100-400 kHz for BQ25155, same for h3lis200dltr.  default is 100 kHz in Atmel studio
+- External IRQ [EXINT[5]/PA05, EXINT[6]/PA06, EXINT[7]/PA07] rising-edge detection? (***?)
+- GPO [LED: PB22, PB23; screen: many per schematic; did the first 3...]
+- sleep
+x - USB Device CDC ACM (? removed until demo project can be found...)
+x - FUTURE: add delay
+
+set swd interface for atmel ice
+upload program...
+
+unexpected chip identified 0x1081020f (expect 0x10810211)
+
+change part to 16B --> 18B
+
+LED lights for ~25% ON, ~75% OFF
+alignment of LED matches schematic
+
+forgot how to debug register values...?
+
+how to set fuses (allow program over usb)
+https://www.youtube.com/watch?v=vG7Lh7Kg_sI
+device programming
+change usb BOOTPROT fuse: https://learn.adafruit.com/how-to-program-samd-bootloaders/programming-the-bootloader-with-atmel-studio
+appears to already be open (0x07) setting
+
+http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-42352-SAM-D21-XPRO-USB-Host-MSC-Bootloader_Training-Manual_AN8185.pdf
+
+arduino saml21
+https://github.com/mattairtech/ArduinoCore-samd
+https://www.mattairtech.com/software/arduino/package_MattairTech_index.json
+MattairTech D|L|C Core Installation
+
+unable to detect device (no COM port, unable to flash bootloader over Atmel ICE)
+
+want to test simple echo project from before...
+
+USB CDC ACM in usb_test3_solution
+
+*** any special considerations needed for usb signal matching from saml2 to usb header?
+
+run usb_test3 with usb-c to usb-a adapter from retoGame kit
+Device Manager: Device Descriptor Request Failed
+
+usb2_test
+loads as COM5
+echo at both 115200 and 9600 baud
+USB connection appears to work, but how to tie into printf()...
+
+>>> usb bootloader...
+"saml21 usb bootloader"
+http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-42650-SAM-BA-Bootloader-for-SAM-L-Devices_ApplicationNote_AT10840.pdf
+
+step 2.1 --> need to "Build >> Build Solution" first to make debug hex file
+D:\Projects\EletronicEgg\src\test\getting_started1\SAMBA_BOOTLOADER1\SAMBA_BOOTLOADER1\Debug
+
+Alternately, command-line programming tool atprogram can also be used for programming the hex file.Example Command:atprogram –t edbg –i swd –d atsaml22n18a program –fSAMBA_BOOT_SAML22_XPRO.hex
+
+2.2Entering the BootloaderThe SAM L21/ L22 SAM-BA relies on a SAM-BA bootloader which is stored in flash memory. This monitorwill be executed according conditions specified in the boot process.SAM-BA bootloader activation can be requested using one of the following ways:•External condition: Reset the part and make sure the Hardware Bootloader Entry pin (PC01 forSAM L22 & PA02 for SAM L21) is pulled low, when reset is released. A common usage is to use apush button accessible by the user as a bootloader trigger. The user must simply hold the pushbutton when powering up the device.
+
+but adafruit metro doesn't need a button to reprogram over usb...
+
+PA02 for reset on SAML21 (hold low during boot for bootloader to run)
+
+software tool for usb programming:
+https://www.microchip.com/developmenttools/ProductDetails/PartNO/SAM-BA%20In-system%20Programmer#additional-summary
+
+>>> relocate app to new start address
+https://ww1.microchip.com/downloads/en/DeviceDoc/00002565A.pdf
+section 5.2
+
+note on I2C speed: On the L21, SERCOM5 is in a low power domain. The Fm+ and HS modes of I2C (wire) are not supported.
+
+bootloader from:
+https://github.com/mattairtech/ArduinoCore-samd/blob/master/bootloaders/zero/README.md
+
+(FYI: set BOOTPROT to 0x02 --> 8k)
+https://www.farnell.com/datasheets/2014285.pdf
+
+set bootprot to 0x07 (0k boot)
+upload to flash: sam_ba_Generic_x21J_SAML21J18B.bin
+set bootprot to 0x02 (8k boot)
+
+now windows is reporting errors of USB device
+
+unplug/replug USB to power cycle
+
+errors continue
+
+took ~10 minutes, but then windows suddenly recognized device... listed part number SAML21...
+
+then went back to error messages
+
+closed atmel studio
+
+waited for more minutes of error
+
+COM8 appeared in device manager
+immedaitely programmed over Arduino IDE
+
+
+Sketch uses 9880 bytes (3%) of program storage space. Maximum is 253952 bytes.
+Atmel SMART device 0x1081000f found
+Device       : ATSAML21J18B
+Chip ID      : 1081000f
+Version      : v2.0 [Arduino:XYZ] Nov 22 2017 12:56:20
+Address      : 8192
+Pages        : 3968
+Page Size    : 64 bytes
+Total Size   : 248KB
+Planes       : 1
+Lock Regions : 16
+Locked       : none
+Security     : false
+Boot Flash   : true
+BOD          : false
+BOR          : true
+Arduino      : FAST_CHIP_ERASE
+Arduino      : FAST_MULTI_PAGE_WRITE
+Arduino      : CAN_CHECKSUM_MEMORY_BUFFER
+Erase flash
+done in 1.073 seconds
+
+Write 10232 bytes to flash (160 pages)
+[==============================] 100% (160/160 pages)
+done in 0.060 seconds
+
+Verify 10232 bytes of flash with checksum.
+Verify successful
+done in 0.008 seconds
+CPU reset.
+
+sucessfully uploaded a serial test program to SAML21 using Arduino IDE at 115200 debug output (prints 
+
+prints in 300 ms increments:
+21977
+22277
+30677
+
+8877
+..
+30677
+
+appears to get reset by something the PC does (timestamp always restarting).  TImestamp goes up to 30 seconds and restarts.  Implies PC is rebooting periphreal (5V toggle?) every 30 seconds...
+
+will need to check impedance matching on USB connection?  How long can echo project run?
+
+note: usb_terst2 is under the InfoBadge project folder
+
+set BOOTPROT to 0x07 (no protection)
+
+COM5 appears rock solid now
+
+maybe floating reset pin on Matt's files was doing something...?
+
+PB22
+PB23 for gpio LED
+
+direct usb-c connection continues to fail, must use usb-a/c adapter
+
+SAM-BA (boot assitant) appears unsupported on Windows 10 (at least the GUI part)
+
+so Matt code has contant reboot issue; Atmel solution can't be programmed over USB...?
+
+running i2c_test on SAML21J18B device (WAS -16B)...
+
+0x35 on reset from BQ25155
+
+is 2.3V coming from BQ...?
+
+0x32 from accel
+
+create a file/class for BQ and accel
+- verify self-identifier
+- set LDO voltage (3.3V)
+(disable LDO)
+- get accel x, y, z
+- get samples ready for read from accel (may be zero)
+- accel low power mode
+
+*** use toggle on MR to get into I2C mode per old foum post with TI
+
+*** change USB resistors to 56k --> 5k ohms to ground
+@ 4 minutes: https://www.youtube.com/watch?v=5-_QlT-YU-Q
+
+
+
+
+
+
+
+
+
+

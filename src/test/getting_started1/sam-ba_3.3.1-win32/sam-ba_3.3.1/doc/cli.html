@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- cli.qdoc -->
+  <title>Command Line Interface | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>Command Line Interface</li>
+<div class="sidebar"><div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">Command Line Interface</h1>
+<span class="subtitle"></span>
+<!-- $$$cli.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>SAM-BA includes a <i>command line interface</i> that provides support for the most common actions:</p>
+<ul>
+<li>reading / writing to arbitrary memory addresses and/or peripherals</li>
+<li>uploading applets and using them to erase/read/write external memories</li>
+</ul>
+<p>The <i>command line interface</i> is designed to be self-documenting.</p>
+<p>The main commands can be listed using the &quot;<i>sam-ba --help</i>&quot; command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span><span class="operator">-</span>help
+Usage: sam<span class="operator">-</span>ba <span class="operator">[</span>options<span class="operator">]</span>
+
+Options:
+  <span class="operator">-</span>v<span class="operator">,</span> <span class="operator">-</span><span class="operator">-</span>version                          Displays version information<span class="operator">.</span>
+  <span class="operator">-</span>h<span class="operator">,</span> <span class="operator">-</span><span class="operator">-</span>help                             Displays <span class="keyword">this</span> help<span class="operator">.</span>
+  <span class="operator">-</span>t<span class="operator">,</span> <span class="operator">-</span><span class="operator">-</span>tracelevel <span class="operator">&lt;</span>trace_level<span class="operator">&gt;</span>         Set applet trace level to <span class="operator">&lt;</span>trace_level<span class="operator">&gt;</span><span class="operator">.</span>
+  <span class="operator">-</span>x<span class="operator">,</span> <span class="operator">-</span><span class="operator">-</span>execute <span class="operator">&lt;</span>script<span class="operator">.</span>qml<span class="operator">&gt;</span>             Execute script <span class="operator">&lt;</span>script<span class="operator">-</span>file<span class="operator">&gt;</span><span class="operator">.</span>
+  <span class="operator">-</span>p<span class="operator">,</span> <span class="operator">-</span><span class="operator">-</span>port <span class="operator">&lt;</span>port<span class="operator">[</span>:options:<span class="operator">.</span><span class="operator">.</span><span class="operator">.</span><span class="operator">]</span><span class="operator">&gt;</span>        Communicate with device <span class="keyword">using</span> <span class="operator">&lt;</span>port<span class="operator">&gt;</span><span class="operator">.</span>
+  <span class="operator">-</span>d<span class="operator">,</span> <span class="operator">-</span><span class="operator">-</span>device <span class="operator">&lt;</span>device<span class="operator">&gt;</span>                  Connected device is <span class="operator">&lt;</span>device<span class="operator">&gt;</span><span class="operator">.</span>
+  <span class="operator">-</span>b<span class="operator">,</span> <span class="operator">-</span><span class="operator">-</span>board <span class="operator">&lt;</span>board<span class="operator">&gt;</span>                    Connected board is <span class="operator">&lt;</span>board<span class="operator">&gt;</span><span class="operator">.</span>
+  <span class="operator">-</span>m<span class="operator">,</span> <span class="operator">-</span><span class="operator">-</span><span class="keyword">monitor</span> <span class="operator">&lt;</span>command<span class="operator">[</span>:options:<span class="operator">.</span><span class="operator">.</span><span class="operator">.</span><span class="operator">]</span><span class="operator">&gt;</span>  Run <span class="keyword">monitor</span> command <span class="operator">&lt;</span>command<span class="operator">&gt;</span><span class="operator">.</span>
+  <span class="operator">-</span>a<span class="operator">,</span> <span class="operator">-</span><span class="operator">-</span>applet <span class="operator">&lt;</span>applet<span class="operator">[</span>:options:<span class="operator">.</span><span class="operator">.</span><span class="operator">.</span><span class="operator">]</span><span class="operator">&gt;</span>    Load and initialize applet <span class="operator">&lt;</span>applet<span class="operator">&gt;</span><span class="operator">.</span>
+  <span class="operator">-</span>c<span class="operator">,</span> <span class="operator">-</span><span class="operator">-</span>command <span class="operator">&lt;</span>command<span class="operator">[</span>:args:<span class="operator">.</span><span class="operator">.</span><span class="operator">.</span><span class="operator">]</span><span class="operator">&gt;</span>     Run command <span class="operator">&lt;</span>command<span class="operator">&gt;</span><span class="operator">.</span></pre>
+<p>Additional help can be obtained for most commands by supplying a &quot;help&quot; parameter that will display their usage.</p>
+</div>
+<!-- @@@cli.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

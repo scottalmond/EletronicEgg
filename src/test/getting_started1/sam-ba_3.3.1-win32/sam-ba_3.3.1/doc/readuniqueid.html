@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- readuniqueid.qdoc -->
+  <title>SAM-BA readuniqueid applet | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>SAM-BA readuniqueid applet</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#reading-the-device-unique-id">Reading the device unique ID</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">SAM-BA readuniqueid applet</h1>
+<span class="subtitle"></span>
+<!-- $$$readuniqueid.html-description -->
+<div class="descr"> <a name="details"></a>
+<a name="reading-the-device-unique-id"></a>
+<h2 id="reading-the-device-unique-id">Reading the device unique ID</h2>
+<p>The <b>readuniqueid</b> applet displays the device unique ID and optionally saves it into a binary file.</p>
+<pre class="cpp">sam<span class="operator">-</span>ba <span class="operator">-</span>p <span class="operator">&lt;</span>port<span class="operator">&gt;</span> <span class="operator">-</span>d <span class="operator">&lt;</span>device<span class="operator">&gt;</span> <span class="operator">-</span>a readuniqueid<span class="operator">[</span>:<span class="operator">&lt;</span>filename<span class="operator">&gt;</span><span class="operator">]</span>
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a readuniqueid
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a readuniqueid:uid<span class="operator">.</span>bin</pre>
+</div>
+<!-- @@@readuniqueid.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

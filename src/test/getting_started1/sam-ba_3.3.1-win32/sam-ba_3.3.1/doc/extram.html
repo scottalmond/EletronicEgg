@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- extram.qdoc -->
+  <title>SAM-BA extram applet | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>SAM-BA extram applet</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#applet-initialization">Applet initialization</a></li>
+<li class="level2"><a href="#preset-list"><i>preset</i> list</a></li>
+<li class="level2"><a href="#samv71">SAMV71</a></li>
+<li class="level2"><a href="#sam9xx5">SAM9xx5</a></li>
+<li class="level2"><a href="#sam9x60">SAM9X60</a></li>
+<li class="level2"><a href="#sama5d3">SAMA5D3</a></li>
+<li class="level2"><a href="#sama5d4">SAMA5D4</a></li>
+<li class="level2"><a href="#sama5d2">SAMA5D2</a></li>
+<li class="level1"><a href="#supported-commands">Supported commands</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">SAM-BA extram applet</h1>
+<span class="subtitle"></span>
+<!-- $$$extram.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>The <i>extram</i> applet initializes the external RAM. The <a href="lowlevel.html"><i>lowlevel</i></a> applet should be executed prior to executing the <i>extram</i> applet, as the timings used to initiliaze the external RAM assume a bus clock frequency as configured by the <a href="lowlevel.html"><i>lowlevel</i></a> applet.</p>
+<a name="applet-initialization"></a>
+<h2 id="applet-initialization">Applet initialization</h2>
+<p>The <i>extram</i> applet accepts a single <i>preset</i> parameter, which tells the applet which SDRAM chip model is connected to the SAM MPU device.</p>
+<pre class="cpp">sam<span class="operator">-</span>ba <span class="operator">-</span>p <span class="operator">&lt;</span>port<span class="operator">&gt;</span> <span class="operator">-</span>d <span class="operator">&lt;</span>device<span class="operator">&gt;</span> <span class="operator">-</span>a extram:help
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a extram:help
+Syntax: extram:<span class="operator">[</span><span class="operator">&lt;</span>preset<span class="operator">&gt;</span><span class="operator">]</span>
+Parameters:
+    preset  External RAM chip
+Examples:
+    extram    use <span class="keyword">default</span> board settings
+    extram:<span class="number">1</span>  use preset <span class="number">1</span> <span class="keyword">for</span> type of external RAM</pre>
+<a name="preset-list"></a>
+<h3 ><i>preset</i> list</h3>
+<div class="table"><table class="generic">
+ <thead><tr class="qt-style"><th >Preset</th><th >SDRAM type</th><th >Model</th></tr></thead>
+<tr valign="top" class="odd"><td >0</td><td >DDR2</td><td >MT47H128M8</td></tr>
+<tr valign="top" class="even"><td >1</td><td >DDR2</td><td >MT47H64M16 (x1)</td></tr>
+<tr valign="top" class="odd"><td >2</td><td >DDR2</td><td >MT47H128M16 (x2)</td></tr>
+<tr valign="top" class="even"><td >3</td><td >LPDDR2</td><td >MT42L128M16 (x2)</td></tr>
+<tr valign="top" class="odd"><td >4</td><td >DDR3</td><td >MT41K128M16 (x2)</td></tr>
+<tr valign="top" class="even"><td >5</td><td >LPDDR3</td><td >EDF8164A3MA</td></tr>
+<tr valign="top" class="odd"><td >6</td><td >SDR</td><td >IS42S16100E</td></tr>
+<tr valign="top" class="even"><td >7</td><td >SDR</td><td >W981216BH</td></tr>
+<tr valign="top" class="odd"><td >8</td><td >DDR2</td><td >W971G16SB</td></tr>
+<tr valign="top" class="even"><td >9</td><td >DDR2</td><td >W972GG6KB (x2)</td></tr>
+<tr valign="top" class="odd"><td >10</td><td >SDR</td><td >AS4C16M16SA</td></tr>
+<tr valign="top" class="even"><td >11</td><td >DDR3</td><td >MT41K128M16 (x1)</td></tr>
+<tr valign="top" class="odd"><td >12</td><td >DDR2</td><td >W972GG6KB (x1)</td></tr>
+<tr valign="top" class="even"><td >13</td><td >LPDDR2</td><td >AD220032D</td></tr>
+<tr valign="top" class="odd"><td >14</td><td >LPDDR2</td><td >AD210032D</td></tr>
+<tr valign="top" class="even"><td >15</td><td >DDR2</td><td >W9712G6KB</td></tr>
+<tr valign="top" class="odd"><td >16</td><td >DDR2</td><td >W9751G6KB</td></tr>
+<tr valign="top" class="even"><td >17</td><td >DDR2</td><td >MT47H64M16 (x2)</td></tr>
+</table></div>
+<a name="samv71"></a>
+<h3 >SAMV71</h3>
+<p>All chip timings are computed for a system bus clock running at <b>150 MHz</b>.</p>
+<div class="table"><table class="generic">
+ <thead><tr class="qt-style"><th >SDRAM type</th><th >Model</th><th >Preset(s)</th></tr></thead>
+<tr valign="top" class="odd"><td >SDR</td><td >IS42S16100E</td><td >6</td></tr>
+<tr valign="top" class="even"><td >SDR</td><td >AS4C16M16SA</td><td >10</td></tr>
+</table></div>
+<a name="sam9xx5"></a>
+<h3 >SAM9xx5</h3>
+<p>All chip timings are computed for a system bus clock running at <b>133 MHz</b>.</p>
+<div class="table"><table class="generic">
+ <thead><tr class="qt-style"><th >SDRAM type</th><th >Model</th><th >Preset(s)</th></tr></thead>
+<tr valign="top" class="odd"><td >DDR2</td><td >MT17H128M8</td><td >0</td></tr>
+<tr valign="top" class="even"><td >DDR2</td><td >MT47H64M16</td><td >1, 17</td></tr>
+<tr valign="top" class="odd"><td >DDR2</td><td >MT47H128M16</td><td >2</td></tr>
+<tr valign="top" class="even"><td >DDR2</td><td >W971GG6SB</td><td >8</td></tr>
+<tr valign="top" class="odd"><td >DDR2</td><td >W972GG6KB</td><td >9, 12</td></tr>
+</table></div>
+<a name="sam9x60"></a>
+<h3 >SAM9X60</h3>
+<p>All chip timings are computed for a system busclock running at <b>200 MHz</b>.</p>
+<div class="table"><table class="generic">
+ <thead><tr class="qt-style"><th >SDRAM type</th><th >Model</th><th >Preset(s)</th></tr></thead>
+<tr valign="top" class="odd"><td >DDR2</td><td >MT47H64M16</td><td >1, 17</td></tr>
+<tr valign="top" class="even"><td >DDR2</td><td >W972GG6KB</td><td >9, 12</td></tr>
+</table></div>
+<a name="sama5d3"></a>
+<h3 >SAMA5D3</h3>
+<p>All chip timings are computed for a system bus clock running at <b>133 MHz</b>.</p>
+<div class="table"><table class="generic">
+ <thead><tr class="qt-style"><th >SDRAM type</th><th >Model</th><th >Preset(s)</th></tr></thead>
+<tr valign="top" class="odd"><td >DDR2</td><td >MT17H128M8</td><td >0</td></tr>
+<tr valign="top" class="even"><td >DDR2</td><td >MT47H64M16</td><td >1, 17</td></tr>
+<tr valign="top" class="odd"><td >DDR2</td><td >MT47H128M16</td><td >2</td></tr>
+<tr valign="top" class="even"><td >DDR2</td><td >W971GG6SB</td><td >8</td></tr>
+<tr valign="top" class="odd"><td >DDR2</td><td >W972GG6KB</td><td >9, 12</td></tr>
+<tr valign="top" class="even"><td >LPDDR2</td><td >MT42L128M16</td><td >3</td></tr>
+</table></div>
+<a name="sama5d4"></a>
+<h3 >SAMA5D4</h3>
+<p>All chip timings are computed for a system bus clock running at <b>200 MHz</b>.</p>
+<div class="table"><table class="generic">
+ <thead><tr class="qt-style"><th >SDRAM type</th><th >Model</th><th >Preset(s)</th></tr></thead>
+<tr valign="top" class="odd"><td >DDR2</td><td >MT17H128M8</td><td >0</td></tr>
+<tr valign="top" class="even"><td >DDR2</td><td >MT47H64M16</td><td >1, 17</td></tr>
+<tr valign="top" class="odd"><td >DDR2</td><td >MT47H128M16</td><td >2</td></tr>
+<tr valign="top" class="even"><td >DDR2</td><td >W971GG6SB</td><td >8</td></tr>
+<tr valign="top" class="odd"><td >DDR2</td><td >W972GG6KB</td><td >9, 12</td></tr>
+<tr valign="top" class="even"><td >LPDDR2</td><td >MT42L128M16</td><td >3</td></tr>
+</table></div>
+<a name="sama5d2"></a>
+<h3 >SAMA5D2</h3>
+<p>All chip timings are computed for a system bus clock runnint at <b>166 MHz</b>.</p>
+<div class="table"><table class="generic">
+ <thead><tr class="qt-style"><th >SDRAM type</th><th >Model</th><th >Preset(s)</th></tr></thead>
+<tr valign="top" class="odd"><td >DDR2</td><td >MT17H128M8</td><td >0</td></tr>
+<tr valign="top" class="even"><td >DDR2</td><td >MT47H64M16</td><td >1, 17</td></tr>
+<tr valign="top" class="odd"><td >DDR2</td><td >MT47H128M16</td><td >2</td></tr>
+<tr valign="top" class="even"><td >DDR2</td><td >W971GG6SB</td><td >8</td></tr>
+<tr valign="top" class="odd"><td >DDR2</td><td >W972GG6KB</td><td >9, 12</td></tr>
+<tr valign="top" class="even"><td >DDR2</td><td >W9712G6KB</td><td >15</td></tr>
+<tr valign="top" class="odd"><td >DDR2</td><td >W9751G6KB</td><td >16</td></tr>
+<tr valign="top" class="even"><td >LPDDR2</td><td >MT42L128M16</td><td >3</td></tr>
+<tr valign="top" class="odd"><td >LPDDR2</td><td >AD220032D</td><td >13</td></tr>
+<tr valign="top" class="even"><td >LPDDR2</td><td >AD210032D</td><td >14</td></tr>
+<tr valign="top" class="odd"><td >DDR3</td><td >MT41K128M16</td><td >4</td></tr>
+<tr valign="top" class="even"><td >LPDDR3</td><td >EDF8164A3MA</td><td >5</td></tr>
+</table></div>
+<a name="supported-commands"></a>
+<h2 id="supported-commands">Supported commands</h2>
+<p>The <i>extram</i> applet doesn't support any command.</p>
+</div>
+<!-- @@@extram.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- applet.qdoc -->
+  <title>Executing applets | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>Executing applets</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#the-a-applet-option">The &quot;<i>-a, --applet</i>&quot; option</a></li>
+<li class="level1"><a href="#the-c-command-option">the &quot;<i>-c, --command</i>&quot; option</a></li>
+<li class="level1"><a href="#the-t-tracelevel-option">the &quot;<i>-t, --tracelevel</i>&quot; option</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">Executing applets</h1>
+<span class="subtitle"></span>
+<!-- $$$applet.html-description -->
+<div class="descr"> <a name="details"></a>
+<a name="the-a-applet-option"></a>
+<h2 id="the-a-applet-option">The &quot;<i>-a, --applet</i>&quot; option</h2>
+<p>The &quot;<i>-a, --applet</i>&quot; option is used to execute an applet. This option cannot be used with <a href="monitor.html#the-m-monitor-option">&quot;<i>-m, --monitor</i>&quot;</a> or <a href="script.html#the-x-execute-option">&quot;<i>-x, --execute</i>&quot;</a> options.</p>
+<p>The &quot;<i>-a, --applet</i>&quot; option must be followed by the name of the applet to be executed. This option is used to load an applet into some RAM region then to initialize it. The initialization of the applet may required additionnal parameters. They are passed through the command line by appending them after the applet name, separated with colons &quot;<i>:</i>&quot;.</p>
+<pre class="cpp">sam<span class="operator">-</span>ba <span class="operator">-</span>p <span class="operator">&lt;</span>port<span class="operator">&gt;</span> <span class="operator">-</span>d <span class="operator">&lt;</span>device<span class="operator">&gt;</span> <span class="operator">-</span>a <span class="operator">&lt;</span>applet<span class="operator">&gt;</span><span class="operator">[</span>:<span class="operator">&lt;</span>arg1<span class="operator">&gt;</span>:<span class="operator">&lt;</span>arg2<span class="operator">&gt;</span>:<span class="operator">&lt;</span>arg3<span class="operator">&gt;</span>:<span class="operator">.</span><span class="operator">.</span><span class="operator">.</span><span class="operator">]</span>
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a lowlevel
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a extram
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a qspiflash:<span class="number">0</span>:<span class="number">1</span>:<span class="number">50</span>
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>xplained <span class="operator">-</span>a qspiflash
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a sdmmc:<span class="number">0</span>:<span class="number">1</span>:<span class="number">1</span>:<span class="number">8</span>:<span class="number">5</span>
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>xplaiend <span class="operator">-</span>a sdmmc</pre>
+<p>The list of supported applets depends on the selected device. This list can be displayed for a given device with the following command:</p>
+<pre class="cpp">sam<span class="operator">-</span>ba <span class="operator">-</span>p <span class="operator">&lt;</span>port<span class="operator">&gt;</span> <span class="operator">-</span>d <span class="operator">&lt;</span>device<span class="operator">&gt;</span> <span class="operator">-</span>a help
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a help
+Known applets: bootconfig<span class="operator">,</span> lowlevel<span class="operator">,</span> extram<span class="operator">,</span> serialflash<span class="operator">,</span> qspiflash<span class="operator">,</span> nandflash<span class="operator">,</span> sdmmc<span class="operator">,</span> internalrc<span class="operator">,</span> reset</pre>
+<p>Please click on the relevant device in the <a href="devices.html#supported-devices">Supported Devices</a> section to get the list of all supported applets for this device.</p>
+<p>The list of parameters (and their default values) to initialized an applet can be displayed with the following commands:</p>
+<pre class="cpp">sam<span class="operator">-</span>ba <span class="operator">-</span>p <span class="operator">&lt;</span>port<span class="operator">&gt;</span> <span class="operator">-</span>d <span class="operator">&lt;</span>device<span class="operator">&gt;</span> <span class="operator">-</span>a <span class="operator">&lt;</span>applet<span class="operator">&gt;</span>:help
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a qspiflash:help
+Syntax: qspiflash:<span class="operator">[</span><span class="operator">&lt;</span>instance<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>ioset<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>frequency<span class="operator">&gt;</span><span class="operator">]</span>
+Parameters:
+    instance   QSPI controller instance
+    ioset      QSPI I<span class="operator">/</span>O set
+    frequency  QSPI clock frequency in MHz
+Examples:
+    qspiflash         use <span class="keyword">default</span> board settings
+    qspiflash:<span class="number">0</span>:<span class="number">3</span>:<span class="number">66</span>  use fully custom settings (QSPI0<span class="operator">,</span> IOSET3<span class="operator">,</span> <span class="number">66Mhz</span>)
+    qspiflash<span class="operator">::</span>:<span class="number">20</span>    use <span class="keyword">default</span> board settings but force frequency to <span class="number">20Mhz</span></pre>
+<a name="the-c-command-option"></a>
+<h2 id="the-c-command-option">the &quot;<i>-c, --command</i>&quot; option</h2>
+<p>Most applets support different commands. Hence, the sequence of applet commands to be executed should be provided with a list of one or more &quot;<i>-c, --command</i>&quot; options, following the &quot;<i>-a, --applet</i>&quot; option on the command line.</p>
+<p>Like the applet initialization done with the &quot;<i>-a, --applet</i>&quot; option, applet commands may required additional parameters, which are appended to the command name, separated by colons &quot;<i>:</i>&quot;.</p>
+<pre class="cpp">sam<span class="operator">-</span>ba <span class="operator">-</span>p <span class="operator">&lt;</span>port<span class="operator">&gt;</span> <span class="operator">-</span>d <span class="operator">&lt;</span>device<span class="operator">&gt;</span> <span class="operator">-</span>a <span class="operator">&lt;</span>applet<span class="operator">&gt;</span> <span class="operator">[</span><span class="operator">-</span>c <span class="operator">&lt;</span>command1<span class="operator">&gt;</span><span class="operator">[</span>:<span class="operator">&lt;</span>arg1_1<span class="operator">&gt;</span>:<span class="operator">&lt;</span>arg1_2<span class="operator">&gt;</span>:<span class="operator">.</span><span class="operator">.</span><span class="operator">.</span><span class="operator">]</span> <span class="operator">-</span>c <span class="operator">&lt;</span>command2<span class="operator">&gt;</span><span class="operator">[</span>:<span class="operator">&lt;</span>arg2_1<span class="operator">&gt;</span>:<span class="operator">&lt;</span>arg2_2<span class="operator">&gt;</span>:<span class="operator">.</span><span class="operator">.</span><span class="operator">.</span><span class="operator">]</span> <span class="operator">-</span>c <span class="operator">&lt;</span>command3<span class="operator">&gt;</span><span class="operator">[</span>:<span class="operator">&lt;</span>arg3_1<span class="operator">&gt;</span>:<span class="operator">&lt;</span>arg3_2<span class="operator">&gt;</span>:<span class="operator">.</span><span class="operator">.</span><span class="operator">.</span><span class="operator">]</span> <span class="operator">.</span><span class="operator">.</span><span class="operator">.</span><span class="operator">]</span>
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>xplained <span class="operator">-</span>a bootconfig <span class="operator">-</span>c writecfg:bscr:valid<span class="operator">,</span>bureg0 <span class="operator">-</span>c writecfg:bureg0:QSPI0_IOSET1<span class="operator">,</span>EXT_MEM_BOOT
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>xplained <span class="operator">-</span>a qspiflash <span class="operator">-</span>c erase <span class="operator">-</span>c writeboot:bootstrap<span class="operator">.</span>bin <span class="operator">-</span>c write:u<span class="operator">-</span>boot<span class="operator">.</span>bin:<span class="number">0x8000</span></pre>
+<a name="the-t-tracelevel-option"></a>
+<h2 id="the-t-tracelevel-option">the &quot;<i>-t, --tracelevel</i>&quot; option</h2>
+<p>The &quot;<i>-t, --tracelevel</i>&quot; option is used to control the verbosity level of applet traces printed on the target console. The different levels are:</p>
+<ul>
+<li>0: no trace</li>
+<li>1: fatal error</li>
+<li>2: error</li>
+<li>3: warning</li>
+<li>4: info</li>
+<li>5: debug</li>
+</ul>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d2<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a qspiflash <span class="operator">-</span>c erase:<span class="number">0</span>:<span class="number">0x10000</span></pre>
+</div>
+<!-- @@@applet.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

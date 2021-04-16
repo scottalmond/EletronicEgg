@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- monitor.qdoc -->
+  <title>Executing monitor commands | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>Executing monitor commands</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#the-m-monitor-option">The &quot;<i>-m, --monitor</i>&quot; option</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">Executing monitor commands</h1>
+<span class="subtitle"></span>
+<!-- $$$monitor.html-description -->
+<div class="descr"> <a name="details"></a>
+<a name="the-m-monitor-option"></a>
+<h2 id="the-m-monitor-option">The &quot;<i>-m, --monitor</i>&quot; option</h2>
+<p>The &quot;<i>-m, --monitor</i>&quot; option is used to execute a basic monitor commands. This option cannot be used with <a href="applet.html#the-a-applet-option">&quot;<i>-a, --applet</i>&quot;</a> or <a href="script.html#the-x-execute-option">&quot;<i>-x, --execute</i>&quot;</a> options. However many &quot;<i>-m --monitor</i>&quot; options can be passed on the same command line.</p>
+<p>Monitor commands depend on the selected <a href="port.html#the-p-port-option">&quot;<i>-p, --port</i>&quot;</a> option. The &quot;<i>sam-ba -p &lt;port&gt; -m help</i>&quot; command displays all supported monitor commands for the given &lt;port&gt; connection:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>m help
+<span class="operator">*</span> read8 <span class="operator">-</span> read a byte
+Syntax:
+    read8:<span class="operator">&lt;</span>addr<span class="operator">&gt;</span>
+Example:
+    read8:<span class="number">0x200000</span>  read a byte at address <span class="number">0x200000</span>
+
+<span class="operator">*</span> read16 <span class="operator">-</span> read a half<span class="operator">-</span>word (<span class="number">16</span><span class="operator">-</span>bit)
+Syntax:
+    read16:<span class="operator">&lt;</span>addr<span class="operator">&gt;</span>
+Example:
+    read16:<span class="number">0x200000</span>  read a half<span class="operator">-</span>word at address <span class="number">0x200000</span>
+
+<span class="operator">*</span> read32 <span class="operator">-</span> read a word (<span class="number">32</span><span class="operator">-</span>bit)
+Syntax:
+    read32:<span class="operator">&lt;</span>addr<span class="operator">&gt;</span>
+Example:
+    read32:<span class="number">0x200000</span>  read a word at address <span class="number">0x200000</span>
+
+<span class="operator">*</span> read <span class="operator">-</span> read data into a file
+Syntax:
+    read:<span class="operator">&lt;</span>filename<span class="operator">&gt;</span>:<span class="operator">&lt;</span>addr<span class="operator">&gt;</span>:<span class="operator">&lt;</span>length<span class="operator">&gt;</span>
+Example:
+    read:test<span class="operator">.</span>bin:<span class="number">0x200000</span>:<span class="number">512</span>  read <span class="number">512</span> bytes from address <span class="number">0x200000</span> into file test<span class="operator">.</span>bin
+
+<span class="operator">*</span> write8 <span class="operator">-</span> write a byte
+Syntax:
+    write8:<span class="operator">&lt;</span>addr<span class="operator">&gt;</span>:<span class="operator">&lt;</span>value<span class="operator">&gt;</span>
+Example:
+    write8:<span class="number">0x200000</span>:<span class="number">0x12</span>  write byte <span class="number">0x12</span> at address <span class="number">0x200000</span>
+
+<span class="operator">*</span> write16 <span class="operator">-</span> write a half<span class="operator">-</span>word (<span class="number">16</span><span class="operator">-</span>bit)
+Syntax:
+    write16:<span class="operator">&lt;</span>addr<span class="operator">&gt;</span>:<span class="operator">&lt;</span>value<span class="operator">&gt;</span>
+Example:
+    write16:<span class="number">0x200000</span>:<span class="number">0x1234</span>  write half<span class="operator">-</span>word <span class="number">0x1234</span> at address <span class="number">0x200000</span>
+
+<span class="operator">*</span> write32 <span class="operator">-</span> write a word (<span class="number">32</span><span class="operator">-</span>bit)
+Syntax:
+    write32:<span class="operator">&lt;</span>addr<span class="operator">&gt;</span>:<span class="operator">&lt;</span>value<span class="operator">&gt;</span>
+Example:
+    write32:<span class="number">0x200000</span>:<span class="number">0x12345678</span>  write word <span class="number">0x12345678</span> at address <span class="number">0x200000</span>
+
+<span class="operator">*</span> write <span class="operator">-</span> write data from a file
+Syntax:
+    write:<span class="operator">&lt;</span>filename<span class="operator">&gt;</span>:<span class="operator">&lt;</span>addr<span class="operator">&gt;</span>
+Example:
+    write:test<span class="operator">.</span>bin:<span class="number">0x200000</span>  write data from file test<span class="operator">.</span>bin to address <span class="number">0x200000</span>
+
+<span class="operator">*</span> execute <span class="operator">-</span> execute code
+Syntax:
+    execute:<span class="operator">&lt;</span>addr<span class="operator">&gt;</span>
+Example:
+    execute:<span class="number">0x200000</span>  execute code at <span class="number">0x200000</span></pre>
+</div>
+<!-- @@@monitor.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

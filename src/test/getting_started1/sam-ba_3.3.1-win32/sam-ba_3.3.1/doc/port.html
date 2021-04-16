@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- port.qdoc -->
+  <title>Connecting to the target device | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>Connecting to the target device</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#the-p-port-option">The &quot;<i>-p, --port</i>&quot; option</a></li>
+<li class="level2"><a href="#connecting-through-a-serial-port">Connecting through a serial port</a></li>
+<li class="level3"><a href="#connecting-to-the-non-secure-sam-ba-monitor">Connecting to the non-secure SAM-BA monitor</a></li>
+<li class="level3"><a href="#connecting-to-the-secure-sam-ba-monitor">Connecting to the secure SAM-BA monitor</a></li>
+<li class="level2"><a href="#connecting-through-the-j-link-port">Connecting through the J-Link port</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">Connecting to the target device</h1>
+<span class="subtitle"></span>
+<!-- $$$port.html-description -->
+<div class="descr"> <a name="details"></a>
+<a name="the-p-port-option"></a>
+<h2 id="the-p-port-option">The &quot;<i>-p, --port</i>&quot; option</h2>
+<p>The &quot;<i>-p, --port</i>&quot; option should be provided when either the <a href="monitor.html#the-m-monitor-option">&quot;<i>-m, --monitor</i>&quot;</a> or the <a href="applet.html#the-a-applet-option">&quot;<i>-a, --applet</i>&quot;</a> option is passed to the command line. If omitted, the <i>serial</i> connection is chosen.</p>
+<p>The option should not be used with the <a href="script.html#the-x-execute-option">&quot;<i>-x, --execute</i>&quot;</a> option since its QML script already specifies which port should be used.</p>
+<p>The &quot;<i>-p, --port</i>&quot; option tells the sam-ba tool how to connect to the target. Also, this option may specify which host peripheral should be used.</p>
+<p>Supported port can be listed using the &quot;<i>sam-ba -p help</i>&quot; command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p help
+Know ports: serial<span class="operator">,</span> j<span class="operator">-</span>link<span class="operator">,</span> secure</pre>
+<a name="connecting-through-a-serial-port"></a>
+<h3 >Connecting through a serial port</h3>
+<a name="connecting-to-the-non-secure-sam-ba-monitor"></a>
+<h4 >Connecting to the non-secure SAM-BA monitor</h4>
+<p>The &quot;<i>-p serial</i>&quot; option must be provided if the connection to the (non-secure) SAM-BA monitor should be established through either the ROM code console (DBGU/UART/USART port) or the USB device port of the target.</p>
+<p>By default, sam-ba tries to guess the best port for connecting to the target; AT91 USB if available, DBGU/UART/USART otherwise. However the host peripheral can explicitly be provided on the command line if needed.</p>
+<p>The &quot;<i>sam-ba -p serial:help</i>&quot; command displays all supported serial port options:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial:help
+Syntax:
+    serial:<span class="operator">[</span><span class="operator">&lt;</span>port<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>baudrate<span class="operator">&gt;</span><span class="operator">]</span>
+Examples:
+    serial                serial port (will use first AT91 USB <span class="keyword">if</span> found otherwise first serial port)
+    serial:COM80          serial port on COM80
+    serial:ttyUSB0:<span class="number">57600</span>  serial port on <span class="operator">/</span>dev<span class="operator">/</span>ttyUSB0<span class="operator">,</span> baudrate <span class="number">57600</span></pre>
+<a name="connecting-to-the-secure-sam-ba-monitor"></a>
+<h4 >Connecting to the secure SAM-BA monitor</h4>
+<p>The &quot;<i>-p secure</i>&quot; option must be provided if the connection to the secure SAM-BA monitor should be established through either the ROM code console (DBGU/UART/USART port) or the USB device port of the target.</p>
+<p>By default, sam-ba tries to guess the best port for connecting to the target; AT91 USB if available, DBGU/UART/USART otherwise. However the host peripheral can explicitly be provided on the command line if needed.</p>
+<p>The &quot;<i>sam-ba -p secure:help</i>&quot; command displays all supported secure port options:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p secure:help
+Syntax:
+    secure:<span class="operator">[</span><span class="operator">&lt;</span>port<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>baudrate<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>verbose<span class="operator">&gt;</span><span class="operator">]</span>
+Examples:
+    secure          serial port (will use first AT91 USB <span class="keyword">if</span> found otherwise first serial port)
+    secure:COM80    serial port on COM80
+    secure:ttyACM0  serial port on <span class="operator">/</span>dev<span class="operator">/</span>ttyACM0
+    secure<span class="operator">::</span>:<span class="number">1</span>      serial port (display communication between sam<span class="operator">-</span>ba and the secure SAM<span class="operator">-</span>BA <span class="keyword">monitor</span> of the target)</pre>
+<a name="connecting-through-the-j-link-port"></a>
+<h3 >Connecting through the J-Link port</h3>
+<p>The &quot;<i>-p j-link</i>&quot; option should be provided if the connection should be established through the J-Link port of the target, hence by-passing the SAM-BA monitor.</p>
+<p>By default, sam-ba selects the first SAM-ICE interface probed on the host. However, when many SAM-ICE peripherals are connected to the host, a serial-number can be passed on the command line to selected the right one.</p>
+<p>The &quot;<i>sam-ba -p j-link:help</i>&quot; command displays all supported j-link port options:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p j<span class="operator">-</span>link:help
+Syntax:
+    j<span class="operator">-</span>link:<span class="operator">[</span><span class="operator">&lt;</span>S<span class="operator">/</span>N<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span>swd<span class="operator">|</span>jtag<span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>speed in kHz<span class="operator">&gt;</span><span class="operator">]</span>
+Examples:
+    j<span class="operator">-</span>link             use first J<span class="operator">-</span>Link device found
+    j<span class="operator">-</span>link:<span class="number">123456</span>      use J<span class="operator">-</span>Link with serial number <span class="number">123456</span>
+    j<span class="operator">-</span>link:<span class="number">123456</span>:swd  use J<span class="operator">-</span>Link with serial number <span class="number">123456</span><span class="operator">,</span> in SWD mode
+    j<span class="operator">-</span>link<span class="operator">::</span>swd        use first J<span class="operator">-</span>Link device found<span class="operator">,</span> in SWD mode
+    j<span class="operator">-</span>link<span class="operator">::</span>jtag       use first J<span class="operator">-</span>Link device found<span class="operator">,</span> in JTAG mode (JTAG mode is the <span class="keyword">default</span>)
+    j<span class="operator">-</span>link<span class="operator">::</span>jtag:<span class="number">150</span>   use first J<span class="operator">-</span>Link device found<span class="operator">,</span> in JTAG mode at <span class="number">150kHz</span> (<span class="keyword">default</span> is <span class="number">0</span> <span class="keyword">for</span> <span class="keyword">auto</span>)</pre>
+<p><b>The J-Link port is closed when the secure SAM-BA monitor is running.</b></p>
+</div>
+<!-- @@@port.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

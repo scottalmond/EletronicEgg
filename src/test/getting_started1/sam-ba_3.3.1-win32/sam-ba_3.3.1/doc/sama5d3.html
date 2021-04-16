@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- sama5d3.qdoc -->
+  <title>Getting started with SAM-BA on SAMA5D3 devices | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>Getting started with SAM-BA on SAMA5D3 devices</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#connecting-to-the-sam-ba-monitor">Connecting to the SAM-BA monitor</a></li>
+<li class="level1"><a href="#predefined-boards-and-customer-board-designs">Predefined boards and customer board designs</a></li>
+<li class="level1"><a href="#supported-applets">Supported applets</a></li>
+<li class="level1"><a href="#linux4sam-demos">Linux4SAM demos</a></li>
+<li class="level1"><a href="#programming-a-spi-nor-flash">Programming a SPI NOR flash</a></li>
+<li class="level1"><a href="#programming-a-sdcard-or-e-mmc-user-partition">Programming a SDCard or e.MMC user partition</a></li>
+<li class="level1"><a href="#programming-a-raw-nand-flash">Programming a raw NAND flash</a></li>
+<li class="level1"><a href="#secure-boot-mode">Secure Boot Mode</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">Getting started with SAM-BA on SAMA5D3 devices</h1>
+<span class="subtitle"></span>
+<!-- $$$sama5d3.html-description -->
+<div class="descr"> <a name="details"></a>
+<a name="connecting-to-the-sam-ba-monitor"></a>
+<h2 id="connecting-to-the-sam-ba-monitor">Connecting to the SAM-BA monitor</h2>
+<p>For USB connection, the host running <i>sam-ba</i> should be connected to the <b>USB device port</b> of the SAMA5D3 board design. On SAMA5D3-Xplained boards, this port is labeled <b>USB-A (J6)</b>.</p>
+<a name="predefined-boards-and-customer-board-designs"></a>
+<h2 id="predefined-boards-and-customer-board-designs">Predefined boards and customer board designs</h2>
+<p>The <i>sam-ba</i> program comes with predefined <i>sama5d3-xplained</i> and <i>sama5d3-ek</i> boards that set default values for different settings such as the <i>applet console</i> or memory controller <i>instances</i>.</p>
+<p>Those predefined boards can be selected with the <i>-b sama5d3-xplained</i> or <i>-b sama5d3-ek</i> options on the <i>sam-ba</i> command line.</p>
+<p>However the <i>-d sama5d3</i> option should be used instead on customer board designs not to load any default settings. Instead, additionnal parameters may be passed to the <a href="qml-samba-device-sama5d3-sama5d3config.html#serial-console-configuration">-d sama5d3:&lt;console_instance&gt;:&lt;console_ioset&gt; </a> option to select the <i>applet console</i>. The <i>applet console</i>, when enabled, is used by any applet to print its traces.</p>
+<p>Also, default memory controller settings, if any, can be overridden too, passing additional arguments to the <a href="applet.html#the-a-applet-option">-a &lt;applet&gt;</a> option for the applet managing the memory controller.</p>
+<a name="supported-applets"></a>
+<h2 id="supported-applets">Supported applets</h2>
+<p>The list of supported applets can be displayed with the following command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d3 <span class="operator">-</span>a help
+Known applets: lowlevel<span class="operator">,</span> extram<span class="operator">,</span> sdmmc<span class="operator">,</span> serialflash<span class="operator">,</span> nandflash<span class="operator">,</span> reset</pre>
+<div class="table"><table class="generic">
+ <thead><tr class="qt-style"><th >Applet</th><th >Short description</th><th >Examples</th></tr></thead>
+<tr valign="top" class="odd"><td ><a href="extram.html">extram</a></td><td >Initialize the external RAM (not needed by any other applets)</td><td ></td></tr>
+<tr valign="top" class="even"><td ><a href="lowlevel.html">lowlevel</a></td><td >Setup the clock tree (only needed by the <i>extram</i> applet)</td><td ></td></tr>
+<tr valign="top" class="odd"><td ><a href="nandflash.html">nandflash</a></td><td >Manage raw NAND flash memories connected to the EBI and driven by the NFC</td><td ><a href="sama5d3.html#programming-a-raw-nand-flash">Programming a raw NAND flash</a></td></tr>
+<tr valign="top" class="even"><td ><a href="reset.html">reset</a></td><td >Reset the target device</td><td ></td></tr>
+<tr valign="top" class="odd"><td ><a href="sdmmc.html">sdmmc</a></td><td >Manage e.MMC and SD Cards connected to some HSMCI instance</td><td ><a href="sama5d3.html#programming-a-sdcard-or-e-mmc-user-partition">Programming a SD Card or e.MMC</a></td></tr>
+<tr valign="top" class="even"><td ><a href="serialflash.html">serialflash</a></td><td >Manage (Q)SPI NOR flash memories connected to some SPI instance</td><td ><a href="sama5d3.html#programming-a-spi-nor-flash">Programming a SPI NOR flash</a></td></tr>
+</table></div>
+<a name="linux4sam-demos"></a>
+<h2 id="linux4sam-demos">Linux4SAM demos</h2>
+<p>Examples to follow are all based on material provided by <a href="https://www.linux4sam.org/bin/view/Linux4SAM/Sama5d3XplainedMainPage#Demo">Linux4SAM demos</a> for SAMA5D3 Xplained boards or custom builds from <a href="https://www.linux4sam.org/bin/view/Linux4SAM/Sama5d3XplainedMainPage#Build_From_source_code">Linux4SAM sources</a>.</p>
+<div class="table"><table class="generic">
+ <thead><tr class="qt-style"><th >File name(s)</th><th >Description</th></tr></thead>
+<tr valign="top" class="odd"><td >at91bootstrap-sama5d3_xplained.bin or BOOT.bin</td><td >at91bootstrap loaded in SRAM0 then executed by the ROM Code</td></tr>
+<tr valign="top" class="even"><td >u-boot.bin or u-boot-sama5d3-xplained.bin</td><td >u-boot loaded in external RAM then executed by at91bootstrap</td></tr>
+<tr valign="top" class="odd"><td >u-boot-env.bin or uboot.env</td><td >u-boot environment variables loaded by u-boot</td></tr>
+<tr valign="top" class="even"><td >sama5d3_xplained.itb</td><td >a FIT image containing the Linux kernel image and its device-tree binary</td></tr>
+<tr valign="top" class="odd"><td >microchip-headless-image-sama5d3-xplained.ubi</td><td >the Linux root file-system (NAND flash only)</td></tr>
+</table></div>
+<a name="programming-a-spi-nor-flash"></a>
+<h2 id="programming-a-spi-nor-flash">Programming a SPI NOR flash</h2>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d3<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a serialflash <span class="operator">-</span>c erase
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d3<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a serialflash <span class="operator">-</span>c writeboot:at91bootstrap<span class="operator">-</span>sama5d3_xplained<span class="operator">.</span>bin <span class="operator">-</span>c verifyboot:at91bootstrap<span class="operator">-</span>sama5d3_xplained<span class="operator">.</span>bin<span class="operator">.</span>bin
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d3<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a serialflash <span class="operator">-</span>c write:u<span class="operator">-</span>boot<span class="operator">-</span>env<span class="operator">.</span>bin:<span class="number">0x00006000</span> <span class="operator">-</span>c verify:u<span class="operator">-</span>boot<span class="operator">-</span>env<span class="operator">.</span>bin:<span class="number">0x00006000</span>
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d3<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a serialflash <span class="operator">-</span>c write:u<span class="operator">-</span>boot<span class="operator">-</span>sama5d3<span class="operator">-</span>xplained<span class="operator">.</span>bin:<span class="number">0x00008000</span> <span class="operator">-</span>c verify:u<span class="operator">-</span>boot<span class="operator">-</span>sama5d3<span class="operator">-</span>xplained<span class="operator">.</span>bin:<span class="number">0x00008000</span>
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d3<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a serialflash <span class="operator">-</span>c write:sama5d3_xplained<span class="operator">.</span>itb:<span class="number">0x000A8000</span> <span class="operator">-</span>c verify:sama5d3_xplained<span class="operator">.</span>itb:<span class="number">0x000A8000</span></pre>
+<p>SPI NOR flashes are likely to be too small to store the Linux root file-system; this should be programmed into another NVM.</p>
+<p><b>If the SPI NOR flash memory is connected to a custom board design, then additional parameters should be passed to the <i>-a serialflash</i> option in above examples.</b></p>
+<p>The list of thos parameters is given by the command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d3 <span class="operator">-</span>a serialflash:help
+Syntax: serialflash:<span class="operator">[</span><span class="operator">&lt;</span>instance<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>ioset<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>npcs<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>frequency<span class="operator">&gt;</span><span class="operator">]</span>
+Parameters:
+    instance   SPI controller instance
+    ioset      I<span class="operator">/</span>O set
+    npcs       SPI chip select number
+    frequency  SPI clock frequency in MHz
+Examples:
+    serialflash           use <span class="keyword">default</span> board settings
+    serialflash:<span class="number">0</span>:<span class="number">1</span>:<span class="number">0</span>:<span class="number">66</span>  use fully custom settings (SPI0<span class="operator">,</span> IOSET1<span class="operator">,</span> NPCS0<span class="operator">,</span> <span class="number">66Mhz</span>)
+    serialflash<span class="operator">::</span><span class="operator">::</span><span class="number">20</span>     use <span class="keyword">default</span> board settings but force frequency to <span class="number">20Mhz</span></pre>
+<p>Supported <i>&lt;instance&gt;</i>, <i>&lt;ioset&gt;</i> and <i>&lt;npcs&gt;</i> for SPI on SAMA5D3 device are listed <a href="qml-samba-device-sama5d3-sama5d3config.html#spi-serial-flash-configuration">here</a>.</p>
+<a name="programming-a-sdcard-or-e-mmc-user-partition"></a>
+<h2 id="programming-a-sdcard-or-e-mmc-user-partition">Programming a SDCard or e.MMC user partition</h2>
+<p>In the following example, the <i>sdcard.img</i> file is a raw image of a SD Card, hence starting with a Master Boot Record (MBR) containing a valid partition table. The first partition is formatted with a FAT32 file-system, which gathers at least four files in its root directory:</p>
+<ul>
+<li>BOOT.bin</li>
+<li>u-boot.bin</li>
+<li>uboot.env</li>
+<li>sama5d3_xplained.itb</li>
+</ul>
+<p>The second partition is formatted in EXT4 and contains the root file-system used by the Linux kernel.</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d3<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a sdmmc <span class="operator">-</span>c write:sdcard<span class="operator">.</span>img</pre>
+<p><b>If the SD Card or e.MMC memory is connected to a customer board design, then additional parameters should be passed to the <i>-a sdmmc</i> option in above examples.</b></p>
+<p>The list of those parameters is given by the command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d3 <span class="operator">-</span>a sdmmc:help
+Syntax: sdmmc:<span class="operator">[</span><span class="operator">&lt;</span>instance<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>ioset<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>partition<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>bus_width<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>voltages<span class="operator">&gt;</span><span class="operator">]</span>
+Parameters:
+    instance   SDMMC controller number
+    ioset      SDMMC I<span class="operator">/</span>O set
+    partition  Partition number (<span class="number">0</span><span class="operator">=</span>user partition<span class="operator">,</span> x<span class="operator">&gt;</span><span class="number">0</span><span class="operator">=</span>boot partition x)
+    bus_width  Data bus width (<span class="number">0</span><span class="operator">=</span>controller max<span class="operator">,</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span><span class="operator">-</span>bit<span class="operator">,</span> <span class="number">4</span><span class="operator">=</span><span class="number">4</span><span class="operator">-</span>bit<span class="operator">,</span> <span class="number">8</span><span class="operator">=</span><span class="number">8</span><span class="operator">-</span>bit)
+    voltages   Supported voltages (bitfield: <span class="number">1</span><span class="operator">=</span><span class="number">1.8V</span><span class="operator">,</span> <span class="number">2</span><span class="operator">=</span><span class="number">3.0V</span><span class="operator">,</span> <span class="number">4</span><span class="operator">=</span><span class="number">3.3V</span>)
+Examples:
+    sdmmc           use <span class="keyword">default</span> board settings
+    sdmmc:<span class="number">0</span>:<span class="number">1</span>:<span class="number">1</span>:<span class="number">8</span>:<span class="number">5</span> use fully custom settings (SDMMC0<span class="operator">,</span> IOSET1<span class="operator">,</span> first boot partition<span class="operator">,</span> <span class="number">8</span><span class="operator">-</span>bit<span class="operator">,</span> <span class="number">1.8V</span><span class="operator">/</span><span class="number">3.3V</span>)
+    sdmmc:<span class="number">0</span><span class="operator">::</span><span class="number">1</span>      use <span class="keyword">default</span> board settings but force use of SDMMC0<span class="operator">,</span> first boot partition</pre>
+<p>Supported <i>&lt;instance&gt;</i> and <i>&lt;ioset&gt;</i> for SDMMC on SAMA5D3 device are listed <a href="qml-samba-device-sama5d3-sama5d3config.html#sd-mmc-configuration">here</a>.</p>
+<a name="programming-a-raw-nand-flash"></a>
+<h2 id="programming-a-raw-nand-flash">Programming a raw NAND flash</h2>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d3<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a nandflash <span class="operator">-</span>c erase
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d3<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a nandflash <span class="operator">-</span>c writeboot:at91bootstrap<span class="operator">-</span>sama5d3_xplained<span class="operator">.</span>bin <span class="operator">-</span>c verifyboot:at91bootstrap<span class="operator">-</span>sama5d3_xplained<span class="operator">.</span>bin
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d3<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a nandflash <span class="operator">-</span>c write:u<span class="operator">-</span>boot<span class="operator">-</span>sama5d3<span class="operator">-</span>xplained<span class="operator">.</span>bin:<span class="number">0x00040000</span> <span class="operator">-</span>c verify:u<span class="operator">-</span>boot<span class="operator">-</span>sama5d3<span class="operator">-</span>xplained<span class="operator">.</span>bin:<span class="number">0x00040000</span>
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d3<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a nandflash <span class="operator">-</span>c write:u<span class="operator">-</span>boot<span class="operator">-</span>env<span class="operator">.</span>bin:<span class="number">0x00140000</span> <span class="operator">-</span>c verify:u<span class="operator">-</span>boot<span class="operator">-</span>env<span class="operator">.</span>bin:<span class="number">0x00140000</span>
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d3<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a nandflash <span class="operator">-</span>c write:sama5d3_xplained<span class="operator">.</span>itb:<span class="number">0x00180000</span> <span class="operator">-</span>c verify:sama5d3_xplained<span class="operator">.</span>itb:<span class="number">0x00180000</span>
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sama5d3<span class="operator">-</span>xplained <span class="operator">-</span>t <span class="number">5</span> <span class="operator">-</span>a nandflash <span class="operator">-</span>c write:microchip<span class="operator">-</span>headless<span class="operator">-</span>image<span class="operator">-</span>sama5d3<span class="operator">-</span>xplained<span class="operator">.</span>ubi:<span class="number">0x00800000</span> <span class="operator">-</span>c verify:microchip<span class="operator">-</span>headless<span class="operator">-</span>image<span class="operator">-</span>sama5d3<span class="operator">-</span>xplained<span class="operator">.</span>ubi:<span class="number">0x00800000</span></pre>
+<p><b>If the raw NAND flash is connected to a custom board design, then additional parameters should be passed to the <i>-a nandflash</i> option in above examples.</b></p>
+<p>The list of those parameters is given by the command:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d3 <span class="operator">-</span>a nandflash:help
+Syntax: nandflash:<span class="operator">[</span><span class="operator">&lt;</span>ioset<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>bus_width<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>header<span class="operator">&gt;</span><span class="operator">]</span>
+Parameters:
+    ioset      I<span class="operator">/</span>O set
+    bus_width  NAND bus width (<span class="number">8</span><span class="operator">/</span><span class="number">16</span>)
+    header     NAND header value
+Examples:
+    nandflash                 use <span class="keyword">default</span> board settings
+    nandflash:<span class="number">2</span>:<span class="number">8</span>:<span class="number">0xc0098da5</span>  use fully custom settings (IOSET2<span class="operator">,</span> <span class="number">8</span><span class="operator">-</span>bit bus<span class="operator">,</span> header is <span class="number">0xc0098da5</span>)
+    nandflash<span class="operator">::</span>:<span class="number">0xc0098da5</span>    use <span class="keyword">default</span> board settings but force header to <span class="number">0xc0098da5</span>
+For information on NAND header values<span class="operator">,</span> please refer to SAMA5D3 datasheet section <span class="string">&quot;11.4.4 Detailed Memory Boot Procedures&quot;</span><span class="operator">.</span></pre>
+<p>Supported <i>&lt;ioset&gt;</i> for the NAND flash on SAMA5D3 devices are listed <a href="qml-samba-device-sama5d3-sama5d3config.html#nand-flash-configuration">here</a>.</p>
+<a name="secure-boot-mode"></a>
+<h2 id="secure-boot-mode">Secure Boot Mode</h2>
+<p><b>In secure boot mode, the ROM code no longer executes its non-secure SAM-BA monitor but instead runs its secure SAM-BA monitor. Hence, the <a href="port.html#connecting-to-the-non-secure-sam-ba-monitor">serial</a> or <a href="port.html#connecting-through-the-j-link-port">j-link</a> ports cannot be used; the <a href="port.html#connecting-to-the-secure-sam-ba-monitor">secure</a> port must be used instead.</b></p>
+<p>First, the secure boot mode must be enabled:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p secure <span class="operator">-</span>d sama5d3 <span class="operator">-</span>m enable_secure:set<span class="operator">-</span>secure<span class="operator">-</span>mode<span class="operator">.</span>cip</pre>
+<p>Once the secure boot mode has been enabled, the customer-key must be programmed into fuses.}</p>
+<p>Then the <i>sam-ba</i> command to program the customer key is:</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p secure <span class="operator">-</span>d sama5d3 <span class="operator">-</span>m write_customer_key:customer<span class="operator">-</span>key<span class="operator">.</span>cip</pre>
+</div>
+<!-- @@@sama5d3.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- nandflash.qdoc -->
+  <title>SAM-BA nandflash applet | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>SAM-BA nandflash applet</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#applet-initialization">Applet initialization</a></li>
+<li class="level2"><a href="#i-o-set">I/O Set</a></li>
+<li class="level2"><a href="#bus-width">Bus Width</a></li>
+<li class="level2"><a href="#pmecc-header">PMECC Header</a></li>
+<li class="level3"><a href="#usepmecc-bits-0">usePmecc bits[0]</a></li>
+<li class="level3"><a href="#nbsectorperpage-bits-3-1">nbSectorPerPage bits[3:1]</a></li>
+<li class="level3"><a href="#sparesize-bits-12-4">spareSize bits[12:4]</a></li>
+<li class="level3"><a href="#eccbitreq-bits-15-13">eccBitReq bits[15:13]</a></li>
+<li class="level3"><a href="#sectorsize-bits-17-16">sectorSize bits[17:16]</a></li>
+<li class="level3"><a href="#eccoffset-bits-26-18">eccOffset bits[26:18]</a></li>
+<li class="level3"><a href="#key-bits-31-28">key bits[31:28]</a></li>
+<li class="level1"><a href="#supported-commands">Supported commands</a></li>
+<li class="level2"><a href="#the-erase-command">The erase command</a></li>
+<li class="level2"><a href="#the-write-and-writeboot-commands">The write and writeboot commands</a></li>
+<li class="level2"><a href="#the-read-command">The read command</a></li>
+<li class="level2"><a href="#the-verify-and-verifyboot-commands">The verify and verifyboot commands</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">SAM-BA nandflash applet</h1>
+<span class="subtitle"></span>
+<!-- $$$nandflash.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>The <i>nandflash</i> applet drives the Static Memory Controller (SMC) or the NAND Flash Controller (NFC) to program an external <b>raw</b> NAND flash memory embedded on the board and connected to the SAM MPU device.</p>
+<a name="applet-initialization"></a>
+<h2 id="applet-initialization">Applet initialization</h2>
+<p>The list of parameters to initialize the <i>nandflash</i> applet can be displayed with the following command:</p>
+<pre class="cpp">sam<span class="operator">-</span>ba <span class="operator">-</span>p <span class="operator">&lt;</span>port<span class="operator">&gt;</span> <span class="operator">-</span>d <span class="operator">&lt;</span>device<span class="operator">&gt;</span> <span class="operator">-</span>a nandflash:help
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a nandflash:help
+Syntax: nandflash:<span class="operator">[</span><span class="operator">&lt;</span>ioset<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>bus_width<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>header<span class="operator">&gt;</span><span class="operator">]</span>
+Parameters:
+    ioset      I<span class="operator">/</span>O set
+    bus_width  NAND bus width (<span class="number">8</span><span class="operator">/</span><span class="number">16</span>)
+    header     NAND header value
+Examples:
+    nandflash                 use <span class="keyword">default</span> board settings
+    nandflash:<span class="number">2</span>:<span class="number">8</span>:<span class="number">0xc0098da5</span>  use fully custom settings (IOSET2<span class="operator">,</span> <span class="number">8</span><span class="operator">-</span>bit bus<span class="operator">,</span> header is <span class="number">0xc0098da5</span>)
+    nandflash<span class="operator">::</span>:<span class="number">0xc0098da5</span>    use <span class="keyword">default</span> board settings but force header to <span class="number">0xc0098da5</span></pre>
+<a name="i-o-set"></a>
+<h3 >I/O Set</h3>
+<p>The <i>ioset</i> parameter is an index that represents a group of I/O pins muxed to the SMC/NFC. The I/O set values are device specific; please refer to the <i>nandflash</i> section of the device configuration:</p>
+<ul>
+<li><a href="qml-samba-device-sam9xx5-sam9xx5config.html">SAM9xx5 configuration</a></li>
+<li><a href="qml-samba-device-sam9x60-sam9x60config.html">SAM9X60 configuration</a></li>
+<li><a href="qml-samba-device-sama5d2-sama5d2config.html">SAMA5D2 configuration</a></li>
+<li><a href="qml-samba-device-sama5d3-sama5d3config.html">SAMA5D3 configuration</a></li>
+<li><a href="qml-samba-device-sama5d4-sama5d4config.html">SAMA5D4 configuration</a></li>
+</ul>
+<a name="bus-width"></a>
+<h3 >Bus Width</h3>
+<p>The <i><a href="sdmmc.html#bus-width">bus_width</a></i> parameter represents the number of data pins of the NAND flash. Supported values are either 8 (8-bit NAND flash) or 16 (16-bit NAND flash).</p>
+<a name="pmecc-header"></a>
+<h3 >PMECC Header</h3>
+<p>The <i>header</i> parameter is a 32-bit word descirbed below:</p>
+<div class="table"><table class="generic">
+ <tr valign="top" class="odd"><td >31</td><td >30</td><td >29</td><td >28</td><td >27</td><td >26</td><td >25</td><td >24</td></tr>
+<tr valign="top" class="even"><td  colspan="4" rowspan=" 1">key</td><td >-</td><td  colspan="3" rowspan=" 1">eccOffset</td></tr>
+<tr valign="top" class="odd"><td >23</td><td >22</td><td >21</td><td >20</td><td >19</td><td >18</td><td >17</td><td >16</td></tr>
+<tr valign="top" class="even"><td  colspan="6" rowspan=" 1">eccOffset</td><td  colspan="2" rowspan=" 1">sectorSize</td></tr>
+<tr valign="top" class="odd"><td >15</td><td >14</td><td >13</td><td >12</td><td >11</td><td >10</td><td >9</td><td >8</td></tr>
+<tr valign="top" class="even"><td  colspan="3" rowspan=" 1">eccBitReq</td><td  colspan="5" rowspan=" 1">spareSize</td></tr>
+<tr valign="top" class="odd"><td >7</td><td >6</td><td >5</td><td >4</td><td >3</td><td >2</td><td >1</td><td >0</td></tr>
+<tr valign="top" class="even"><td  colspan="4" rowspan=" 1">spareSize</td><td  colspan="3" rowspan=" 1">nbSectorPerPage</td><td >usePmecc</td></tr>
+</table></div>
+<a name="usepmecc-bits-0"></a>
+<h4 >usePmecc bits[0]</h4>
+<ul>
+<li>0: Do not use PMECC to detect and correct the data.</li>
+<li>1: use PMECC to detect and correct the data.</li>
+</ul>
+<a name="nbsectorperpage-bits-3-1"></a>
+<h4 >nbSectorPerPage bits[3:1]</h4>
+<p>Number of Sectors per Page</p>
+<ul>
+<li>0: 1 sector per page</li>
+<li>1: 2 sectors per page</li>
+<li>2: 4 sectors per page</li>
+<li>3: 8 sectors per page</li>
+<li>4: 16 sectors per page</li>
+</ul>
+<a name="sparesize-bits-12-4"></a>
+<h4 >spareSize bits[12:4]</h4>
+<p>Size of the spare zone in bytes</p>
+<a name="eccbitreq-bits-15-13"></a>
+<h4 >eccBitReq bits[15:13]</h4>
+<p>Number of ECC bits required</p>
+<ul>
+<li>0: 2-bit ECC</li>
+<li>1: 4-bit ECC</li>
+<li>2: 8-bit ECC</li>
+<li>3: 12-bit ECC</li>
+<li>4: 24-bit ECC</li>
+<li>5: 32-bit ECC</li>
+</ul>
+<a name="sectorsize-bits-17-16"></a>
+<h4 >sectorSize bits[17:16]</h4>
+<p>Size of the Sector</p>
+<ul>
+<li>0: For 512 bytes per sector</li>
+<li>1: For 1024 bytes per sector</li>
+</ul>
+<a name="eccoffset-bits-26-18"></a>
+<h4 >eccOffset bits[26:18]</h4>
+<p>Offset of the first ECC byte in the spare zone. A value below 2 is not allowed and is considred as 2.</p>
+<a name="key-bits-31-28"></a>
+<h4 >key bits[31:28]</h4>
+<p>Value 0xC must be written here to validate the content of the whole word.</p>
+<a name="supported-commands"></a>
+<h2 id="supported-commands">Supported commands</h2>
+<p>The list of commands supported by the <i>nandflash</i> applet can be displayed with the following commands:</p>
+<pre class="cpp">sam<span class="operator">-</span>ba <span class="operator">-</span>p <span class="operator">&lt;</span>port<span class="operator">&gt;</span> <span class="operator">-</span>d <span class="operator">&lt;</span>device<span class="operator">&gt;</span> <span class="operator">-</span>a nandflash <span class="operator">-</span>c help
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a nandflash <span class="operator">-</span>c help</pre>
+<a name="the-erase-command"></a>
+<h3 >The erase command</h3>
+<p>The <i>erase</i> command resets to 0xFF a range of erase blocks. The size of those erase blocks depends on the manufacturer and memory part. Typical erase block sizes are 128KiB or 256KiB of data, not including their associated spare.</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sam9x60<span class="operator">-</span>ek <span class="operator">-</span>a nandflash <span class="operator">-</span>c erase:help
+<span class="operator">*</span> erase <span class="operator">-</span> erase all <span class="keyword">or</span> part of the memory
+Syntax:
+    erase:<span class="operator">[</span><span class="operator">&lt;</span>addr<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>length<span class="operator">&gt;</span><span class="operator">]</span>
+Examples:
+    erase                 erase all
+    erase:<span class="number">4096</span>            erase from <span class="number">4096</span> to end
+    erase:<span class="number">0x1000</span>:<span class="number">0x10000</span>  erase from <span class="number">0x1000</span> to <span class="number">0x11000</span>
+    erase<span class="operator">::</span><span class="number">0x1000</span>         erase from <span class="number">0</span> to <span class="number">0x1000</span></pre>
+<a name="the-write-and-writeboot-commands"></a>
+<h3 >The write and writeboot commands</h3>
+<p>The <i>write</i> and <i>writeboot</i> commands program data from a binary file into the NAND flash pages. The blocks containing the pages to be programmed should be erased first with the <i>erase</i> command. Padding bytes are added to align programmed data to the page boundary. The page size is computed from the PMECC header. Prior to what both comamnds do, the <i>writeboot</i> command also modifies the relevant unused ARM exception vector to store the size of the bootstrap binary, as required by the ROM code during the boot process.</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sam9x60<span class="operator">-</span>ek <span class="operator">-</span>a nandflash <span class="operator">-</span>c write:help
+<span class="operator">*</span> write <span class="operator">-</span> write to memory from a file
+Syntax:
+    write:<span class="operator">&lt;</span>filename<span class="operator">&gt;</span>:<span class="operator">[</span><span class="operator">&lt;</span>addr<span class="operator">&gt;</span><span class="operator">]</span>
+Examples:
+    write:bootstrap<span class="operator">.</span>bin         write bootstrap<span class="operator">.</span>bin to start of memory
+    write:u<span class="operator">-</span>boot<span class="operator">.</span>bin:<span class="number">0x10000</span>    write u<span class="operator">-</span>boot<span class="operator">.</span>bin at offset <span class="number">0x10000</span>
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sam9x60<span class="operator">-</span>ek <span class="operator">-</span>a nandflash <span class="operator">-</span>c writeboot:help
+Syntax:
+    writeboot:<span class="operator">&lt;</span>filename<span class="operator">&gt;</span>
+Example:
+    writeboot:bootstrap<span class="operator">.</span>bin     write bootstrap<span class="operator">.</span>bin as boot program at start of memory</pre>
+<a name="the-read-command"></a>
+<h3 >The read command</h3>
+<p>The <i>read</i> command loads data from the NAND flash into a binary file.</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sam9x60<span class="operator">-</span>ek <span class="operator">-</span>a nandflash <span class="operator">-</span>c read:help
+<span class="operator">*</span> read <span class="operator">-</span> read from memory to a file
+Syntax:
+    read:<span class="operator">&lt;</span>filename<span class="operator">&gt;</span>:<span class="operator">[</span><span class="operator">&lt;</span>addr<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>length<span class="operator">&gt;</span><span class="operator">]</span>
+Examples:
+    read:firmware<span class="operator">.</span>bin              read all to firmware<span class="operator">.</span>bin
+    read:firmware<span class="operator">.</span>bin:<span class="number">0x1000</span>       read from <span class="number">0x1000</span> to end into firmware<span class="operator">.</span>bin
+    read:firmware<span class="operator">.</span>bin:<span class="number">0x1000</span>:<span class="number">1024</span>  read <span class="number">1024</span> bytes from <span class="number">0x1000</span> into firmware<span class="operator">.</span>bin
+    read:firmware<span class="operator">.</span>bin<span class="operator">::</span><span class="number">1024</span>        read <span class="number">1024</span> bytes from start of memory into firmware<span class="operator">.</span>bin</pre>
+<a name="the-verify-and-verifyboot-commands"></a>
+<h3 >The verify and verifyboot commands</h3>
+<p>The <i>verify</i> and <i>verifyboot</i> compare the data programmed in the NAND flash with the content of a given binary file. Unlike the <i>verify</i> command, the <i>verifyboot</i> command ignores the actual value of the relevant unused ARM exception vector in the binary file and does as if the value were the size of the binary file.</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sam9x60<span class="operator">-</span>ek <span class="operator">-</span>a nandflash <span class="operator">-</span>c verify:help
+<span class="operator">*</span> verify <span class="operator">-</span> verify memory from a file
+Syntax:
+    verify:<span class="operator">&lt;</span>filename<span class="operator">&gt;</span>:<span class="operator">[</span><span class="operator">&lt;</span>addr<span class="operator">&gt;</span><span class="operator">]</span>
+Examples:
+    verify:firmware<span class="operator">.</span>bin         verify that start of memory matches firmware<span class="operator">.</span>bin
+    verify:firmware<span class="operator">.</span>bin:<span class="number">0x1000</span>  verify that memory at offset <span class="number">0x1000</span> matches firmware<span class="operator">.</span>bin
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sam9x60<span class="operator">-</span>ek <span class="operator">-</span>a nandflash <span class="operator">-</span>c verifyboot:help
+<span class="operator">*</span> verifyboot <span class="operator">-</span> verify boot program from a file
+Syntax:
+    verifyboot:<span class="operator">&lt;</span>filename<span class="operator">&gt;</span>
+Example:
+    verifyboot:bootstrap<span class="operator">.</span>bin    verify that start of memory matches boot program bootstrap<span class="operator">.</span>bin</pre>
+</div>
+<!-- @@@nandflash.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

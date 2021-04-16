@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- sdmmc.qdoc -->
+  <title>SAM-BA sdmmc applet | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>SAM-BA sdmmc applet</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#applet-initialization">Applet initialization</a></li>
+<li class="level2"><a href="#instance-and-i-o-set">Instance and I/O Set</a></li>
+<li class="level2"><a href="#partition">Partition</a></li>
+<li class="level2"><a href="#bus-width">Bus Width</a></li>
+<li class="level2"><a href="#voltage">Voltage</a></li>
+<li class="level1"><a href="#supported-commands">Supported commands</a></li>
+<li class="level2"><a href="#the-write-and-writeboot-commands">The write and writeboot commands</a></li>
+<li class="level2"><a href="#the-read-command">The read command</a></li>
+<li class="level2"><a href="#the-verify-and-verifyboot-commands">The verify and verifyboot commands</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">SAM-BA sdmmc applet</h1>
+<span class="subtitle"></span>
+<!-- $$$sdmmc.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>The <i>sdmcc</i> applet drives any High Speed Multimedia Card Interface (HSMCIx) or the Secure Digital Multi-Media Card (SDMMCx) to program an external SD Card or e.MMC embedded on the board and connected to the SAM MPU device.</p>
+<a name="applet-initialization"></a>
+<h2 id="applet-initialization">Applet initialization</h2>
+<p>The list of parameters to initialize the <i>sdmmc</i> applet can be displayed with the following command:</p>
+<pre class="cpp">sam<span class="operator">-</span>ba <span class="operator">-</span>p <span class="operator">&lt;</span>port<span class="operator">&gt;</span> <span class="operator">-</span>d <span class="operator">&lt;</span>device<span class="operator">&gt;</span> <span class="operator">-</span>a sdmmc:help
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a sdmmc:help
+Syntax: sdmmc:<span class="operator">[</span><span class="operator">&lt;</span>instance<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>ioset<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>partition<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>bus_width<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>voltages<span class="operator">&gt;</span><span class="operator">]</span>
+Parameters:
+    instance   SDMMC controller number
+    ioset      SDMMC I<span class="operator">/</span>O set
+    partition  Partition number (<span class="number">0</span><span class="operator">=</span>user partition<span class="operator">,</span> x<span class="operator">&gt;</span><span class="number">0</span><span class="operator">=</span>boot partition x)
+    bus_width  Data bus width (<span class="number">0</span><span class="operator">=</span>controller max<span class="operator">,</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span><span class="operator">-</span>bit<span class="operator">,</span> <span class="number">4</span><span class="operator">=</span><span class="number">4</span><span class="operator">-</span>bit<span class="operator">,</span> <span class="number">8</span><span class="operator">=</span><span class="number">8</span><span class="operator">-</span>bit)
+    voltages   Supported voltages (bitfield: <span class="number">1</span><span class="operator">=</span><span class="number">1.8V</span><span class="operator">,</span> <span class="number">2</span><span class="operator">=</span><span class="number">3.0V</span><span class="operator">,</span> <span class="number">4</span><span class="operator">=</span><span class="number">3.3V</span>)
+Examples:
+    sdmmc           use <span class="keyword">default</span> board settings
+    sdmmc:<span class="number">0</span>:<span class="number">1</span>:<span class="number">1</span>:<span class="number">8</span>:<span class="number">5</span> use fully custom settings (SDMMC0<span class="operator">,</span> IOSET1<span class="operator">,</span> first boot partition<span class="operator">,</span> <span class="number">8</span><span class="operator">-</span>bit<span class="operator">,</span> <span class="number">1.8V</span><span class="operator">/</span><span class="number">3.3V</span>)
+    sdmmc:<span class="number">0</span><span class="operator">::</span><span class="number">1</span>      use <span class="keyword">default</span> board settings but force use of SDMMC0<span class="operator">,</span> first boot partition</pre>
+<a name="instance-and-i-o-set"></a>
+<h3 >Instance and I/O Set</h3>
+<p>An instance parameter <i>x</i> tells the <i>sdmmc</i> applet to use the <i>HSMCIx</i> or <i>SDMMCx</i> controller. The <i>ioset</i> parameter is an index that represents a group of I/O pins muxed to the HSMCIx/SDMMCx controller. The {Instance, I/O set} pairs are device specific; please refer to the <i>sdmmc</i> section of the device configuration:</p>
+<ul>
+<li><a href="qml-samba-device-sam9x60-sam9x60config.html">SAM9X60 configuration</a></li>
+<li><a href="qml-samba-device-sama5d2-sama5d2config.html">SAMA5D2 configuration</a></li>
+<li><a href="qml-samba-device-sama5d3-sama5d3config.html">SAMA5D3 configuration</a></li>
+<li><a href="qml-samba-device-sama5d4-sama5d4config.html">SAMA5D4 configuration</a></li>
+</ul>
+<a name="partition"></a>
+<h3 >Partition</h3>
+<p>The <i>partition</i> parameter is only relevant for e.MMC and must be set to zero for SD Cards. For e.MMC it represents the memory area where data should be erased/read from/written into. The 3 possibles values are:</p>
+<ul>
+<li>0: user partition</li>
+<li>1: boot partition 1</li>
+<li>2: boot partition 2</li>
+</ul>
+<a name="bus-width"></a>
+<h3 >Bus Width</h3>
+<p>The <i><a href="sdmmc.html#bus-width">bus_width</a></i> parameter represents the number of data pins used to transfer data to the SD Card/e.MMC. Possible values are:</p>
+<ul>
+<li>1: single data I/O</li>
+<li>4: 4 data I/O</li>
+<li>8: 8 data I/O</li>
+</ul>
+<a name="voltage"></a>
+<h3 >Voltage</h3>
+<p>The <i>voltage</i> parameter is a bitmask of supported voltages for the SD Card/e.MMC. Possible voltages are encoded with the following bitmasks:</p>
+<ul>
+<li>1: 1.8V</li>
+<li>2: 3.0V</li>
+<li>4: 3.3V</li>
+</ul>
+<a name="supported-commands"></a>
+<h2 id="supported-commands">Supported commands</h2>
+<p>The list of commands supported by the <i>sdmmc</i> applet can be displayed with the following commands:</p>
+<pre class="cpp">sam<span class="operator">-</span>ba <span class="operator">-</span>p <span class="operator">&lt;</span>port<span class="operator">&gt;</span> <span class="operator">-</span>d <span class="operator">&lt;</span>device<span class="operator">&gt;</span> <span class="operator">-</span>a sdmmc <span class="operator">-</span>c help
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>d sama5d2 <span class="operator">-</span>a sdmmc <span class="operator">-</span>c help</pre>
+<a name="the-write-and-writeboot-commands"></a>
+<h3 >The write and writeboot commands</h3>
+<p>The <i>write</i> and <i>writeboot</i> commands program data from a binary file into the SD Card or e.MMC. Prior to what both command do, the <i>writeboot</i> command also modifies the relevant unused ARM exception vector to store the size of the bootstrap binary, as required by the ROM code during the boot process.</p>
+<p><b>The <i>writeboot</i> command should be used only when programming a bootstrap into some e.MMC boot partition, whereas the <i>write</i> command should be used instead to program an SD Card image into either any SD Card or the user partition of any e.MMC.</b></p>
+<p><b>The sdcard.img file contains the raw data of the SD Card. It must begin with a Master Boot Record (MBR) and its valid partition table. The first partition must be formatted in FAT12, FAT16 or FAT32. This FATx file-system must include a <i>boot.bin</i> file in the root folder. This <i>boot.bin</i> file is actually the bootstrap as loaded then executed by the ROM code.</b></p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sam9x60<span class="operator">-</span>ek <span class="operator">-</span>a sdmmc <span class="operator">-</span>c write:help
+<span class="operator">*</span> write <span class="operator">-</span> write to memory from a file
+Syntax:
+    write:<span class="operator">&lt;</span>filename<span class="operator">&gt;</span>:<span class="operator">[</span><span class="operator">&lt;</span>addr<span class="operator">&gt;</span><span class="operator">]</span>
+Examples:
+    write:sdcard<span class="operator">.</span>img            write sdcard<span class="operator">.</span>img to start of memory
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sam9x60<span class="operator">-</span>ek <span class="operator">-</span>a sdmmc <span class="operator">-</span>c writeboot:help
+Syntax:
+    writeboot:<span class="operator">&lt;</span>filename<span class="operator">&gt;</span>
+Example:
+    writeboot:bootstrap<span class="operator">.</span>bin     write bootstrap<span class="operator">.</span>bin as boot program at start of memory</pre>
+<a name="the-read-command"></a>
+<h3 >The read command</h3>
+<p>The <i>read</i> command loads data from the SD Card/e.MMC into a binary file.</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sam9x60<span class="operator">-</span>ek <span class="operator">-</span>a sdmmc <span class="operator">-</span>c read:help
+<span class="operator">*</span> read <span class="operator">-</span> read from memory to a file
+Syntax:
+    read:<span class="operator">&lt;</span>filename<span class="operator">&gt;</span>:<span class="operator">[</span><span class="operator">&lt;</span>addr<span class="operator">&gt;</span><span class="operator">]</span>:<span class="operator">[</span><span class="operator">&lt;</span>length<span class="operator">&gt;</span><span class="operator">]</span>
+Examples:
+    read:firmware<span class="operator">.</span>bin              read all to firmware<span class="operator">.</span>bin
+    read:firmware<span class="operator">.</span>bin:<span class="number">0x1000</span>       read from <span class="number">0x1000</span> to end into firmware<span class="operator">.</span>bin
+    read:firmware<span class="operator">.</span>bin:<span class="number">0x1000</span>:<span class="number">1024</span>  read <span class="number">1024</span> bytes from <span class="number">0x1000</span> into firmware<span class="operator">.</span>bin
+    read:firmware<span class="operator">.</span>bin<span class="operator">::</span><span class="number">1024</span>        read <span class="number">1024</span> bytes from start of memory into firmware<span class="operator">.</span>bin</pre>
+<a name="the-verify-and-verifyboot-commands"></a>
+<h3 >The verify and verifyboot commands</h3>
+<p>The <i>verify</i> and <i>verifyboot</i> compare the data programmed in the SD Card/e.MMC with the content of a given binary file. Unlike the <i>verify</i> command, the <i>verifyboot</i> command ignores the actual value of the relevant unused ARM exception vector in the binary file and does as if the value were the size of the binary file.</p>
+<pre class="cpp">$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sam9x60<span class="operator">-</span>ek <span class="operator">-</span>a sdmmc <span class="operator">-</span>c verify:help
+<span class="operator">*</span> verify <span class="operator">-</span> verify memory from a file
+Syntax:
+    verify:<span class="operator">&lt;</span>filename<span class="operator">&gt;</span>:<span class="operator">[</span><span class="operator">&lt;</span>addr<span class="operator">&gt;</span><span class="operator">]</span>
+Examples:
+    verify:sdcard<span class="operator">.</span>img           verify that start of memory matches sdcard<span class="operator">.</span>img
+    verify:firmware<span class="operator">.</span>bin:<span class="number">0x1000</span>  verify that memory at offset <span class="number">0x1000</span> matches firmware<span class="operator">.</span>bin
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>p serial <span class="operator">-</span>b sam9x60<span class="operator">-</span>ek <span class="operator">-</span>a sdmmc <span class="operator">-</span>c verifyboot:help
+<span class="operator">*</span> verifyboot <span class="operator">-</span> verify boot program from a file
+Syntax:
+    verifyboot:<span class="operator">&lt;</span>filename<span class="operator">&gt;</span>
+Example:
+    verifyboot:bootstrap<span class="operator">.</span>bin     verify that start of memory matches boot program bootstrap<span class="operator">.</span>bin</pre>
+</div>
+<!-- @@@sdmmc.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>

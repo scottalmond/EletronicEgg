@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- script.qdoc -->
+  <title>Executing scripts | SAM-BA 3.3</title>
+  <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr>
+<td class="postheader" valign="center"> <a href="index.html">Home</a> &middot; </td></tr></table><li>Executing scripts</li>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#the-x-execute-option">The &quot;<i>-x, --execute</i>&quot; option</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">Executing scripts</h1>
+<span class="subtitle"></span>
+<!-- $$$script.html-description -->
+<div class="descr"> <a name="details"></a>
+<a name="the-x-execute-option"></a>
+<h2 id="the-x-execute-option">The &quot;<i>-x, --execute</i>&quot; option</h2>
+<p>The &quot;<i>-x, --execute</i>&quot; option is used to execute a QML script. This option cannot be used with any of the <a href="monitor.html#the-m-monitor-option">&quot;<i>-m, --monitor</i>&quot;</a>, <a href="applet.html#the-a-applet-option">&quot;<i>-a, --applet</i>&quot;</a>, <a href="port.html#the-p-port-option">&quot;<i>-p, --port</i>&quot;</a>, <a href="devices.html#the-d-device-option">&quot;<i>-d, --device</i>&quot;</a> or <a href="devices.html#the-b-board-option">&quot;<i>-b, --board</i>&quot;</a> options but can still be used with the <a href="applet.html#the-t-tracelevel-option">&quot;<i>-t, --tracelevel</i>&quot;</a> option.</p>
+<p>The &quot;<i>-x, --execute</i>&quot; option must be followed by the filename of the QML script to be executed. This option doesn't accept any additional parameter.</p>
+<pre class="cpp">sam<span class="operator">-</span>ba <span class="operator">-</span>x <span class="operator">&lt;</span>qmlfile<span class="operator">&gt;</span>
+
+$ sam<span class="operator">-</span>ba <span class="operator">-</span>x script<span class="operator">.</span>qml</pre>
+</div>
+<!-- @@@script.html -->
+<p /><address><hr /><div align="center">
+<table width="100%" cellspacing="0" border="0"><tr class="address">
+<td width="60%" align="left">Copyright &copy; 2018 Microchip Technology</td>
+<td width="40%" align="right"><div align="right">SAM-BA Documentation</div></td>
+</tr></table></div></address></body>
+</html>
